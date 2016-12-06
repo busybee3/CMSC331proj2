@@ -25,28 +25,28 @@
   <div class= "main">
 <div id="first-text">
     <label><h3>
-   First Name: <input type="text" alt="First Name" align="center" name="fName"><h3/>
+   First Name:<input type="fname" alt="First Name" align="center" name="fName"><h3/>
     </label> <br/>
     </div>
 
 
 <div id="first-text">
     <label><h3>
-   Preferred Name: <input type="text" alt="Preferred Name" align="center" name="pName"><h3/>
+   Preferred Name: <input type="prefname" alt="Preferred Name" align="center" name="pName"><h3/>
     </label> <br/>
     </div>
 
     
 <div id="last-text">    
     <label><h3>
-   Last Name: <input type="text" alt="Last Name" align="center" name="lName"><h3/>
+   Last Name: <input type="lname" alt="Last Name" align="center" name="lName"><h3/>
     </label><br/>
     </div>
               
          
 <div id="id-text">
   <label><h3>
-   UMBC ID: <input type="advisorID" name="advisorID"><h3/>
+   UMBC ID: <input type="id" name="studentID"><h3/>
   </label><br>
 </div>
          
@@ -58,6 +58,18 @@
 </label><br>
 </div>
 
+<div id="password-text">      
+<label><h3>
+   Password: <input type="password" name="password"><h3/>
+</label><br>
+</div>
+
+<div id="password-confirm-text">      
+<label><h3>
+   Confirm Password: <input type="text" name="password-confirm"><h3/>
+</label><br>
+</div>
+
 
 
 <div id="majors-text">
@@ -66,12 +78,21 @@
 </label>
 </div>
    <h3>
+
+    <div class="btn-group" role="group">
+
       <button type="button" class="btn btn-1">Biology</button>
       <button type="button" class="btn btn-1">Biochemistry</button>
       <button type="button" class="btn btn-1">Bioinformatics</button>
       <button type="button" class="btn btn-1">Bioeducation</button>
       <button type="button" class="btn btn-1">Chemistry</button>
-      <button type="button" class="btn btn-1">Chemeducation</button><h3/>
+      <button type="button" class="btn btn-1">Chemeducation</button>
+      <button type="button" class="btn btn-1">Other</button>
+
+
+    </div>
+
+  <h3/>
       <br/>
       <br/>
 
@@ -88,9 +109,11 @@
 <script>
    $(document).ready(function(){ 
        $(".btn").click(function() { 
-	   $(this).toggleClass("active");
+	   $(this).toggleClass("active").siblings().removeClass("active");
+           
 	 });
      });
+
 </script>
 
 </body>

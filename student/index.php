@@ -3,7 +3,7 @@ session_start();
 // Checks to see if the user is logged in, if so it redirects them to homepage
 if (isset($_SESSION["HAS_LOGGED_IN"])) {
   if ($_SESSION["HAS_LOGGED_IN"]) {
-    header('Location: homepage.php');
+    header('Location: home.php');
   }
 }
 ?>
@@ -41,7 +41,7 @@ if (isset($_SESSION["HAS_LOGGED_IN"])) {
    <label class="login-field-icon fui-lock" for="login-pass"></label>
    </div>
 
-   <a class="register-link" href="#">REGISTER</a>
+   <a class="register-link" href="register.php">REGISTER</a>
    <a class="btn btn-primary btn-large btn-block" href="#">LOGIN</a>
    </div>
    </div>
