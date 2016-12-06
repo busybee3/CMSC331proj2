@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+    }
+
+*:focus {
+    outline: none;
+    }
+body {
+
+    background-color:#f5ca5c;
+    padding: 10px;
+    }
+.login {
+    margin: 20px auto;
+    width: 400px;
+    }
+.login-screen {
+    background-color: #FFF;
+    padding: 50px;
+    position: relative;
+    border-radius: 5px
+    }
+
+.app-title {
+    font-family: Arial, sans-serif;
+    font-size: 23px;
+    text-align: center;
+    color: black;
+    }
+
+.logo {
+    text-align: center;
+    padding: 30px 5px;
+    height: 30px;
+}
+
+
+.login-form {
+    text-align: center;
+    }
+
+.control-group {
+    margin-bottom: 22px;
+    }
+
+input {
+    text-align: center;
+    background-color: #ECF0F1;
+    border: 2px solid;
+
+    border-color: gray;
+    border-radius: 10px;
+    padding: 1px;
+    font-size: 26px;
+    font-weight: 200;
+    padding: 10px 0;
+    width: 250px;
+    transition: border .5s;
+    }
+
+input:focus {
+    border: 2px solid #3498DB;
+    box-shadow: none;
+    }
+
+.btn {
+    background-color: green;
+    color: #FFF;
+    border: none;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    line-height: 25px;
+    padding: 10px 20px;
+    text-decoration: none;
+    text-shadow: none;
+    float: right
+    border-radius: 3px;
+    margin-top: 30px auto;
+    box-shadow: none;
+    transition: 0.25s;
+
+    width: 220px;
+
+}
+
+.btn:hover {
+    background-color: #2980B9;
+}
+
+.register-link {
+/*    font-size: 20px;
+    color: green;
+    display: block;
+    margin-top: 12px;
+*/
+    font-family: Arial, sans-serif;
+    border: 2px solid transparent;
+    background: black;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 25px;
+    padding: 10px 20px;
+    text-decoration: none;
+    text-shadow: none;
+    border-radius: 3px;
+    box-shadow: none;
+    transition: 0.25s;
+    float: right;
+    margin-top: 30px auto
+    width: 120px;
+    margin: 0 auto;
+}
+
+/* END OF LOGIN */

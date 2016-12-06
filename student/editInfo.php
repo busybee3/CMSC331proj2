@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Edit Information</title>
+<style>
+body {
+  background-color:#f5ca5c ;
+ }
+
+ul {
+  font-family: Arial;
+  list-style-type: none;
+margin: 0;
+position: absolute;
+top: 0;
+left:0;
+width: 98%;
+overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: right;
+}
+
+.logo {
+  float: left;
+padding: 4px 5px;
+ }
+
+li a {
+display: block;
+color: white;
+  text-align: center;
+padding: 14px 20px;
+  text-decoration: none;
+}
+
+
+.edit-info {
+  font-family: Arial;
+  font-size: 32px;
+  background-color: white;
+color: black;
+margin: auto;
+width: 50%;
+border: 3px solid green;
+padding: 20px;
+ }
+
+#header {
+text-align: center;
+}
+
+button {
+  background-color: grey;
+border: none;
+olor: white;
+padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+display: inline-block;
+
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<ul>
+  <div class="logo">
+  <img src="https://s16.postimg.org/ckbr6pov9/THISSS.png" height="50px">
+  </div>
+  <li><a href="logout.php">LOGOUT</a></li>
+  <li><a href="home.php">MY DASHBOARD</a></li>
+</ul>
+
+<div class="edit-info">
+<div id="header">
+<h2>Edit Information</h2>
+</div>
+
+<h3>Your Major:</h3>
+
+      <button type="button" class="btn btn-1">Biology</button>
+      <button type="button" class="btn btn-1">Biochemistry</button>
+      <button type="button" class="btn btn-1">Bioinformatics</button>
+      <button type="button" class="btn btn-1">Bioeducation</button>
+      <button type="button" class="btn btn-1">Chemistry</button>
+      <button type="button" class="btn btn-1">Chemeducation</button><h3/>
+      <br/>
+
+
+<div class="update-button">
+ <input type="submit" value="UPDATE" name="Update" style="background-color:#4CA
+F50; color: white; border-color: green; border: none; float: right; padding: 15
+px 32px;
+font-size: 16px;
+display: inline-block;
+">
+
+</div>
+</div>
+
+</body>
+</html>
