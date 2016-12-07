@@ -89,7 +89,7 @@ if($_POST){
   //determines if atleast one record exists with entered email
   if(mysql_num_rows($validation_query) > 0){
     $student_exists = true;
-    $email_error_message = "Record exists for ". $email;
+    $email_error_message = "*Record exists for this e-mail.*";
   }
   
   //email validation, may not need nested ifs
@@ -273,7 +273,7 @@ if(isset($_SESSION['studentID'])){
 
 
   <h2>Student Registration</h2>
-</div>
+
 
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -281,105 +281,62 @@ if(isset($_SESSION['studentID'])){
 
 <div class= "main">
 
-<div id="first-text">
-<label><h3>
- First Name:<input type="fname" alt="First Name" align="center" name="fName" <?php if(isset($fName)) { ?> value="<?php echo($fName); ?>" <?php } ?> >
-  </label> 
-  <span class="error" style="color:red"> <?php echo $fName_error_message;?></span>
-  <h3/>
-</div> <br/>
+  <fieldset>
 
+    <label><h3>First Name:</h3></label>
+    <input type="fname" size="50" name="fName" <?php if(isset($fName)) { ?> value="<?php echo($fName); ?>" <?php } ?> >
+    <span class="error" style="color:red"> <?php echo $fName_error_message; ?></span><br>
+ 
+    <label><h3>Preferred Name:</h3></label>
+    <input type="prefname" size="50" name="pName" <?php if(isset($mName)) { ?> value="<?php echo($mName); ?>" <?php } ?> ><br>
 
-<div id="pref-text">
-    <label><h3>
-   Preferred Name: <input type="prefname" alt="Preferred Name" align="center" name="pName" <?php if(isset($mName)) { ?> value="<?php echo($mName); ?>" <?php } ?> >
-    </label> 
-    <h3/>
-</div><br/>
+    <label><h3>Last Name:</h3></label>
+    <input type="lname" size="50" name="lName" <?php if(isset($lName)) { ?> value="<?php echo($lName); ?>" <?php } ?> >
+    <span class="error" style="color:red"> <?php echo $lName_error_message;?></span><br>
 
-    
-<div id="last-text">    
-    <label><h3>
-   Last Name: <input type="lname" alt="Last Name" align="center" name="lName" <?php if(isset($lName)) { ?> value="<?php echo($lName); ?>" <?php } ?> >
-   <span class="error" style="color:red"> <?php echo $lName_error_message;?></span><br>
-    </label>
-    <h3/>
-</div><br/>
-              
-         
-<div id="id-text">
-  <label><h3>
-   UMBC ID: <input type="id" name="schoolID" <?php if(isset($schoolID)) { ?> value="<?php echo($schoolID); ?>" <?php } ?> >
-   <span class="error" style="color:red"> <?php echo $schoolID_error_message;?></span>
-   </label>
-   <h3/>
-</div><br/>         
-         
+    <label><h3>UMBC ID:</h3></label>
+    <input type="id" name="schoolID" size="50" <?php if(isset($schoolID)) { ?> value="<?php echo($schoolID); ?>" <?php } ?> >
+    <span class="error" style="color:red"> <?php echo $schoolID_error_message;?></span><br>
 
-<div id="email-text">      
-<label><h3>
-   E-mail: <input type="email" name="email" <?php if(isset($email)) { ?> value="<?php echo($email); ?>" <?php } ?> >
-   <span class="error" style="color:red"> <?php echo $email_error_message;?></span><br>
+    <label><h3>E-mail:</h3></label>
+    <input type="email" name="email" size="50" <?php if(isset($email)) { ?> value="<?php echo($email); ?>" <?php } ?> >
+    <span class="error" style="color:red"> <?php echo $email_error_message;?></span><br>
 
-</label>
-<h3/>
-</div><br/>
+    <label><h3>Password:</h3></label>
+    <input type="password" name="password" size="50">
+    <span class="error" style="color:red"> <?php echo $pass_error_message;?></span><br>
 
-<div id="password-text">      
-  <label>
-    <h3>
-    Password: <input type="password" name="password">
-    <span class="error" style="color:red"> <?php echo $pass_error_message;?></span>
-  </label>
-  <h3/>
-</div><br/>
+    <label><h3>Confirm Password:</h3></label>
+    <input type="con_password" name="con_password">
+    <span class="error" style="color:red"> <?php echo $password_match_error;?></span><br>
 
-<div id="password-confirm-text">      
-  <label>
-    <h3>
-    Confirm Password: <input type="con_password" name="con_password">
-    <span class="error" style="color:red"> <?php echo $password_match_error;?></span>
-
-  </label>
-  <h3/>
-</div><br/>
-
-<div id="majors-text">
-<label><h3>
-   Major(s) that you will Pursue NEXT SEMESTER:<h3/>
-</label>
-</div>
-   <h3>
+    <label><h3>Major that you will Pursue NEXT SEMESTER:</h3></label>
+    <span class="error" style="color:red"> <?php echo $major_error_message;?></span></label>
 
     <div class="btn-group" role="group">
 
-      <button type="button" class="btn btn-1" name="major" value="Biology" onclick="getVal(this)">Biology</button>
-      <button type="button" class="btn btn-1" name="major" value="Biochemistry" onclick="getVal(this)">Biochemistry</button>
-      <button type="button" class="btn btn-1" name="major" value="Bioinformatics" onclick="getVal(this)">Bioinformatics</button>
-      <button type="button" class="btn btn-1" name="major" value="Bioeducation" onclick="getVal(this)">Bioeducation</button>
-      <button type="button" class="btn btn-1" name="major" value="Chemistry" onclick="getVal(this)">Chemistry</button>
-      <button type="button" class="btn btn-1" name="major" value="Chemeducation" onclick="getVal(this)">Chemeducation</button>
+      <button type="button" class="btn btn-1" name="major" value="Biology">Biology</button>
+      <button type="button" class="btn btn-1" name="major" value="Biochemistry">Biochemistry</button>
+      <button type="button" class="btn btn-1" name="major" value="Bioinformatics">Bioinformatics</button>
+      <button type="button" class="btn btn-1" name="major" value="Bioeducation">Bioeducation</button>
+      <button type="button" class="btn btn-1" name="major" value="Chemistry">Chemistry</button>
+      <button type="button" class="btn btn-1" name="major" value="Chemeducation">Chemeducation</button>
       <button type="button" class="btn btn-1" name="major" value="Other" onclick="getVal(this)">Other</button>
 
-    </div>
+    </div><br>
+    
 
-  <input type="hidden" name="major_select" value="" id="major_select">
-   
-  <span class="error" style="color:red"> <?php echo $major_error_message;?></span></label>
+    <input type="hidden" name="major_select" value="" id="major_select">   
+    <input type="submit" value="REGISTER" name="Register" style="background-color:green;border-color:green">
+    </form>
 
-  <h3/>
-      <br/>
-      <br/>
+    <form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php">
+    <input type="submit" value="RETURN" name="Register" style="background-color:green;border-color:green">
+    </form>
+    
+  </fieldset>
 
-
-<input type="submit" value="REGISTER" name="Register" style="background-color:green;border-color:green">
-
-</form>
-<form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php">
-<input type="submit" value="RETURN" name="Register" style="background-color:green;border-color:green">
-</form>
-
-</div>
+</div> 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -398,15 +355,5 @@ if(isset($_SESSION['studentID'])){
 
      });
 </script>
-
-<script>
-
-  function getVal(buttonVal){
-    //alert('my value is now: ' + obj.value);
-    obj.form.elements['major_select'].value = buttonVal.value;
-  }
-
-</script>
-
 </body>
 </html>

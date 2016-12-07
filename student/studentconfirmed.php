@@ -42,39 +42,29 @@ if (empty($row) && !$_POST) { ?>
 
 <div class="main">
 
+  <fieldset>
+  
+    <h3>What are your current post-UMBC plans? For example: Medical School, Teach
+    middle school science, Research career, Master's/PhD, etc. (max length: 128 characters)
+    </h3> 
+    <input type="text" align="center" name="futurePlans" maxlength="128">
+   
+    <h3>
+        Do you have any questions or concerns that you would like to discuss during
+        your advising session? For example: Withdrawing from a course, adding a
+        second major, etc. (max length: 128 characters)
+    </h3>
+    <input type="text" align="center" name="advisingQuestions" maxlength="128">
 
-  <div id="future-plans">
-  <label><h3>
-    What are your current post-UMBC plans? For example: Medical School, Teach<br>
-    middle school science, Research career, Master's/PhD, etc. (max length: 128 characters)<br>
-    <input type="text" alt="FuturePlans" align="center" name="futurePlans" maxlength="128">
-  </label> 
-    <h3/>
-  </div> <br/> 
 
-  <div id="advising-questions">
-    <label>
-      <h3>
-      Do you have any questions or concerns that you would like to discuss during<br>
-      your advising session? For example: Withdrawing from a course, adding a<br>
-      second major, etc. (max length: 128 characters)<br>
-      <input type="text" alt="FuturePlans" align="center" name="advisingQuestions" maxlength="128">
-    </label> 
-      <h3/>
-  </div> <br/> 
-  <div>
-  <label><h3>
+
     <input type="submit" value="SUBMIT" name="Register" style="background-color:green;border-color:green">
     </form>
-    <form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php">
+    <form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php" style="display:inline;">
     <input type="submit" value="RETURN" name="Register" style="background-color:green;border-color:green">
     </form>
 
-  </h3> 
-  </div>
-  
-
-
+  </fieldset>
 </div>
 
   <?php
@@ -83,25 +73,25 @@ if (empty($row) && !$_POST) { ?>
 
 else if (empty($row) && $_POST) {
 
-  if (!isset($_POST['futurePlans'])) {
+  if (sizeof($_POST['futurePlans']) <= 1) {
 
     $futurePlans = "N/A";
 
   }
 
-  else if(isset($_POST['futurePlans'])) {
+  else{
 
    $futurePlans = $_POST['futurePlans'];
 
   }
 
-  if (!isset($_POST['advisingQuestions'])) {
+  if (sizeof($_POST['advisingQuestions']) <= 1) {
 
     $advisingQuestions = "N/A";
 
   }
 
-  else if(isset($_POST['advisingQuestions'])) {
+  else{
 
    $advisingQuestions = $_POST['advisingQuestions'];
 
