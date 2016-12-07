@@ -357,11 +357,14 @@ if(isset($_SESSION['studentID'])){
       <br/>
       <br/>
 
-<div id="submit-button">
- <input type="submit" value="REGISTER" name="Register" style="background-color:green;border-color:green">
-</div>
+
+<input type="submit" value="REGISTER" name="Register" style="background-color:green;border-color:green">
 
 </form>
+<form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php">
+<input type="submit" value="RETURN" name="Register" style="background-color:green;border-color:green">
+</form>
+
 </div>
 
 
