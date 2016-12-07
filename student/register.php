@@ -14,12 +14,14 @@ include('CommonMethods.php');
  $COMMON = new Common($debug);
  $fileName = "register.php";
 
- $email_error_message = $pass_error_message = $fName_error_message = $lName_error_message = "";
+ session_start();
+
+ $email_error_message = $pass_error_message = $fName_error_message = $lName_error_message = $password_match_error = "";
  $schoolID_error_message = $major_error_message = "";
  $email = $fName = $lName = $schoolID = $major = "";
- $password_confirm = "PLEASE ENSURE THAT BOTH PASSWORDS MATCH!";
 
-if($_POST){  
+  
+if($_POST){    
  
   //defining variables used for query
 
@@ -33,7 +35,12 @@ if($_POST){
     $password = $_POST["password"];
 
   }
-  if (isset($_POST["fname"])) {
+  if (isset($_POST["con_password"])) {
+  
+    $con_password = $_POST["con_password"];
+
+  }
+  if (isset($_POST["fName"])) {
 
     $fName = $_POST["fName"];
 
@@ -59,7 +66,6 @@ if($_POST){
 
   }
 
-
   $encryptPass = md5($password);
 
   //regex for email validation 
@@ -70,7 +76,7 @@ if($_POST){
   
   //boolean to determine if miscellanious error has occured
   $misc_error = false;
-  
+ 
   //boolean to determine if student record exists in db
   $student_exists = false;
   
@@ -92,16 +98,21 @@ if($_POST){
     $invalid_email = true;
   
     if(empty($_POST["email"]) || $invalid_email == true){
+
       //echo "<br>Please enter email.<br>";
       $misc_error = true;
       $email_error_message = "*Please enter a valid e-mail.*";
+
     }
   
     if(empty($_POST["password"])){
       $misc_error = true;
       $pass_error_message = "*Please choose a password.*";
     }
-
+    if(empty($_POST["con_password"]) || ($password != $con_password) ){
+      $misc_error = true;
+      $password_match_error = "*Passwords do not match.*";
+    }
     if(empty($_POST["fName"])){
       //echo "<br>Please enter first name.<br>";
       $misc_error = true;
@@ -125,11 +136,16 @@ if($_POST){
       $misc_error = true;
       $major_error_message = "*Please enter your major.*";
     }
+    if($password != $con_password){
+      $misc_error = true;
+      $password_match_error = "*Passwords do not match.*";
+    }
+
   }
   
   //additional field validation
   if(preg_match($email_validation, $email)){
- 
+
     if(empty($_POST["email"])){
       //echo "<br>Please enter email.<br>";
       $misc_error = true;
@@ -140,7 +156,10 @@ if($_POST){
       $misc_error = true;
       $pass_error_message = "*Please choose a password.*";
     }
-
+    if(empty($_POST["con_password"]) || ($password != $con_password) ){
+      $misc_error = true;
+      $password_match_error = "*Passwords do not match*";
+    }
     if(empty($_POST["fName"])){
       //echo "<br>Please enter first name.<br>";
       $misc_error = true;
@@ -168,14 +187,6 @@ if($_POST){
 
   //query activity after determining if no errors have occured
   if($invalid_email == false && $misc_error == false && $student_exists == false){
-
-    $otherVar = "Other";
-    // **UPDATE** Added page to redirect to if Other major selected.
-    if ($major == "BioSciBA"){
-
-      header('Location: othermsg.php');
-
-    }
         
     $sql = "INSERT INTO Student (email,password,firstName,middleName,lastName,schoolID,major) VALUES ('$email','$encryptPass', '$fName','$mName','$lName', '$schoolID','$major')";
     
@@ -189,21 +200,20 @@ if($_POST){
 
       // Send the email to the confirmation page
       // to print.
-      session_start();
       $_SESSION['studentEmail'] = $email;
+      $student_confirm_bool = 1;
+      $_SESSION['student_confirm_bool'] = $student_confirm_bool;
       header('Location: studentconfirmed.php');
 
     }
 
     else {
 
-      session_start();   
       $_SESSION['studentEmail'] = $email;
       $_SESSION['studentfName'] = $fName;
       $_SESSION['studentmName'] = $mName;
       $_SESSION['studentlName'] = $lName;
       $_SESSION['studentID'] = $schoolID;
-
       header('Location: othermsg.php');
 
     }
@@ -272,11 +282,11 @@ if(isset($_SESSION['studentID'])){
 <div class= "main">
 
 <div id="first-text">
-    <label><h3>
-   First Name:<input type="fname" alt="First Name" align="center" name="fName" <?php if(isset($fName)) { ?> value="<?php echo($fName); ?>" <?php } ?> >
-    </label> 
-    <span class="error" style="color:red"> <?php echo $fName_error_message;?></span>
-    <h3/>
+<label><h3>
+ First Name:<input type="fname" alt="First Name" align="center" name="fName" <?php if(isset($fName)) { ?> value="<?php echo($fName); ?>" <?php } ?> >
+  </label> 
+  <span class="error" style="color:red"> <?php echo $fName_error_message;?></span>
+  <h3/>
 </div> <br/>
 
 
@@ -299,7 +309,7 @@ if(isset($_SESSION['studentID'])){
          
 <div id="id-text">
   <label><h3>
-   UMBC ID: <input type="id" name="studentID" <?php if(isset($schoolID)) { ?> value="<?php echo($schoolID); ?>" <?php } ?> >
+   UMBC ID: <input type="id" name="schoolID" <?php if(isset($schoolID)) { ?> value="<?php echo($schoolID); ?>" <?php } ?> >
    <span class="error" style="color:red"> <?php echo $schoolID_error_message;?></span>
    </label>
    <h3/>
@@ -319,16 +329,20 @@ if(isset($_SESSION['studentID'])){
   <label>
     <h3>
     Password: <input type="password" name="password">
-    <span class="error" style="color:red"> <?php echo $pass_error_message;?></span><br>
+    <span class="error" style="color:red"> <?php echo $pass_error_message;?></span>
   </label>
   <h3/>
 </div><br/>
 
 <div id="password-confirm-text">      
-<label><h3>
-   Confirm Password: <input type="con_password" name="password-confirm"><h3/>
-</label><br>
-</div>
+  <label>
+    <h3>
+    Confirm Password: <input type="con_password" name="con_password">
+    <span class="error" style="color:red"> <?php echo $password_match_error;?></span>
+
+  </label>
+  <h3/>
+</div><br/>
 
 <div id="majors-text">
 <label><h3>
