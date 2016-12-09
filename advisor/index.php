@@ -53,8 +53,6 @@ if (isset($_POST['pass']) && isset($_POST['email'])) {
 <title>Login</title>
 
     <link rel="stylesheet" href="loginstyle.css" type="text/css">
-
-
    </head>
 
    <body>
@@ -66,15 +64,18 @@ if (isset($_POST['pass']) && isset($_POST['email'])) {
    </div>
    <br/>
 
-   <h3>The College of Natural Math and Science </h3>
-   </div>
-
    <div class="messages">
+
      <?php 
-       if (isset($_SESSION["messages"]) && sizeof($_SESSION["messages"]))
+       if (isset($_SESSION["messages"]) && sizeof($_SESSION["messages"])) {
 	 foreach ($_SESSION["messages"] as $message)
 	   echo $message."<br>";
+	 unset($_SESSION["messages"]);
+       }
      ?>
+   </div>
+
+   <h3>The College of Natural Math and Science </h3>
    </div>
 
    <div class="login-form">

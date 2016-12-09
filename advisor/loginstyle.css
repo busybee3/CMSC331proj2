@@ -111,4 +111,18 @@ input:focus {
     margin: 0 auto;
 }
 
+.messages {
+    width: 100%;
+    display: inline-block;
+    margin: 10px;
+    padding: 30px;
+    color: #1a9944;
+    border-radius: 5px;
+    background: #baffba; /* url("https://freeiconshop.com/files/edd/checkmark-flat.png") no-repeat;
+    background-size: 35px 35px;
+    background-position: 2% 50%;
+*/
+ }
+
+
 /* END OF LOGIN */

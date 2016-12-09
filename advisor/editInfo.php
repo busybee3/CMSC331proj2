@@ -3,6 +3,7 @@
 
 <head>
   <title>Edit Information</title>
+  <link href="loginstyles.css" rel="stylesheet" type="text/css">
 <style>
 body {
   background-color:#f5ca5c ;
@@ -132,8 +133,22 @@ transform: translateX(26px);
 </style>
 
 </head>
-
 <body>
+
+<?php
+/* session_start(); */
+/* include("CommonMethods.php"); */
+/* if (isset($_POST["roomNumber"])) { */
+/*   echo "<br>"; */
+/*   echo "<br>"; */
+/*   echo "<br>"; */
+/*   echo "<br>"; */
+/*   echo "<br>"; */
+/*   $conn = new Common(true); */
+/*   /\* $conn->executeQuery("UPDATE Advisor SET roomNumber='".$_POST["roomNumber"]."', buildingName='".$_POST["buildingName"]."' WHERE advisorID=".$_SESSION["ADVISOR_ID"].";", $_SERVER["SCRIPT_NAME"]); *\/ */
+/*   echo "HERE!"; */
+/* } */
+?>
 
 <ul>
   <div class="logo">
@@ -148,34 +163,25 @@ transform: translateX(26px);
 <h2>Edit Information</h2>
 </div>
 
-<h3>
-   Majors You Advise:
-
-   </h3>
-      <button type="button" class="btn btn-1">Biology</button>
-      <button type="button" class="btn btn-1">Biochemistry</button>
-      <button type="button" class="btn btn-1">Bioinformatics</button>
-      <button type="button" class="btn btn-1">Bioeducation</button>
-      <button type="button" class="btn btn-1">Chemistry</button>
-      <button type="button" class="btn btn-1">Chemeducation</button><h3/>
-      <br/>
-
-
- <h3> Active Advising Season:</h3>
+  <h3> Active Advising Season:</h3>
 
 <label class="switch">
   <input type="checkbox">
   <div class="slider round"></div>
 </label>
 
-<br/>
-<br/>
-<div class="update-button">
- <input type="submit" value="UPDATE" name="Update" style="background-color:#4CAF50; color: white; border-color: green; border: none; float: right; padding: 15px 32px;
+   <form method="post" name="advisor-update">
+     Room Number: <input name="roomNumber" type="text" value=<?php echo $_SESSION["ADVISOR_RM_NUM"] ?> <br>
+     Building Name: <input name="buildingName" type="text" value=<?php echo $_SESSION["ADVISOR_BLDG_NAME"] ?> <br>
+     <div class="update-button">
+     <input type="submit" value="UPDATE" style="background-color:#4CAF50; color: white; border-color: green; border: none; float: right; padding: 15px 32px;
 font-size: 16px;
 display: inline-block;
 ">
-</div>
+     </div>
+   </form>
+<br/>
+<br/>
 
 
 </div>
