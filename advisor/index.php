@@ -69,6 +69,14 @@ if (isset($_POST['pass']) && isset($_POST['email'])) {
    <h3>The College of Natural Math and Science </h3>
    </div>
 
+   <div class="messages">
+     <?php 
+       if (isset($_SESSION["messages"]) && sizeof($_SESSION["messages"]))
+	 foreach ($_SESSION["messages"] as $message)
+	   echo $message."<br>";
+     ?>
+   </div>
+
    <div class="login-form">
    <div class="control-group">
      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
