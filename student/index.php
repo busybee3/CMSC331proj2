@@ -41,8 +41,13 @@ if (isset($_SESSION["HAS_LOGGED_IN"])) {
    <label class="login-field-icon fui-lock" for="login-pass"></label>
    </div>
 
-   <a class="register-link" href="register.php">REGISTER</a>
-   <a class="btn btn-primary btn-large btn-block" href="#">LOGIN</a>
+   
+   <div class="btn-group" role="group">
+     <a class="register-link" href="register.php">REGISTER</a>
+     <a class="btn btn-primary btn-large btn-block" href="#">LOGIN</a>
+   </div>
+   
+   
    </div>
    </div>
 

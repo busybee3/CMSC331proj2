@@ -1,23 +1,19 @@
 body {
+
   background-color: black;
   margin: 0;
   padding: 0;
-}
-
-form {
-
-  display: inline;
-  margin: 0;
-  padding: 0;
 
 }
+
 
 h1 {
   background-color: #F5CA5C;
   height: 620px;
   width: 100%;
-  font-family: 'Quicksand', sans-serif;
-  font-size: 80px;
+  font-family: 'Open Sans', sans-serif;
+
+  font-size: 60px;
   font-weight: 600;
   line-height: 200px;
   text-align: center;
@@ -32,11 +28,18 @@ h2 {
   font-weight: 100;
 }
 
-
 .btn{
   background-color:grey;
   border-color:grey;
   color:white;
+}
+
+.btn-group {
+
+    margin-left: 40.5%;
+    
+
+
 }
 
 .btn:active, .btn:visited {
@@ -47,20 +50,32 @@ h2 {
   background-color:black;
   border-color:black;
 }
-.main {
+
+form {
+
   color: white;
   background-color: black;
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   margin: 0;
   padding: 0;
-  height: 700px;
+  height: 100%;
   width: 100%;
+  display: inline;
+
 }
 
+label {
+
+  margin-left: 40.5%;
+
+}
 
 .main-form {
+   
     text-align: center;
+    width: 100%;
+    margin: 0 auto;
 }
 
 
@@ -84,17 +99,19 @@ input {
 
 input[type=email] {
 
-    width: 200px;
+    width: 10%;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    margin-left: 5.55%;
+
 }
 
 input[type=text] {
-    width: 850px;
+    width: 10%;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
@@ -105,28 +122,31 @@ input[type=text] {
 
 input[type=id] {
 
-    width: 200px;
+    width: 10%;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    margin-left: 4.93%;
 
 }
 
 input[type=password] {
-    width: 200px;   
+    width: 10%;   
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    margin-left: 3.9%;
+
 }
 
 input[type=con_password] {
-    width: 200px;   
+    width: 10%;   
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
@@ -134,61 +154,65 @@ input[type=con_password] {
     border: 2px solid white;
     border-radius: 4px;
     -webkit-text-security: disc;
+    
 }
 
 
 input[type=lname] {
-    width: 200px;
+    width: 10%;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    margin-left: 3.7%;
 }
 
 input[type=prefname] {
  
-    width: 200px;   
+    width: 10%;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    margin-left: 1.23%;
+
+
 }
 
 input[type=fname] {
 
-    width: 200px;
+    width: 10%;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    margin-left: 3.33%;
+
 }
 
 input[type=submit] {
 
-    width: 200px;
+    width: 10%;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    margin: 0;
+    color: green;
+
 }
 
 
 input:focus {
     border: 3px solid #555;
-}
-
-fieldset{
-  border:none;
-  width:750px;
-  margin-left:600px;
 }
 
 
@@ -201,22 +225,15 @@ fieldset{
 
 
 .submit{
-    background-color: #4CAF50;
-    border: none;
+
+    background-color: green;
+    border: green;
     color: white;
     padding: 15px 15px;
-    text-align: right;
+    text-align: center;
     text-decoration: none;
-    display: inline-block
+    display: inline;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
-}
-
-label { 
-
-  display: inline-block;  
-  width: 200px; 
-  text-align: left; 
-
+    
 }

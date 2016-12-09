@@ -89,7 +89,7 @@ if($_POST){
   //determines if atleast one record exists with entered email
   if(mysql_num_rows($validation_query) > 0){
     $student_exists = true;
-    $email_error_message = "*Record exists for this e-mail.*";
+    $email_error_message = "Record exists for this e-mail.";
   }
   
   //email validation, may not need nested ifs
@@ -101,44 +101,44 @@ if($_POST){
 
       //echo "<br>Please enter email.<br>";
       $misc_error = true;
-      $email_error_message = "*Please enter a valid e-mail.*";
+      $email_error_message = "Please enter a valid e-mail.";
 
     }
   
     if(empty($_POST["password"])){
       $misc_error = true;
-      $pass_error_message = "*Please choose a password.*";
+      $pass_error_message = "Please choose a password.";
     }
     if(empty($_POST["con_password"]) || ($password != $con_password) ){
       $misc_error = true;
-      $password_match_error = "*Passwords do not match.*";
+      $password_match_error = "Passwords do not match.";
     }
     if(empty($_POST["fName"])){
       //echo "<br>Please enter first name.<br>";
       $misc_error = true;
-      $fName_error_message = "*Please enter your first name.*";
+      $fName_error_message = "Please enter your first name.";
     }
     
     if(empty($_POST["lName"])){
       //echo "<br>Please enter last name.<br>";
       $misc_error = true;
-      $lName_error_message = "*Please enter your last name.*";
+      $lName_error_message = "Please enter your last name.";
     }
     
     if(empty($_POST["schoolID"])){
       //echo "<br>Please enter school id.<br>";
       $misc_error = true;
-      $schoolID_error_message = "*Please enter your school ID.*";
+      $schoolID_error_message = "Please enter your school ID.";
     }
     
     if(empty($_POST["major_select"])){
       //echo "<br>Please enter major.<br>";
       $misc_error = true;
-      $major_error_message = "*Please enter your major.*";
+      $major_error_message = "Please enter your major.";
     }
     if($password != $con_password){
       $misc_error = true;
-      $password_match_error = "*Passwords do not match.*";
+      $password_match_error = "Passwords do not match.";
     }
 
   }
@@ -149,38 +149,38 @@ if($_POST){
     if(empty($_POST["email"])){
       //echo "<br>Please enter email.<br>";
       $misc_error = true;
-      $email_error_message = "*Please enter an e-mail address.*";
+      $email_error_message = "Please enter an e-mail address.";
     }
     
     if(empty($_POST["password"])){
       $misc_error = true;
-      $pass_error_message = "*Please choose a password.*";
+      $pass_error_message = "Please choose a password.";
     }
     if(empty($_POST["con_password"]) || ($password != $con_password) ){
       $misc_error = true;
-      $password_match_error = "*Passwords do not match*";
+      $password_match_error = "Passwords do not match";
     }
     if(empty($_POST["fName"])){
       //echo "<br>Please enter first name.<br>";
       $misc_error = true;
-      $fName_error_message = "*Please enter your first name.*";
+      $fName_error_message = "Please enter your first name.";
     }
     
     if(empty($_POST["lName"])){
       //echo "<br>Please enter last name.<br>";
       $misc_error = true;
-      $lName_error_message = "*Please enter your last name.*";
+      $lName_error_message = "Please enter your last name.";
     }
     
     if(empty($_POST["schoolID"])){
       //echo "<br>Please enter school id.<br>";
       $misc_error = true;
-      $schoolID_error_message = "*Please enter your school ID.*";
+      $schoolID_error_message = "Please enter your school ID.";
     }
     
     if(empty($_POST["major_select"])){
       $misc_error = true;
-      $major_error_message = "*Please enter your major.*";
+      $major_error_message = "Please enter your major.";
     }
   }
   
@@ -224,7 +224,6 @@ if($_POST){
 // **UPDATE** Grab the previously entered data from
 // the session, if available to add it back into the
 // fields in the form. Convenience feature.
-session_start();
 
 if(isset($_SESSION['studentEmail'])){
 
@@ -264,79 +263,87 @@ if(isset($_SESSION['studentID'])){
 ?>
 
 <body>
-  <div class="main-form">
-    <div id="greeting-text"> 
+
+  <div class="main-form"> 
       <h1>Welcome to the Advising Registration Page for <br/>
       The College of Natural Math and Science!</h1>
-    </div>
   </div>
 
 
-  <h2>Student Registration</h2>
+  <h2>
+    Student Registration<br>
+  </h2>
+
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+      <font style="color:red"><center>An * indicates a required field.</center></font><br>
 
 
-
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-
-
-<div class= "main">
-
-  <fieldset>
-
-    <label><h3>First Name:</h3></label>
-    <input type="fname" size="50" name="fName" <?php if(isset($fName)) { ?> value="<?php echo($fName); ?>" <?php } ?> >
-    <span class="error" style="color:red"> <?php echo $fName_error_message; ?></span><br>
+      
+      <label>First Name:</label>
+      <input type="fname" id="fName" name="fName" <?php if(isset($fName)) { ?> value="<?php echo($fName); ?>" <?php } ?> ><font style="color:red">*</font>
+      <span class="error" style="color:red"> <?php echo $fName_error_message;?></span><br>  
+      
+      <label>Preferred Name:</label><input type="prefname" id="pName" name="pName" <?php if(isset($mName)) { ?> value="<?php echo($mName); ?>" <?php } ?> >
+      <br> 
  
-    <label><h3>Preferred Name:</h3></label>
-    <input type="prefname" size="50" name="pName" <?php if(isset($mName)) { ?> value="<?php echo($mName); ?>" <?php } ?> ><br>
 
-    <label><h3>Last Name:</h3></label>
-    <input type="lname" size="50" name="lName" <?php if(isset($lName)) { ?> value="<?php echo($lName); ?>" <?php } ?> >
-    <span class="error" style="color:red"> <?php echo $lName_error_message;?></span><br>
+      <label>Last Name:</label>
+      <input type="lname" name="lName" <?php if(isset($lName)) { ?> value="<?php echo($lName); ?>" <?php } ?> ><font style="color:red">*</font>
+      <span class="error" style="color:red"> <?php echo $lName_error_message;?></span><br>
 
-    <label><h3>UMBC ID:</h3></label>
-    <input type="id" name="schoolID" size="50" <?php if(isset($schoolID)) { ?> value="<?php echo($schoolID); ?>" <?php } ?> >
-    <span class="error" style="color:red"> <?php echo $schoolID_error_message;?></span><br>
+      <label>UMBC ID:</label>
+      <input type="id" name="schoolID" <?php if(isset($schoolID)) { ?> value="<?php echo($schoolID); ?>" <?php } ?> ><font style="color:red">*</font>
+      <span class="error" style="color:red"> <?php echo $schoolID_error_message;?></span><br>
 
-    <label><h3>E-mail:</h3></label>
-    <input type="email" name="email" size="50" <?php if(isset($email)) { ?> value="<?php echo($email); ?>" <?php } ?> >
-    <span class="error" style="color:red"> <?php echo $email_error_message;?></span><br>
+      <label>E-mail:</label>
+      <input type="email" name="email"<?php if(isset($email)) { ?> value="<?php echo($email); ?>" <?php } ?> ><font style="color:red">*</font>
+      <span class="error" style="color:red"> <?php echo $email_error_message;?></span><br>
 
-    <label><h3>Password:</h3></label>
-    <input type="password" name="password" size="50">
-    <span class="error" style="color:red"> <?php echo $pass_error_message;?></span><br>
+      <label>Password:</label>
+      <input type="password" name="password"><font style="color:red">*</font>
+      <span class="error" style="color:red"> <?php echo $pass_error_message;?></span><br>
 
-    <label><h3>Confirm Password:</h3></label>
-    <input type="con_password" name="con_password">
-    <span class="error" style="color:red"> <?php echo $password_match_error;?></span><br>
+      <label>Confirm Password:</label>
+      <input type="con_password" name="con_password"><font style="color:red">*</font>
+      <span class="error" style="color:red"> <?php echo $password_match_error;?></span><br>
 
-    <label><h3>Major that you will Pursue NEXT SEMESTER:</h3></label>
-    <span class="error" style="color:red"> <?php echo $major_error_message;?></span></label>
+      <label>Major that you will Pursue NEXT SEMESTER:</label><font style="color:red">*</font>
+      <span class="error" style="color:red"> <?php echo $major_error_message;?></span></label>
+      
+      <div class="btn-group" role="group">
 
-    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-1" name="major" value="Biology">Biology</button>
+        <button type="button" class="btn btn-1" name="major" value="Biochemistry">Biochemistry</button>
+        <button type="button" class="btn btn-1" name="major" value="Bioinformatics">Bioinformatics</button>
+        <button type="button" class="btn btn-1" name="major" value="Bioeducation">Bioeducation</button>
+        <button type="button" class="btn btn-1" name="major" value="Chemistry">Chemistry</button>
+        <button type="button" class="btn btn-1" name="major" value="Chemeducation">Chemeducation</button>
+        <button type="button" class="btn btn-1" name="major" value="Other" onclick="getVal(this)">Other</button>
 
-      <button type="button" class="btn btn-1" name="major" value="Biology">Biology</button>
-      <button type="button" class="btn btn-1" name="major" value="Biochemistry">Biochemistry</button>
-      <button type="button" class="btn btn-1" name="major" value="Bioinformatics">Bioinformatics</button>
-      <button type="button" class="btn btn-1" name="major" value="Bioeducation">Bioeducation</button>
-      <button type="button" class="btn btn-1" name="major" value="Chemistry">Chemistry</button>
-      <button type="button" class="btn btn-1" name="major" value="Chemeducation">Chemeducation</button>
-      <button type="button" class="btn btn-1" name="major" value="Other" onclick="getVal(this)">Other</button>
-
-    </div><br>
+      </div><br>
+      
     
-
-    <input type="hidden" name="major_select" value="" id="major_select">   
-    <input type="submit" value="REGISTER" name="Register" style="background-color:green;border-color:green">
+        <div class="btn-group" role="group">    
+      
+          <input type="hidden" name="major_select" value="" id="major_select">   
+          <input type="submit" value="REGISTER" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
+        
     </form>
 
-    <form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php">
-    <input type="submit" value="RETURN" name="Register" style="background-color:green;border-color:green">
-    </form>
-    
-  </fieldset>
+          <form action="index.php">
+     
+            <input type="submit" value="RETURN" name="Return" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
+            
+           </form>
+      
+        </div>
 
-</div> 
+
+</body>    
+
+
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -355,5 +362,5 @@ if(isset($_SESSION['studentID'])){
 
      });
 </script>
-</body>
+
 </html>

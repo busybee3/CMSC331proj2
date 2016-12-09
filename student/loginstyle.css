@@ -64,11 +64,10 @@ border: none;
 padding: 10px 0;
   text-decoration: none;
   text-shadow: none;
-  text-align: center;
   border-radius: 3px;
   box-shadow: none;
 transition: 0.25s;
-display: block;
+display: inline-block;
 width: 120px;
 margin: 0 auto;
  }
@@ -84,7 +83,7 @@ margin: 0 auto;
     margin-top: 12px;
   */
   font-family: Arial, sans-serif;
-border: 2px solid transparent;
+border: none;
 background: black;
 color: #ffffff;
   font-size: 20px;
@@ -95,9 +94,10 @@ padding: 10px 0;
   border-radius: 3px;
   box-shadow: none;
 transition: 0.25s;
-display: block;
+display: inline-block;
 width: 120px;
 margin: 0 auto;
+
 }
 
 /* END OF LOGIN */
