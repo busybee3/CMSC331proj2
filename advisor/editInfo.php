@@ -136,7 +136,7 @@ transform: translateX(26px);
 <body>
 
 <?php
-/* session_start(); */
+session_start();
 /* include("CommonMethods.php"); */
 /* if (isset($_POST["roomNumber"])) { */
 /*   echo "<br>"; */
