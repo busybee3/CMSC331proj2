@@ -36,9 +36,12 @@ h2 {
 
 .btn-group {
 
-    margin-left: 40.5%;
-    
-
+    ;
+    width: 700px;
+    margin-left: 300px;
+    margin-bottom: 5px;
+    height: 50px;
+    float: left;
 
 }
 
@@ -65,11 +68,22 @@ form {
 
 }
 
-label {
 
-  margin-left: 40.5%;
 
+table {
+    border:none;
+    border-collapse:collapse;
+    margin: 0;
 }
+td {
+    border:none;
+    height: 43px;
+    padding-top: 10px;
+    padding-bottom: 4px;
+    padding-left: 40px;
+    margin: 0;
+}
+
 
 .main-form {
    
@@ -99,19 +113,19 @@ input {
 
 input[type=email] {
 
-    width: 10%;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
-    margin-left: 5.55%;
+    
 
 }
 
 input[type=text] {
-    width: 10%;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
@@ -122,34 +136,34 @@ input[type=text] {
 
 input[type=id] {
 
-    width: 10%;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
-    margin-left: 4.93%;
+    
 
 }
 
 input[type=password] {
-    width: 10%;   
+    width: 160px;   
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
-    margin-left: 3.9%;
+    
 
 }
 
 input[type=con_password] {
-    width: 10%;   
+    width: 160px;   
     padding: 12px 20px;
     padding-left: 20px;
-    margin: 8px 0;
+    margin: 6px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
@@ -159,46 +173,46 @@ input[type=con_password] {
 
 
 input[type=lname] {
-    width: 10%;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
-    margin-left: 3.7%;
+   
 }
 
 input[type=prefname] {
  
-    width: 10%;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
-    margin-left: 1.23%;
+    
 
 
 }
 
 input[type=fname] {
 
-    width: 10%;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
-    margin: 8px 0;
+    margin: 6px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
-    margin-left: 3.33%;
+    
 
 }
 
 input[type=submit] {
 
-    width: 10%;
+    width: 60px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
@@ -237,3 +251,37 @@ input:focus {
     cursor: pointer;
     
 }
+
+div.container{
+  width: 1100px;
+  height: 500px;
+  margin: auto;
+}
+
+div.text_div{
+
+  width: 275px;
+  height: 500px;
+  float: left;
+  margin-left: 275px; 
+
+}
+
+div.input_div {
+
+  width: 475px;
+  height: 500px;
+  float: right;
+
+}
+
+div.button_div{
+
+  width: 600px;
+  height: 50px;
+  margin-bottom: 10px;
+   
+
+}
+
+
