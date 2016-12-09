@@ -104,3 +104,11 @@ input:focus {
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.submit-button {
+    background-color: green;
+    border-color: green;
+    width: 400px;
+    margin: 0 auto;
+    color: white;
+}

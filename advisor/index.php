@@ -64,16 +64,15 @@ if (isset($_POST['pass']) && isset($_POST['email'])) {
    </div>
    <br/>
 
-   <div class="messages">
-
-     <?php 
-       if (isset($_SESSION["messages"]) && sizeof($_SESSION["messages"])) {
-	 foreach ($_SESSION["messages"] as $message)
-	   echo $message."<br>";
-	 unset($_SESSION["messages"]);
-       }
-     ?>
-   </div>
+  <?php 
+    if (isset($_SESSION["messages"]) && sizeof($_SESSION["messages"])) {
+      echo '<div class="messages">';
+      foreach ($_SESSION["messages"] as $message)
+	echo $message."<br>";
+      unset($_SESSION["messages"]);
+      echo "</div>";
+    }
+  ?>
 
    <h3>The College of Natural Math and Science </h3>
    </div>

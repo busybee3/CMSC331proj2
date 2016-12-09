@@ -28,36 +28,36 @@
   <div class= "main">
   <div id="first-text">
     <label><h3>
-   First Name: <input type="text" alt="First Name" align="center" name="fName"><h3/>
-    </label> <br/>
+   First Name: <br><input type="text" alt="First Name" align="center" name="fName"><h3/>
+    </label>
     </div>
    
 <div id="last-text">    
     <label><h3>
-   Last Name: <input type="text" alt="Last Name" align="center" name="lName"><h3/>
-    </label><br/>
+   Last Name: <br><input type="text" alt="Last Name" align="center" name="lName"><h3/>
+    </label>
     </div>
               
          
 <div id="id-text">
   <label><h3>
-   Advisor ID: <input type="advisorID" name="advisorID"><h3/>
-  </label><br>
+   Advisor ID: <br><input type="advisorID" name="advisorID"><h3/>
+  </label>
 </div>
          
    
 
    <div id="email-text">      
      <label><h3>
-     E-mail: <input type="email" name="email"><h3/>
-     </label><br>
+     E-mail: <br><input type="email" name="email"><h3/>
+     </label>
    </div>
    
-   <h3> Building Name: <input type="text" name="bldgName"></input></h3>
-   <h3> Office Room: <input type="text" name="officeRm"></input></h3>
-   <h3> Password: <input type="password" name="pass"> </input></h3>
-   <h3> Confirm Password: <input type="password" name="confirm-pass"> </input></h3>
-   <input id="submit-button" type="submit" value="REGISTER" name="Register" style="background-color:green;border-color:green">
+   <h3> Building Name: <br><input type="text" name="bldgName"></input></h3>
+   <h3> Office Room: <br><input type="text" name="officeRm"></input></h3>
+   <h3> Password: <br><input type="password" name="pass"> </input></h3> 
+   <h3> Confirm Password: <br><input type="password" name="confirm-pass"> </input></h3> <br>
+   <h3> <input class="submit-button" type="submit" value="REGISTER"> </h3>
    
 
 </div>
