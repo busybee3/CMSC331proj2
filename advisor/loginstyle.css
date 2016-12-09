@@ -1,32 +1,32 @@
 * {
     box-sizing: border-box;
-    }
+}
 
 *:focus {
     outline: none;
-    }
+}
 body {
 
     background-color:#f5ca5c;
     padding: 10px;
-    }
+}
 .login {
     margin: 20px auto;
     width: 400px;
-    }
+}
 .login-screen {
     background-color: #FFF;
     padding: 50px;
     position: relative;
     border-radius: 5px
-    }
+}
 
 .app-title {
     font-family: Arial, sans-serif;
     font-size: 23px;
     text-align: center;
     color: black;
-    }
+}
 
 .logo {
     text-align: center;
@@ -37,11 +37,11 @@ body {
 
 .login-form {
     text-align: center;
-    }
+}
 
 .control-group {
     margin-bottom: 22px;
-    }
+}
 
 input {
     text-align: center;
@@ -56,12 +56,12 @@ input {
     padding: 10px 0;
     width: 250px;
     transition: border .5s;
-    }
+}
 
 input:focus {
     border: 2px solid #3498DB;
     box-shadow: none;
-    }
+}
 
 .btn {
     background-color: green;
@@ -88,11 +88,11 @@ input:focus {
 }
 
 .register-link {
-/*    font-size: 20px;
-    color: green;
-    display: block;
-    margin-top: 12px;
-*/
+    /*    font-size: 20px;
+	  color: green;
+	  display: block;
+	  margin-top: 12px;
+	  */
     font-family: Arial, sans-serif;
     border: 2px solid transparent;
     background: black;

@@ -19,7 +19,7 @@
 </div>
 
 
-<form action="../utils/forms/registerAdvisor.php" method="post">    
+<form action="registerAdvisor.php" method="post">    
 
 
   <div class= "main">
@@ -27,10 +27,8 @@
     <label><h3>
    First Name: <input type="text" alt="First Name" align="center" name="fName"><h3/>
     </label> <br/>
-    </div>
-
-        
-    
+    </div>x
+   
 <div id="last-text">    
     <label><h3>
    Last Name: <input type="text" alt="Last Name" align="center" name="lName"><h3/>
@@ -44,21 +42,22 @@
   </label><br>
 </div>
          
-         
+   
 
-<div id="email-text">      
-<label><h3>
+   <div id="email-text">      
+   <label><h3>
    E-mail: <input type="email" name="email"><h3/>
-</label><br>
-</div>
+   </label><br>
+   </div>
 
+   <h3> Password: <input type="password" name="pass"> </input></h3>
+   <h3> Confirm Password: <input type="password" name="pass"> </input></h3>
 
 
 <div id="majors-text">
-<label><h3>
-   Majors You Advise:<h3/>
-</label>
+   <h3> Majors You Advise: <h3/>
 </div>
+
    <h3>
       <button type="button" class="btn btn-1">Biology</button>
       <button type="button" class="btn btn-1">Biochemistry</button>
@@ -69,10 +68,7 @@
       <br/>
       <br/>
 
-<div id="submit-button">
- <input type="submit" value="REGISTER" name="Register"
-   style="background-color:green;border-color:green">
-</div>
+   <input id="submit-button" type="submit" value="REGISTER" name="Register" style="background-color:green;border-color:green">
 
 
 </div>

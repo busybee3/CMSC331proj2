@@ -81,9 +81,11 @@ button {
 <br/>
 <br/>
 <br/>
+  
+<?php session_start() ?>
 
 <div class="greeting">
-   Welcome, ____!
+   Welcome, <?php echo $_SESSION["ADVISOR_FNAME"]."!"; ?>
 </div>
 <br/>
 
