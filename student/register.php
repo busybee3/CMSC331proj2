@@ -45,9 +45,9 @@ if($_POST){
     $fName = $_POST["fName"];
 
   }
-  if (isset($_POST["mName"])) {
+  if (isset($_POST["pName"])) {
 
-    $mName = $_POST["mName"];
+    $pName = $_POST["pName"];
 
   }
   if (isset($_POST["lName"])) {
@@ -188,7 +188,7 @@ if($_POST){
   //query activity after determining if no errors have occured
   if($invalid_email == false && $misc_error == false && $student_exists == false){
         
-    $sql = "INSERT INTO Student (email,password,firstName,middleName,lastName,schoolID,major) VALUES ('$email','$encryptPass', '$fName','$mName','$lName', '$schoolID','$major')";
+    $sql = "INSERT INTO Student (email,password,firstName,middleName,lastName,schoolID,major) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major')";
     
     //executes query and directs to confirmation page
     // ***UPDATE** Added confirmation page, and the redirect.
@@ -211,7 +211,7 @@ if($_POST){
 
       $_SESSION['studentEmail'] = $email;
       $_SESSION['studentfName'] = $fName;
-      $_SESSION['studentmName'] = $mName;
+      $_SESSION['studentpName'] = $pName;
       $_SESSION['studentlName'] = $lName;
       $_SESSION['studentID'] = $schoolID;
       header('Location: othermsg.php');
@@ -239,10 +239,10 @@ if(isset($_SESSION['studentfName'])){
 
 }
 
-if(isset($_SESSION['studentmName'])){
+if(isset($_SESSION['studentpName'])){
 
-  $mName = $_SESSION['studentmName'];
-  $_SESSION['studentmName'] = $mName;
+  $pName = $_SESSION['studentpName'];
+  $_SESSION['studentmName'] = $pName;
 
 }
 
