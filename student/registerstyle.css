@@ -84,6 +84,19 @@ td {
     margin: 0;
 }
 
+.main {
+
+  color: white;
+  background-color: black;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+
+}
+
 
 .main-form {
    

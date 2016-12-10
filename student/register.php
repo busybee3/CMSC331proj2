@@ -187,9 +187,13 @@ if($_POST){
 
   //query activity after determining if no errors have occured
   if($invalid_email == false && $misc_error == false && $student_exists == false){
-        
+
+    $futurePlans = "N/A";
+    $advisingQuestions = "N/A";        
     $sql = "INSERT INTO Student (email,password,firstName,middleName,lastName,schoolID,major) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major')";
-    
+        
+
+
     //executes query and directs to confirmation page
     // ***UPDATE** Added confirmation page, and the redirect.
     // Also checked to make sure the major was not "Other".
@@ -197,6 +201,11 @@ if($_POST){
 
       // Execute the query.
       $rs = $COMMON->executeQuery($sql,$fileName);
+
+      // Also create an entry in the questions / plans table.
+      $sql = "INSERT INTO questionsAndPlans (questionsplansID, email, futurePlans, advisingQuestions) VALUES ('','$email','$futurePlans','$advisingQuestions')";
+      $rs = $COMMON->executeQuery($sql,$fileName); 
+
 
       // Send the email to the confirmation page
       // to print.

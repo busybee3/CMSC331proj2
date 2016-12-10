@@ -70,11 +70,11 @@ transition: 0.25s;
 display: inline-block;
 width: 120px;
 margin: 0 auto;
- }
+}
 
 .btn:hover {
   background-color: #2980B9;
- }
+}
 
 .register-link {
   /*    font-size: 20px;
@@ -98,6 +98,20 @@ display: inline-block;
 width: 120px;
 margin: 0 auto;
 
+}
+
+.submit{
+
+    background-color: green;
+    border: green;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    font-size: 16px;
+    cursor: pointer;
+    
 }
 
 /* END OF LOGIN */
