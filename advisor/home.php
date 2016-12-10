@@ -82,8 +82,12 @@ button {
 <br/>
 <br/>
   
-<?php session_start() ?>
-
+<?php 
+  session_start();
+  if (!isset($_SESSION["HAS_LOGGED_IN"]) || !$_SESSION["HAS_LOGGED_IN"])
+    header("Location: index.php");
+?>
+  
 <div class="greeting">
    Welcome, <?php echo $_SESSION["ADVISOR_FNAME"]."!"; ?>
 </div>
@@ -101,7 +105,7 @@ button {
 
 
    <button>
-   <a href="appointments.php" >
+   <a href="view.php" >
    <img src="http://ddu548.minsk.edu.by/sm_full.aspx?guid=4673" height="254px">
 </a>View Appointments
    </button>

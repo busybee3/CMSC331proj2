@@ -12,8 +12,8 @@ class Common
   // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
   function connect($db)// connect to MySQL
   {
-    $conn = @mysqli_connect("studentdb.gl.umbc.edu", "cmiller9", "cmiller9") or die("Could not connect to MySQL");
-    $rs = @mysqli_select_db($db, $conn) or die("Could not connect select $db database");
+    $conn = @mysql_connect("studentdb-maria.gl.umbc.edu", "cmiller9", "cmiller9") or die("Could not connect to MySQL");
+    $rs = @mysql_select_db($db, $conn) or die("Could not connect select $db database");
     $this->conn = $conn;
   }
   // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
@@ -22,7 +22,7 @@ class Common
     if ($this->debug == true) {
       echo("$sql <br>\n");
     }
-    $rs = mysqli_query($sql, $this->conn) or die("Could not execute query '$sql' in $filename");
+    $rs = mysql_query($sql, $this->conn) or die("Could not execute query '$sql' in $filename");
     return $rs;
   }
 } // ends class, NEEDED!!

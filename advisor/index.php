@@ -4,11 +4,9 @@ session_start();
 include 'dbconfig.php';
 
 // Checks to see if the user is logged in, if so it redirects them to homepage
-if (isset($_SESSION["HAS_LOGGED_IN"])) {
-    if ($_SESSION["HAS_LOGGED_IN"]) {
+if (isset($_SESSION["HAS_LOGGED_IN"])) 
+    if ($_SESSION["HAS_LOGGED_IN"]) 
         header('Location: home.php');
-    }
-}
 
 if (isset($_POST['pass']) && isset($_POST['email'])) {
     /* don't forget to use strtolower() in index */
@@ -20,7 +18,6 @@ if (isset($_POST['pass']) && isset($_POST['email'])) {
     $queryOfSearchAdvisor = $open_connection->query($search_advisor);
     $num_rows = mysqli_num_rows($queryOfSearchAdvisor);
     // Check whether or not there has been a successful adviser creation
-
 
     if ($num_rows == 1) {
         session_start();

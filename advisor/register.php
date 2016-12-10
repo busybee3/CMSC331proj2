@@ -18,6 +18,8 @@
 
 <div class="errors">
    <?php 
+
+   /* not currently doing anyting: I think it's being cut off */
    if (isset($_POST["errors"]) && sizeof($_POST["errors"]))
      foreach ($_POST["errors"] as $error) 
        echo $error."<br>";
@@ -62,15 +64,6 @@
 
 </div>
 </form>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script>
-   $(document).ready(function(){ 
-       $(".btn").click(function() { 
-	   $(this).toggleClass("active");
-	 });
-     });
-</script>
 
 </body>
 </html>
