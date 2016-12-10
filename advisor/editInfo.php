@@ -121,9 +121,10 @@ if (isset($_POST["roomNumber"])) {
   echo "<br>";
   echo "<br>";
   echo "<br>";
-  $conn = new Common(true);
+  $conn = new Common(false);
   $conn->executeQuery("UPDATE Advisor SET roomNumber='".$_POST["roomNumber"]."', buildingName='".$_POST["buildingName"]."' WHERE advisorID=".$_SESSION["ADVISOR_ID"].";", $_SERVER["SCRIPT_NAME"]);
-  echo "HERE!";
+  $_SESSION["ADVISOR_RM_NUM"] = $_POST["roomNumber"];
+  $_SESSION["ADVISOR_BLDG_NAME"] = $_POST["buildingName"];
 }
 ?>
 
