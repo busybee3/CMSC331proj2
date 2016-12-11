@@ -69,6 +69,9 @@ margin: 100px 38px;
 session_start();
 $studentID = $_SESSION["STUDENT_ID"];  
 $_SESSION["STUDENT_ID"] = $studentID;
+$studentEmail = $_SESSION["STUDENT_EMAIL"];
+$_SESSION["STUDENT_EMAIL"] = $studentEmail;
+
 
 //connect to database
 include 'CommonMethods.php';
