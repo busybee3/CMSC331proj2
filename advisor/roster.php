@@ -5,7 +5,7 @@
 </head>
 
 <body>
-  <div style="max-width: 650px; margin: 0 auto;">
+  <div style="max-width: 850px; margin: 0 auto;">
     <?php 
     include('CommonMethods.php');
     $conn = new Common(false);
