@@ -355,9 +355,7 @@ if(isset($_SESSION['studentID'])){
     <button type="button" class="btn btn-1" name="major" value="Chemeducation">Chemeducation</button>
     <button type="button" class="btn btn-1" name="major" value="Other">Other</button>
 
-  </div><br>
-
-   
+  </div><br>   
 
 
       <div class="btn-group" role="group">    

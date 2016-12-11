@@ -45,10 +45,6 @@ h2 {
 
 }
 
-.btn:active, .btn:visited {
-  background-color: black;
-}
-
 .active {
   background-color:black;
   border-color:black;
