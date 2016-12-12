@@ -1,5 +1,28 @@
 <?php
+
+// Connect to the db.
+include 'CommonMethods.php';
+$fileName = "login.php";  
+$debug = false;
+$COMMON = new Common($debug);
+
+// Query to see if the advising site is shut down. 
+$site_status = "SELECT * FROM Advisor WHERE advisorID=1";
+$site_status_query = $COMMON->executequery($site_status, $fileName);
+$site_status_results = mysql_fetch_row($site_status_query);
+
+// If so, redirect.
+if ($site_status_results[1] == 1) {
+
+  header('Location: shutdown.php');
+
+}
+
+// Open session to see if there is an 
+// open session, and redirects to student
+// dashboard if so.
 session_start();
+
 // Checks to see if the user is logged in, if so it redirects them to homepage
 if (isset($_SESSION["HAS_LOGGED_IN"])) {
   if ($_SESSION["HAS_LOGGED_IN"]) {
@@ -7,7 +30,6 @@ if (isset($_SESSION["HAS_LOGGED_IN"])) {
   }
 }
 
-include 'CommonMethods.php';  
 
   //declare and define empty login_error
   $login_error = "";
@@ -15,9 +37,6 @@ include 'CommonMethods.php';
 if ($_POST) {
 
   $email = strtolower($_POST["email"]);
-  $debug = false;
-  $COMMON = new Common($debug);
-  $fileName = "login.php";
   $password = $_POST["password"];
   $encryptPass = md5($password);
 
@@ -83,17 +102,18 @@ if ($_POST) {
   </div>
    <h3>The College of Natural Math and Science </h3>
    </div>
+   <center><span class="error"><font style="color:red" face="Arial"><?php echo $login_error;?></font></span><center>
 
    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
 
    <div class="login-form">
    <div class="control-group">
-   <input type="text" class="login-field" value="" name="email" placeholder="email" id="login-name">
+   <input type="text" class="login-field" value="" name="email" placeholder="email" id="login-name" required>
    <label class="login-field-icon fui-user" for="login-name"></label>
    </div>
 
    <div class="control-group">
-   <input type="password" class="login-field" value="" name="password" placeholder="password" id="login-pass">
+   <input type="password" class="login-field" value="" name="password" placeholder="password" id="login-pass" required>
    <label class="login-field-icon fui-lock" for="login-pass"></label>
    </div>
    

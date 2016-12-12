@@ -17,8 +17,8 @@ include('CommonMethods.php');
  session_start();
 
  $email_error_message = $pass_error_message = $fName_error_message = $lName_error_message = $password_match_error = "";
- $schoolID_error_message = $major_error_message = "";
- $email = $fName = $lName = $schoolID = $major = "";
+ $schoolID_error_message = $major_error_message = $career_error_message = "";
+ $email = $fName = $lName = $schoolID = $major = $career = "";
 
   
 if($_POST){    
@@ -63,6 +63,11 @@ if($_POST){
   if (isset($_POST["major_select"])) {
 
     $major = $_POST["major_select"]; 
+
+  }
+  if (isset($_POST["career_select"])) {
+
+    $career = $_POST["career_select"];
 
   }
 
@@ -136,10 +141,19 @@ if($_POST){
       $misc_error = true;
       $major_error_message = "Please enter your major.";
     }
+
+    if(empty($_POST["career_select"])){
+   
+      $misc_error = true;
+      $career_error_message = "Please enter your primary career track.";
+
+    }    
+
     if($password != $con_password){
       $misc_error = true;
       $password_match_error = "Passwords do not match.";
     }
+
 
   }
   
@@ -182,6 +196,11 @@ if($_POST){
       $misc_error = true;
       $major_error_message = "Please enter your major.";
     }
+
+    if(empty($_POST["career_select"])){
+      $misc_error = true;
+      $career_error_message = "Please enter your primary career track.";
+    }
   }
   
 
@@ -190,7 +209,7 @@ if($_POST){
 
     $futurePlans = "N/A";
     $advisingQuestions = "N/A";        
-    $sql = "INSERT INTO Student (email,password,firstName,middleName,lastName,schoolID,major) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major')";
+    $sql = "INSERT INTO Student (email,password,firstName,middleName,lastName,schoolID,major,careerTrack) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major','$career')";
         
 
 
@@ -294,13 +313,13 @@ if(isset($_SESSION['studentID'])){
     <div class='text_div' style="font-size: 20px">      
 
       <table>
-        <tr><td>First Name:</td></tr>
-        <tr><td>Preferred Name:</td></tr>
-        <tr><td>Last Name:</td></tr>
-        <tr><td>UMBC ID:</td></tr>
-        <tr><td>E-mail:</td></tr>
-        <tr><td>Password:</td></tr>
-        <tr><td>Confirm Password:</td></tr>
+        <tr><td><font color="white">First Name:</font></td></tr>
+        <tr><td><font color="white">Preferred Name:</font></td></tr>
+        <tr><td><font color="white">Last Name:</font></td></tr>
+        <tr><td><font color="white">UMBC ID:</font></td></tr>
+        <tr><td><font color="white">E-mail:</font></td></tr>
+        <tr><td><font color="white">Password:</font></td></tr>
+        <tr><td><font color="white">Confirm Password:</font></td></tr>
       </table>
       
       
@@ -336,16 +355,12 @@ if(isset($_SESSION['studentID'])){
       
       
 
-    </div>
-
-
-  
+    </div>  
 
         
-  <div class="btn-group" role="group">
+  <div class="btn-group" role="group" name="major" id="major">
  
-    Major that you will Pursue NEXT SEMESTER:<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $major_error_message;?></span><br> 
-      
+    Major that you will Pursue NEXT SEMESTER:<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $major_error_message;?></span><br>       
 
     <button type="button" class="btn btn-1" name="major" value="Biology">Biology</button>
     <button type="button" class="btn btn-1" name="major" value="Biochemistry">Biochemistry</button>        
@@ -355,12 +370,27 @@ if(isset($_SESSION['studentID'])){
     <button type="button" class="btn btn-1" name="major" value="Chemeducation">Chemeducation</button>
     <button type="button" class="btn btn-1" name="major" value="Other">Other</button>
 
-  </div><br>   
+  </div><br>  
+
+  <div class="btn-group" role="group" name="career" id="career">
+ 
+    Primary career track:<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $career_error_message;?></span><br> 
+      
+
+    <button type="button" class="btn2 btn-2" name="career" value="Research">Research</button>
+    <button type="button" class="btn2 btn-2" name="career" value="Health Profession">Health Profession</button>        
+    <button type="button" class="btn2 btn-2" name="career" value="Industry">Industry</button>
+    <button type="button" class="btn2 btn-2" name="career" value="Education">Education</button>
+    <button type="button" class="btn2 btn-2" name="career" value="Other">Other</button>
+    <button type="button" class="btn2 btn-2" name="career" value="Uncertain">Uncertain</button>
+
+  </div><br> 
 
 
       <div class="btn-group" role="group">    
       
-        <input type="hidden" name="major_select" value="" id="major_select">   
+        <input type="hidden" name="major_select" value="" id="major_select">
+        <input type="hidden" name="career_select" value="" id="career_select">   
         <input type="submit" value="REGISTER" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
         
         </form>
@@ -396,6 +426,22 @@ if(isset($_SESSION['studentID'])){
   
            var buttonVal = $(this).attr("value");
            $("#major_select").val(buttonVal);
+           
+	 });
+
+
+     });
+</script>
+
+<script>
+
+   $(document).ready(function(){ 
+       $(".btn2").click(function() { 
+
+	   $(this).toggleClass("active").siblings().removeClass("active");
+  
+           var buttonVal = $(this).attr("value");
+           $("#career_select").val(buttonVal);
            
 	 });
 

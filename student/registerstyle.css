@@ -3,6 +3,7 @@ body {
   background-color: black;
   margin: 0;
   padding: 0;
+  color: white;
 
 }
 
@@ -13,7 +14,7 @@ h1 {
   width: 100%;
   font-family: 'Open Sans', sans-serif;
 
-  font-size: 60px;
+  font-size: 45px;
   font-weight: 600;
   line-height: 200px;
   text-align: center;
@@ -34,6 +35,12 @@ h2 {
   color:white;
 }
 
+.btn2{
+  background-color:grey;
+  border-color:grey;
+  color:white;
+}
+
 .btn-group {
 
     ;
@@ -48,6 +55,20 @@ h2 {
 .active {
   background-color:black;
   border-color:black;
+  color: white;
+}
+
+.btn:focus {
+  background-color:black;
+  border-color:white;
+  color: white;
+}
+
+.btn:active{
+
+  background-color:black;
+  border-color:black;
+  color: white;
 }
 
 form {
@@ -70,6 +91,7 @@ table {
     border:none;
     border-collapse:collapse;
     margin: 0;
+    color: white;
 }
 td {
     border:none;
