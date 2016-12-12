@@ -68,6 +68,7 @@ if ($_POST) {
       $_SESSION["STUDENT_ID"] = $studentDict["StudentID"];
       $_SESSION["MAJOR"] = $studentDict["major"];
       $_SESSION["STUDENT_FNAME"] = $studentDict["firstName"];
+      $_SESSION["STUDENT_PNAME"] = $studentDict["middleName"];
       
       //redirectedd to index.php
       header('Location: home.php');

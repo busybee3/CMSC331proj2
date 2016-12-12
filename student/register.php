@@ -96,6 +96,18 @@ if($_POST){
     $student_exists = true;
     $email_error_message = "Record exists for this e-mail.";
   }
+
+  //query for student validation
+  $student_val_query = "SELECT * FROM Student WHERE schoolID = '$schoolID'";
+  
+  //query execution
+  $validation_query = $COMMON->executequery($student_val_query, $fileName);
+
+  //determines if atleast one record exists with entered email
+  if(mysql_num_rows($validation_query) > 0){
+    $student_exists = true;
+    $schoolID_error_message = "Record exists for this school ID.";
+  }
   
   //email validation, may not need nested ifs
   if(!preg_match($email_validation, $email)){

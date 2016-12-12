@@ -103,7 +103,27 @@ $meetingID = $row[2];
 <br/>
 
 <div class="greeting">
+
+<?php 
+
+// Print the preferred name if it's longer than 1 char.
+if (strlen($_SESSION["STUDENT_PNAME"]) > 0 && $_SESSION["STUDENT_PNAME"] != "") { ?>
+  Welcome, <?php echo ($_SESSION["STUDENT_PNAME"]); ?>!
+
+<?php
+
+}
+
+// Otherwise print the first name.
+else { ?>
+
   Welcome, <?php echo ($_SESSION["STUDENT_FNAME"]); ?>!
+
+<?php
+
+}
+
+?>
 </div>
 <br/>
 
