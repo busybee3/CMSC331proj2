@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html>
@@ -81,7 +82,7 @@ button {
 <br/>
 <br/>
 <br/>
-  
+
 <?php 
   session_start();
   if (!isset($_SESSION["HAS_LOGGED_IN"]) || !$_SESSION["HAS_LOGGED_IN"])
@@ -95,8 +96,9 @@ button {
 
 <div class="container">
 
+
    <button>
-   <a href="availability.php">
+   <a href="availability">
   <img src="https://s14.postimg.org/5dundt7ap/imageedit_1_8336523175.png" height="254px">
   </a>Set Availability
    </button>
@@ -120,12 +122,27 @@ button {
    </button>
 
 
+   <button>
+  <a href="roster.php" class="btn btn-info btn-lg">
+   <img src="http://www.ssmtouchfootball.com/uploaded/news/Clipboard-Roster-Icon.png" height="254px">
+</a>View Signup Roster
+   </button>
+
+
 
    <button>
  <a href="editInfo.php">
    <img src="http://image.flaticon.com/icons/svg/181/181540.svg" height="254px">
  </a> Edit Information
    </button>
+
+
+   <button>
+ <a href="student.php">
+  <img src="http://image.flaticon.com/icons/svg/181/181549.svg" height="254px" height="254px">
+ </a> Create Accounts
+   </button>
+
 
 </div>
 

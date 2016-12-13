@@ -1,45 +1,92 @@
+
 <?php
 
 include('CommonMethods.php');
-//check which advisor to query & if students have booked any appointments. If not, display the no appointments yet message
+//check which advisor to query & if students have booked any appointments. If not, display th no appointments yet message
 
 
-// This queries for the current session id
-if(isset($_GET['s'])){ 
+ // This queries for the current session id
 
-$advisor=$_GET['s'];
+echo'<br/>';
+echo'<br/>';
+echo'<br/>';
+echo'<br/>';
+echo'<br/>';
+echo'<br/>'; 
+   $conn = new Common(true);
+   $advisors = $conn->executeQuery("SELECT firstName, lastName FROM Advisor;", $_SERVER["SCRIPT_NAME"]);
 
-  $conn = new Common(true);
-  $apt_data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Meeting WHERE sessionLeaderID LIKE '{$advisor}';", $_SERVER["SCRIPT_NAME"]));
+$date = new DateTime('today + 2 days');
 
-  $student_ids = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM StudentMeeting WHERE MeetingID LIKE '{$apt_data['MeetingID']}';", $_SERVER["SCRIPT_NAME"]));
+$data = $conn->executeQuery("select * from Meeting join AdvisorMeeting on Meeting.meetingID=AdvisorMeeting.MeetingID join StudentMeeting on Meeting.meetingID=StudentMeeting.meetingID join Student on StudentMeeting.StudentID=Student.StudentID join questionsAndPlans on Student.email=questionsAndPlans.email where start like '".$date->format('Y-m-d')."%' order by start ;", $_SERVER["SCRIPT_NAME"]);
 
-  $students_data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Student WHERE StudentID LIKE '{$student_ids['StudentID']}';", $_SERVER["SCRIPT_NAME"]));
+/*$data = $conn->executeQuery("SELECT * FROM Meeting JOIN AdvisorMeeting ON Meeting.meetingID=AdvisorMeeting.MeetingID JOIN StudentMeeting ON Meeting.meetingID=StudentMeeting.meetingID JOIN Student ON StudentMeeting.StudentID=Student.StudentID WHERE start like ".2016-12-14%." ORDER by start,firstName",  $_SERVER["SCRIPT_NAME"]);
 
-  $wksht_data =  mysql_fetch_assoc($conn->executeQuery("SELECT * FROM questionsAndPlans WHERE email LIKE '{$students_data['email']}';", $_SERVER["SCRIPT_NAME"]));
+$date=date();
+*/
+/* add query to get type, and pre advising info
+   and make sure this is by date*/
 
-/*needed: current session id
-  advisor dictionary w name matched to id*/
 
+
+
+/*   $student_ids = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM StudentMeeting WHERE MeetingID LIKE '{$apt_data['MeetingID']}';", $_SERVER["SCRIPT_NAME"]));
+
+   $students_data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Student WHERE StudentID LIKE '{$student_ids['StudentID']}';", $_SERVER["SCRIPT_NAME"]));
+
+
+   $wksht_data =  mysql_fetch_assoc($conn->executeQuery("SELECT * FROM questionsAndPlans WHERE email LIKE '{$students_data['email']}';", $_SERVER["SCRIPT_NAME"]));
+*/
+
+
+
+
+
+
+
+/* SELECTION DROP-DOWN MENU */
 echo '
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
 <form action="" method="get">
 <div class="search-selection">
 <label for="search-selection">Showing Appoinments For </label>
-<select>
-  <option value="you" name="s">You</option>
-  <option value="advisor1">Emily Stephens</option>
-</select>
+';
+//output data of each row
+$all_advisors = array();
+
+echo'<select>';
+while ($names = mysql_fetch_assoc($advisors))
+  array_push($all_advisors, $names);
+foreach ($all_advisors as $names){
+  echo '
+     <option>'.$names['firstName'].' 
+     '.$names['lastName'].'</option>
+    ';
+};
+echo '</select>
 </div>
-</form>
+</form>';
 
 
+
+
+/* VIEW APPOINTMENTS (BY DAY) */  
+echo'
 <div id="appt_info">
 <br/>
-
 <table width="90%" border="1px" cellspacing"1px" cellpadding="tpx">
 <thead>
 <tr>
-<td colspan="6px" align="center"> WEDNESDAY, DECEMBER 14, 2016 </th>
+<td><a class="previous" href="view.php?off=-7"> &laquo;</a></td>
+<td colspan="6px" align="center">'.strtoupper(date("l, F j, Y")).'</th>
+<td><a class="plus" href="view.php?off=7"> &raquo; </a></td>
 </tr>
 <tr>
 <th>TIME</th>
@@ -50,40 +97,50 @@ echo '
 <th>PRE-ADVISING INFORMATION</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>'.$apt_data['start'].'</td>
-<td>'.$apt_data['meetingType'].'</td>
-<td>'.$students_data['firstName'].$students_data['lastName'].'</td>
-<td>'.$students_data['schoolID'].'</td>
-<td>'.$students_data['major'].'</td>
-<td>'.$students_data['futurePlans'].$data['advisingQuestions'].'</td>
-</tr>
-</tbody>
-</table>
-';
+<tbody>';
+
+// output data of each time on this day
+$count = 0;
+$type;
+
+$last_date="";
+while ($student = mysql_fetch_assoc($data)) {
+  echo "<tr>";
+  
+  if ($last_date != $student["start"])
+    $count = 0;
+
+  if ($count == 0) {
+    echo "<td>".(new DateTime($student["start"]))->format("g:i a");
+    if ($student["meetingType"] == '0') /*Individual Icon*/
+      echo "<td>  <img src='http://image.flaticon.com/icons/svg/181/181549.svg' height='54px'> <br/> Individual";
+ 
+    if ($student["meetingType"] == '1') /*Group Icon*/
+    echo "<td>  <img src='http://ddu548.minsk.edu.by/sm_full.aspx?guid=4673' height='54px'> <br/> Group";
+    $last_date = $student["start"];
+  }
+  else {
+    $last_date = $student["start"];
+    echo "<td>";
+    echo "<td>";
+  }
+
+  echo "<td>".$student["firstName"]." ".$student["lastName"];
+  echo "<td>".$student["schoolID"];
+  echo "<td>".$student["major"];
+  echo "<td>Future Plans- ".$student["futurePlans"]."<br/>Questions- ".$student["advisingQuestions"];
+  $count++;
 }
 
 
-else {
-  echo '
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 
-Showing Appointments for
-<select>
-  <option value="you">You</option>
-  <option value="advisor1">$name of advisorID 1</option>
-</select>
-
-
-  You currently have no appointments. Please check back later.
-
-'; }
+echo'
+</tbody>
+</table>
+</div>';
 ?>
+
+
 
 
 
@@ -106,7 +163,6 @@ ul {
  overflow: hidden;
    background-color: #333;
  }
-
 li {
   float: right;
 }
@@ -137,7 +193,7 @@ padding: 0;
 margin: 0;
   border-collapse: collapse;
 color: #333;
-background: #F3F5F7;
+background: white;
 }
 
 table a {
@@ -154,35 +210,33 @@ color: #777;
 table a:hover {
 color: #000;
 }
-
 table caption {
-text-align: left; 
-text-transform: uppercase;  
-padding-bottom: 10px; 
+  text-align: left;
+  text-transform: uppercase;
+  padding-bottom: 10px;
 font: 200% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;
 }
 
 table thead th {
-background: #3A4856; 
-padding: 15px 10px; 
-color: #fff; 
-text-align: left; 
-font-weight: normal;
+background: black; 
+padding: 15px 10px;
+color: #fff;
+  text-align: left;
+  font-weight: normal;
 }
 
 table tbody, table thead {
-border-left: 1px solid #EAECEE; 
-border-right: 1px solid #EAECEE;
-}
+  border-left: 1px solid #EAECEE;
+    border-right: 1px solid #EAECEE;
+    }
 
 table tbody {
-border-bottom: 1px solid #EAECEE;
-}
-                      
+  border-bottom: 1px solid #EAECEE;
+    }
 table tbody td, table tbody th {
-padding: 10px; 
-background: url("td_back.gif") repeat-x; 
-text-align: left;
+padding: 10px;
+background: url("td_back.gif") repeat-x;
+  text-align: left;
 }
 
 table tbody tr {
@@ -194,15 +248,15 @@ background: #F0F2F4;
 }
 
 table tbody  tr:hover {
-background: #EAECEE; 
+background: #EAECEE;
 color: #111;
 }
 
 table tfoot td, table tfoot th, table tfoot tr {
-text-align: left; 
+  text-align: left;
 font: 120%  "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;
-text-transform: uppercase; 
-background: #fff; 
+  text-transform: uppercase;
+background: #fff;
 padding: 10px;}
 
 </style>

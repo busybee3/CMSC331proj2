@@ -1,23 +1,26 @@
 
 <?php
 
-include_once('CommonMethods.php');
+include('CommonMethods.php');
   //Check if search data was submitted
 if(isset($_GET['s'])){
   $search_term=$_GET['s'];
 
   //Send the search term to our search class and store the result
-  $conn = new Common(false);
+  $conn = new Common(true);
   $data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Student WHERE schoolID LIKE '{$search_term}' OR email LIKE '{$search_term}';", $_SERVER["SCRIPT_NAME"]));
 
   $meeting_ids = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM StudentMeeting WHERE StudentID LIKE '{$data['StudentID']}';", $_SERVER["SCRIPT_NAME"]));
 
   $apt_data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Meeting WHERE meetingID LIKE '{$meeting_ids['MeetingID']}';", $_SERVER["SCRIPT_NAME"]));
 
+
   $wksht_data =  mysql_fetch_assoc($conn->executeQuery("SELECT * FROM questionsAndPlans WHERE email LIKE '{$data['email']}';", $_SERVER["SCRIPT_NAME"]));
 
 echo '
 <div class="search_bar">
+
+<!--self-submitting form -->
 <form action="" method="get">
 <div class="form-field">
 <label for="form-field">
@@ -51,8 +54,8 @@ echo '
 
 
   <h4>Pre-Advising Worksheet Responses:
-        Future Plans:'.$wksht_data['futurePlans'].'<br/><br/>
-        Advising Questions:'.$wksht_data['advisingQuestions'].'<br/>
+        Future Plans-'.$wksht_data['futurePlans'].'<br/><br/>
+        Advising Questions-'.$wksht_data['advisingQuestions'].'<br/>
 
 </div>
 </div>';
@@ -65,7 +68,6 @@ else{
 
 <div class="search_bar">
 
-<!--self-submitting form -->
 <form action="" method="get">
 <div class="form-field">
 <label for="form-field">
@@ -82,7 +84,6 @@ else{
 
   UMBC
 
-  ,
 
   STUDENT
 
@@ -98,8 +99,8 @@ else{
 
 
   <h4>Pre-Advising Worksheet Responses:</h4>
-        Future Plans:<br/><br/>
-        Advising Questions:<br/><br/>
+        Future Plans-<br/><br/>
+        Advising Questions-<br/><br/>
 
 
 </div>
@@ -163,11 +164,6 @@ min-height:100%;
 float:right;
 }
 
-.search_bar {
-text-align: center;
-  font-family: Arial;
-   text-transform: uppercase;
-}
 
 #name_col {
   float:left; 
