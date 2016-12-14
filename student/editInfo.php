@@ -8,6 +8,53 @@ body {
   background-color:#f5ca5c ;
  }
 
+button {
+  background-color: grey;
+border: none;
+olor: white;
+padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+display: inline-block;
+
+}
+
+.btn{
+  background-color:grey;
+  border-color:grey;
+  color:white;
+}
+
+.btn2{
+  background-color:grey;
+  border-color:grey;
+  color:white;
+}
+
+
+
+.active {
+  background-color:black;
+  border-color:black;
+  color: white;
+}
+
+.btn:focus {
+  background-color:black;
+  border-color:white;
+  color: white;
+}
+
+.btn:active{
+
+  background-color:black;
+  border-color:black;
+  color: white;
+}
+
+
+
 ul {
   font-family: Arial;
   list-style-type: none;
@@ -23,6 +70,8 @@ overflow: hidden;
 li {
   float: right;
 }
+
+
 
 .logo {
   float: left;
@@ -45,6 +94,7 @@ padding: 14px 20px;
 color: black;
 margin: auto;
 width: 50%;
+height: 469px;
 border: 3px solid green;
 padding: 20px;
  }
@@ -53,17 +103,6 @@ padding: 20px;
 text-align: center;
 }
 
-button {
-  background-color: grey;
-border: none;
-olor: white;
-padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-display: inline-block;
-
-}
 
 
 </style>
@@ -71,6 +110,64 @@ display: inline-block;
 </head>
 
 <body>
+
+<?php
+
+
+
+session_start();
+$studentEmail = $_SESSION["STUDENT_EMAIL"];
+$_SESSION["STUDENT_EMAIL"] = $studentEmail;
+
+// Connect to DB and pull the student's current Major.
+include('CommonMethods.php');
+$debug = false;
+$COMMON = new Common($debug);
+$fileName = "worksheet.php";
+
+// Update the major if asked.
+if (isset($_POST['updateMajor']) && $_POST['updateMajor'] != "") {
+
+  $newMajor = $_POST['updateMajor'];
+
+  $sql = "UPDATE Student SET major='$newMajor' WHERE email='$studentEmail'";
+  $rs = $COMMON->executeQuery($sql,$fileName);
+
+}
+
+// Update the career track if asked.
+if (isset($_POST['updateCareer']) && $_POST['updateCareer'] != "") {
+
+  $newCareer = $_POST['updateCareer'];
+
+  $sql = "UPDATE Student SET careerTrack='$newCareer' WHERE email='$studentEmail'";
+  $rs = $COMMON->executeQuery($sql,$fileName);
+
+}
+
+// Send an alert that the information was updated.
+if (isset($_POST['updateCareer']) || isset($_POST['updateMajor'])) {
+
+  $updateNotification = "Information updated!";
+  echo "<script type='text/javascript'>alert('$updateNotification');</script>";
+
+}
+
+// Grab whatever the data is after the update (if there was an update).
+$sql = "SELECT * FROM Student WHERE email = '$studentEmail'";
+$rs = $COMMON->executeQuery($sql,$fileName);
+$row = mysql_fetch_row($rs);
+
+// Column 7 is the major row.
+// Column 8 is current career track.
+$currentMajor = $row[7];
+$currentCareer = $row[8];
+
+
+
+
+?>
+
 
 <ul>
   <div class="logo">
@@ -85,27 +182,99 @@ display: inline-block;
 <h2>Edit Information</h2>
 </div>
 
-<h3>Your Major:</h3>
-
-      <button type="button" class="btn btn-1">Biology</button>
-      <button type="button" class="btn btn-1">Biochemistry</button>
-      <button type="button" class="btn btn-1">Bioinformatics</button>
-      <button type="button" class="btn btn-1">Bioeducation</button>
-      <button type="button" class="btn btn-1">Chemistry</button>
-      <button type="button" class="btn btn-1">Chemeducation</button><h3/>
-      <br/>
 
 
-<div class="update-button">
- <input type="submit" value="UPDATE" name="Update" style="background-color:#4CA
-F50; color: white; border-color: green; border: none; float: right; padding: 15
-px 32px;
-font-size: 16px;
-display: inline-block;
-">
 
-</div>
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+
+  <div class="btn-group" role="group" name="major">
+
+    <h3>Your Major:</h3>
+    
+    <button type="button" name="major" value="Biology" <?php if ($currentMajor == "Biology"){ ?> class="btn btn-default active" <?php } else {  ?> class="btn btn-1" <?php } ?> >Biology</button>
+    <button type="button" name="major" value="Biochemistry" <?php if ($currentMajor == "Biochemistry"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Biochemistry</button>
+    <button type="button" name="major" value="Bioinformatics" <?php if ($currentMajor == "Bioinformatics"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Bioinformatics</button>
+    <button type="button" name="major" value="Bioeducation" <?php if ($currentMajor == "Bioeducation"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Bioeducation</button>
+    <button type="button" name="major" value="Chemistry" <?php if ($currentMajor == "Chemistry"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Chemistry</button>
+    <button type="button" name="major" value="Chemeducation" <?php if ($currentMajor == "Chemeducation"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Chemeducation</button>
+    <br/>
+
+  </div>
+
+
+
+  <div class="btn-group" role="group" name="career">
+
+    <h3>Your Primary Career Track:</h3>  
+
+    
+    <button type="button" name="career" value="Research" <?php if ($currentCareer == "Research"){ ?> class="btn2 btn2-default active"  <?php } else {  ?> class="btn2 btn-2" <?php } ?> >Research</button>
+    <button type="button" name="career" value="Health Profession" <?php if ($currentCareer == "Health Profession"){ ?> class="btn2 btn2-default active"  <?php } else {  ?> class="btn2 btn-2" <?php } ?> >Health Profession</button>        
+    <button type="button" name="career" value="Industry" <?php if ($currentCareer == "Industry"){ ?> class="btn2 btn2-default active"  <?php } else {  ?> class="btn2 btn-2" <?php } ?> >Industry</button>
+    <button type="button" name="career" value="Education" <?php if ($currentCareer == "Education"){ ?> class="btn2 btn2-default active"  <?php } else {  ?> class="btn2 btn-2" <?php } ?> >Education</button>
+    <button type="button" name="career" value="Other" <?php if ($currentCareer == "Other"){ ?> class="btn2 btn2-default active"  <?php } else {  ?> class="btn2 btn-2" <?php } ?> >Other</button>
+    <button type="button" name="career" value="Uncertain" <?php if ($currentCareer == "Uncertain"){ ?> class="btn2 btn2-default active"  <?php } else {  ?> class="btn2 btn-2" <?php } ?> >Uncertain</button>
+
+  </div>
+
+  
+
+<br>
+
+  <div class="btn-group" role="group">
+
+    <input type="hidden" name="updateMajor" value="" id="updateMajor">
+    <input type="hidden" name="updateCareer" value="" id="updateCareer">
+    <input type="submit" value="UPDATE" name="Register" class="submit" style="color: white; background-color: green; float: right; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
+  
+    </form>
+   
+  </div>
+
+
+
+
+
+
 </div>
 
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+   $(document).ready(function(){ 
+       $(".btn").click(function() { 
+
+	   $(this).toggleClass("active").siblings().removeClass("active");
+  
+           var buttonVal = $(this).attr("value");
+           $("#updateMajor").val(buttonVal);
+           
+	 });
+
+
+     });
+
+</script>
+
+<script>
+
+   $(document).ready(function(){ 
+       $(".btn2").click(function() { 
+
+	   $(this).toggleClass("active").siblings().removeClass("active");
+  
+           var buttonVal = $(this).attr("value");
+           $("#updateCareer").val(buttonVal);
+           
+	 });
+
+
+     });
+
+</script>
+
 </html>

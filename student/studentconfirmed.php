@@ -2,7 +2,7 @@
 <html>
 <head>
 
-     <title>New Account Creation - Next Steps</title>
+     <title>Future Plans</title>
      <link rel="stylesheet" type="text/css" href="registerstyle.css">
 
 </head>
@@ -29,12 +29,11 @@ $rs = $COMMON->executeQuery($sql,$fileName);
 $row = mysql_fetch_row($rs);
 
 
-if (empty($row) && !$_POST) { ?>
-
+if (!$_POST) { ?>
 
   <div class="main-form">
     <div id="greeting-text"> 
-      <h1>Next Steps <br/></h1>
+      <h1>Account created successfully!<br/></h1>
     </div>
   </div>
 
@@ -42,68 +41,64 @@ if (empty($row) && !$_POST) { ?>
 
 <div class="main">
 
-  <fieldset>
+  <center>
+
+    Now that your account has been created, please take the time to answer<br>
+    the following questions, which will be of great benefit to your advisor<br>
+    during this process.<br><br>
   
-    <h3>What are your current post-UMBC plans? For example: Medical School, Teach
-    middle school science, Research career, Master's/PhD, etc. (max length: 128 characters)
-    </h3> 
-    <input type="text" align="center" name="futurePlans" maxlength="128">
+    What are your current post-UMBC plans? For example: Medical School, Teach<br>
+    middle school science, Research career, Master's/PhD, etc. (max length: 128 characters)<br>
+    
+    <input type="text" align="center" name="futurePlans" maxlength="128" style="width:450px"><br><br>
    
-    <h3>
-        Do you have any questions or concerns that you would like to discuss during
-        your advising session? For example: Withdrawing from a course, adding a
-        second major, etc. (max length: 128 characters)
-    </h3>
-    <input type="text" align="center" name="advisingQuestions" maxlength="128">
+    
+    Do you have any questions or concerns that you would like to discuss during<br>
+    your advising session? For example: Withdrawing from a course, adding a<br>
+    second major, etc. (max length: 128 characters)<br>
+    
+    <input type="text" align="center" name="advisingQuestions" maxlength="128" style="width:450px"><br>
 
 
-
-    <input type="submit" value="SUBMIT" name="Register" style="background-color:green;border-color:green">
-    </form>
-    <form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php" style="display:inline;">
-    <input type="submit" value="RETURN" name="Register" style="background-color:green;border-color:green">
+    <input type="submit" value="SUBMIT" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
     </form>
 
-  </fieldset>
+    <form action="index.php">
+      <input type="submit" value="RETURN" name="Return" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
+    </form>
+
+  </center>
 </div>
 
   <?php
 
 }
 
-else if (empty($row) && $_POST) {
+else if ($_POST) {
 
-  if (sizeof($_POST['futurePlans']) <= 1) {
+  $futurePlans = $_POST['futurePlans'];
+
+  $advisingQuestions = $_POST['advisingQuestions'];
+
+  if (strlen($futurePlans) <= 1) {
 
     $futurePlans = "N/A";
-
+  
   }
 
-  else{
-
-   $futurePlans = $_POST['futurePlans'];
-
-  }
-
-  if (sizeof($_POST['advisingQuestions']) <= 1) {
+  if (strlen($advisingQuestions) <= 1) {
 
     $advisingQuestions = "N/A";
 
   }
 
-  else{
-
-   $advisingQuestions = $_POST['advisingQuestions'];
-
-  }
-
-  $sql = "INSERT INTO questionsAndPlans (questionsplansID,email,futurePlans,advisingQuestions) VALUES ('','$studentEmail', '$futurePlans','$advisingQuestions')";
+  $sql = "UPDATE questionsAndPlans SET futurePlans='$futurePlans', advisingQuestions='$advisingQuestions' WHERE email='$studentEmail'";
   $rs = $COMMON->executeQuery($sql,$fileName);
 
   ?>
 
   <div id="greeting-text"> 
-    <h1>New user creation successful!<br/>
+    <h1>Answers recorded!<br/>
     You may now log in with your new user ID: <?php echo($studentEmail) ?>
     </h1>
   </div>
@@ -111,7 +106,7 @@ else if (empty($row) && $_POST) {
   <center>
     </form>
     <form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php">
-    <input type="submit" value="RETURN" name="Register" style="background-color:green;border-color:green">
+    <input type="submit" value="LOGIN" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
     </form>
   </center>
     

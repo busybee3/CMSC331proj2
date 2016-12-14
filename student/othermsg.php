@@ -7,6 +7,10 @@
 
 <body>
 
+  <div class="main-form"> 
+      <h1>Students of Other Majors</h1>
+  </div>
+
 <?php
 
 // Grab the session data to send back to
@@ -29,8 +33,8 @@ if(isset($_SESSION['studentfName'])){
 
 if(isset($_SESSION['studentmName'])){
 
-  $mName = $_SESSION['studentmName'];
-  $_SESSION['studentmName'] = $mName;
+  $pName = $_SESSION['studentpName'];
+  $_SESSION['studentpName'] = $pName;
 
 }
 
@@ -51,47 +55,47 @@ if(isset($_SESSION['studentID'])){
 ?>
 
 <html>
-<div class="main">
+<form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/register.php">
 
-<title>Other Majors</title>
-You have indicated that you plan to pursue a<br>
-major other than one of the following, beginning<br>
-next semester:
+<div class='container' style='float: right;'>
 
-<ul style="padding-left:20px">
-  <li>Biological Sciences B.A.</li>
-  <li>Biological Sciences B.S.</li>
-  <li>Biochemistry & Molecular Biology B.S.</li>
-  <li>Bioinformatics & Computational Biology B.S.</li>
-  <li>Biology Education B.A.</li>
-  <li>Chemistry B.A.</li>
-  <li>Chemistry B.S.</li>
-  <li>Chemistry Education B.A.</li>
-</ul>
+  <br>
+  You have indicated that you plan to pursue a<br>
+  major other than one of the following, beginning<br>
+  next semester:
 
-<br>
+  <ul style="padding-left:20px">
+    <li>Biological Sciences B.A.</li>
+    <li>Biological Sciences B.S.</li>
+    <li>Biochemistry & Molecular Biology B.S.</li>
+    <li>Bioinformatics & Computational Biology B.S.</li>
+    <li>Biology Education B.A.</li>
+    <li>Chemistry B.A.</li>
+    <li>Chemistry B.S.</li>
+    <li>Chemistry Education B.A.</li>
+  </ul>
 
-In order to obtain the BEST advice about course<br>
-selection, degree progress, and academic policy,<br>
-please meet with a representative of the<br>
-department that administers your NEW major.<br><br>
+  <br>
 
-You can find advising contact information for your<br>
-new major on the Office for Academic and Pre-Professional Advising Office's <a href="http://advising.umbc.edu/departmental-advising">Departmental<br>
-Advising page</a>. That contact person/office will be<br>
-able to give you instructions on how to schedule<br>
-an advising appointment with someone in that<br>
-area.<br><br>
+  In order to obtain the BEST advice about course<br>
+  selection, degree progress, and academic policy,<br>
+  please meet with a representative of the<br>
+  department that administers your NEW major.<br><br>
 
-Good luck with your new major!<br><br>
+  You can find advising contact information for your<br>
+  new major on the Office for Academic and Pre-Professional Advising Office's <a href="http://advising.umbc.edu/departmental-advising">Departmental<br>
+  Advising page</a>. That contact person/office will be<br>
+  able to give you instructions on how to schedule<br>
+  an advising appointment with someone in that<br>
+  area.<br><br>
 
-If you selected "Other" in error, click the button to return to the previous screen.<br>
+  Good luck with your new major!<br><br>
 
-<form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php">
-<input type="submit" value="RETURN TO LOGIN" name="Register" style="background-color:green;border-color:green">
-</form>
+  If you selected "Other" in error, click the button to return to the previous screen.<br>
 
-
+  <input type="submit" value="RETURN" class="submit" name="Register" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
+  </form>
 </div>
+
 </body>
 </html>

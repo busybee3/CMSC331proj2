@@ -63,6 +63,31 @@ margin: 100px 38px;
 </head>
 <body>
 
+<?php 
+
+// Open session and grab the data from it.
+session_start();
+$studentID = $_SESSION["STUDENT_ID"];  
+$_SESSION["STUDENT_ID"] = $studentID;
+$studentEmail = $_SESSION["STUDENT_EMAIL"];
+$_SESSION["STUDENT_EMAIL"] = $studentEmail;
+
+
+//connect to database
+include 'CommonMethods.php';
+$debug = false;
+$COMMON = new Common($debug);
+$filename = "home.php";
+
+//search for scheduled appointment - index 2 is the meetingID in the
+// StudentMeeting table.
+$scheduledAppt = "SELECT * FROM StudentMeeting WHERE StudentID = '$studentID'";
+$currentAppt = $COMMON->executequery($scheduledAppt, $filename);
+$row = mysql_fetch_row($currentAppt);
+$meetingID = $row[2];
+
+?>
+
 
 <ul>
   <div class="logo">
@@ -78,19 +103,36 @@ margin: 100px 38px;
 <br/>
 
 <div class="greeting">
-  Welcome, ____!
+
+<?php 
+
+// Print the preferred name if it's longer than 1 char.
+if (strlen($_SESSION["STUDENT_PNAME"]) > 0 && $_SESSION["STUDENT_PNAME"] != "") { ?>
+  Welcome, <?php echo ($_SESSION["STUDENT_PNAME"]); ?>!
+
+<?php
+
+}
+
+// Otherwise print the first name.
+else { ?>
+
+  Welcome, <?php echo ($_SESSION["STUDENT_FNAME"]); ?>!
+
+<?php
+
+}
+
+?>
 </div>
 <br/>
 
 <div class="container">
 
-   <button>
-   <a href="search.php">
-  <img src="https://s14.postimg.org/5dundt7ap/imageedit_1_8336523175.png" height="254px">
-  </a>Search for an Appointment
-   </button>
+<?php
 
-
+// If there's an appointment, allow them to view it.
+if ($row){ ?>
 
    <button>
    <a href="appointments.php" >
@@ -98,6 +140,24 @@ margin: 100px 38px;
 </a>View Appointment
    </button>
 
+<?php
+
+}
+
+// If not, allow them the ability to schedule.
+else if (!$row) { ?>
+
+   <button>
+   <a href="search.php">
+  <img src="https://s14.postimg.org/5dundt7ap/imageedit_1_8336523175.png" height="254px">
+  </a>Search for an Appointment
+   </button>
+
+<?php
+
+}
+
+?>
 
    <button>
    <a href="worksheet.php" >

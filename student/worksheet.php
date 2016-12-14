@@ -81,15 +81,65 @@ font-style: italic;
 <div id="header">
 <h2>Please Fill in your Responses</h2>
 </div>
+
+<?php
+
+session_start();
+$studentEmail = $_SESSION["STUDENT_EMAIL"];
+$_SESSION["STUDENT_EMAIL"] = $studentEmail;
+
+include('CommonMethods.php');
+$debug = false;
+$COMMON = new Common($debug);
+$fileName = "worksheet.php";
+
+$sql = "SELECT * FROM questionsAndPlans WHERE email = '$studentEmail'";
+$rs = $COMMON->executeQuery($sql,$fileName);
+$row = mysql_fetch_row($rs);
+
+$futurePlans = $row[2];
+$advisingQuestions = $row[3];
+
+if (isset($_POST['updateInfo'])) {
+
+  $futurePlans = $_POST['futurePlans'];
+
+  $advisingQuestions = $_POST['advisingQuestions'];
+
+  if (strlen($futurePlans) <= 1) {
+
+    $futurePlans = "N/A";
+  
+  }
+
+  if (strlen($advisingQuestions) <= 1) {
+
+    $advisingQuestions = "N/A";
+
+  }
+
+  $sql = "UPDATE questionsAndPlans SET futurePlans='$futurePlans', advisingQuestions='$advisingQuestions' WHERE email='$studentEmail'";
+  $rs = $COMMON->executeQuery($sql,$fileName);
+  echo("Information updated!");
+
+}
+
+?>
+
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+  <input type="hidden" name="updateInfo">
+
   What are your current post-UMBC plans? For example: Medical School, Teach
   middle school science, Research career, Master’s/PhD, etc. 
-  <br/><br/> Text box here <br/><br/>
+  <br/><br/> <input type="text" align="center" name="futurePlans" maxlength="128" style="width:800px; height: 34px; font-size: 26px;" <?php if(isset($futurePlans)) { ?> value="<?php echo($futurePlans); ?>" <?php } ?> ><br/><br/>
 
 Do you have any questions or concerns that you would like to discuss during
   your advising session? For example: Withdrawing from a course, adding a
   second major, etc. 
 
-<br/><br/>[free response text box, optional entry]<br/><br/>
+<br/><br/><input type="text" align="center" name="advisingQuestions" maxlength="128" style="width:800px; height: 34px; font-size: 26px;" <?php if(isset($advisingQuestions)) { ?> value="<?php echo($advisingQuestions); ?>" <?php } ?><br/><br/>
 
 <div id="note">
   Note: Certain questions and concerns may require more time for discussion than
@@ -104,7 +154,7 @@ follow-up appointment with an advisor to address it fully.
 
 <br/>
 <h3>Don't Forget to Print Out, Fill in, and Bring this Worksheet to your Appointment:</h3>
-<a href="#" target="_blank">Pre-Advising Worksheet PDF</a>
+<a href="http://userpages.umbc.edu/~slupoli/notes/ProgLanguages/projects/CollegeWideAdvising/part2/supplements/GENERIC%20Pre-Registration%20Sheet.pdf" target="_blank">Pre-Advising Worksheet PDF</a>
 
 <div class="update-button">
  <input type="submit" value="SAVE" name="Update" style="background-color:#4CAF50; color: white; border-color: gree\

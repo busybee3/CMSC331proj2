@@ -1,23 +1,20 @@
 body {
+
   background-color: black;
   margin: 0;
   padding: 0;
-}
-
-form {
-
-  display: inline;
-  margin: 0;
-  padding: 0;
+  color: white;
 
 }
+
 
 h1 {
   background-color: #F5CA5C;
-  height: 620px;
+  height: 20%;
   width: 100%;
-  font-family: 'Quicksand', sans-serif;
-  font-size: 80px;
+  font-family: 'Open Sans', sans-serif;
+
+  font-size: 45px;
   font-weight: 600;
   line-height: 200px;
   text-align: center;
@@ -32,35 +29,98 @@ h2 {
   font-weight: 100;
 }
 
-
 .btn{
   background-color:grey;
   border-color:grey;
   color:white;
 }
 
-.btn:active, .btn:visited {
-  background-color: black;
+.btn2{
+  background-color:grey;
+  border-color:grey;
+  color:white;
+}
+
+.btn-group {
+
+    ;
+    width: 700px;
+    margin-left: 300px;
+    margin-bottom: 5px;
+    height: 50px;
+    float: left;
+
 }
 
 .active {
   background-color:black;
   border-color:black;
+  color: white;
 }
-.main {
+
+.btn:focus {
+  background-color:black;
+  border-color:white;
+  color: white;
+}
+
+.btn:active{
+
+  background-color:black;
+  border-color:black;
+  color: white;
+}
+
+form {
+
   color: white;
   background-color: black;
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   margin: 0;
   padding: 0;
-  height: 700px;
+  height: 100%;
   width: 100%;
+  display: inline;
+
+}
+
+
+
+table {
+    border:none;
+    border-collapse:collapse;
+    margin: 0;
+    color: white;
+}
+td {
+    border:none;
+    height: 43px;
+    padding-top: 10px;
+    padding-bottom: 4px;
+    padding-left: 40px;
+    margin: 0;
+}
+
+.main {
+
+  color: white;
+  background-color: black;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+
 }
 
 
 .main-form {
+   
     text-align: center;
+    width: 100%;
+    margin: 0 auto;
 }
 
 
@@ -84,17 +144,19 @@ input {
 
 input[type=email] {
 
-    width: 200px;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    
+
 }
 
 input[type=text] {
-    width: 850px;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
@@ -105,90 +167,97 @@ input[type=text] {
 
 input[type=id] {
 
-    width: 200px;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    
 
 }
 
 input[type=password] {
-    width: 200px;   
+    width: 160px;   
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    
+
 }
 
 input[type=con_password] {
-    width: 200px;   
+    width: 160px;   
     padding: 12px 20px;
     padding-left: 20px;
-    margin: 8px 0;
+    margin: 6px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
     -webkit-text-security: disc;
+    
 }
 
 
 input[type=lname] {
-    width: 200px;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+   
 }
 
 input[type=prefname] {
  
-    width: 200px;   
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    
+
+
 }
 
 input[type=fname] {
 
-    width: 200px;
+    width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
-    margin: 8px 0;
+    margin: 6px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    
+
 }
 
 input[type=submit] {
 
-    width: 200px;
+    width: 60px;
     padding: 12px 20px;
     padding-left: 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    margin: 0;
+    color: green;
+
 }
 
 
 input:focus {
     border: 3px solid #555;
-}
-
-fieldset{
-  border:none;
-  width:750px;
-  margin-left:600px;
 }
 
 
@@ -201,22 +270,49 @@ fieldset{
 
 
 .submit{
-    background-color: #4CAF50;
-    border: none;
+
+    background-color: green;
+    border: green;
     color: white;
     padding: 15px 15px;
-    text-align: right;
+    text-align: center;
     text-decoration: none;
-    display: inline-block
+    display: inline;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
+    
 }
 
-label { 
+div.container{
+  width: 1100px;
+  height: 500px;
+  margin: auto;
+}
 
-  display: inline-block;  
-  width: 200px; 
-  text-align: left; 
+div.text_div{
+
+  width: 275px;
+  height: 500px;
+  float: left;
+  margin-left: 275px; 
 
 }
+
+div.input_div {
+
+  width: 475px;
+  height: 500px;
+  float: right;
+
+}
+
+div.button_div{
+
+  width: 600px;
+  height: 50px;
+  margin-bottom: 10px;
+   
+
+}
+
+
