@@ -1,7 +1,6 @@
-
 <?php
 
-include('CommonMethods.php');
+include('../CommonMethods.php');
 //check which advisor to query & if students have booked any appointments. If not, display th no appointments yet message
 
 
@@ -16,33 +15,12 @@ echo'<br/>';
    $conn = new Common(true);
    $advisors = $conn->executeQuery("SELECT firstName, lastName FROM Advisor;", $_SERVER["SCRIPT_NAME"]);
 
-$date = new DateTime('today + 2 days');
+$off = (isset($_GET["off"]) && $_GET["off"] > 0) ? $_GET["off"] : 0;
+$date = new DateTime("today  + $off days");
+
+/*$date = new DateTime('today + 2 days');*/
 
 $data = $conn->executeQuery("select * from Meeting join AdvisorMeeting on Meeting.meetingID=AdvisorMeeting.MeetingID join StudentMeeting on Meeting.meetingID=StudentMeeting.meetingID join Student on StudentMeeting.StudentID=Student.StudentID join questionsAndPlans on Student.email=questionsAndPlans.email where start like '".$date->format('Y-m-d')."%' order by start ;", $_SERVER["SCRIPT_NAME"]);
-
-/*$data = $conn->executeQuery("SELECT * FROM Meeting JOIN AdvisorMeeting ON Meeting.meetingID=AdvisorMeeting.MeetingID JOIN StudentMeeting ON Meeting.meetingID=StudentMeeting.meetingID JOIN Student ON StudentMeeting.StudentID=Student.StudentID WHERE start like ".2016-12-14%." ORDER by start,firstName",  $_SERVER["SCRIPT_NAME"]);
-
-$date=date();
-*/
-/* add query to get type, and pre advising info
-   and make sure this is by date*/
-
-
-
-
-/*   $student_ids = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM StudentMeeting WHERE MeetingID LIKE '{$apt_data['MeetingID']}';", $_SERVER["SCRIPT_NAME"]));
-
-   $students_data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Student WHERE StudentID LIKE '{$student_ids['StudentID']}';", $_SERVER["SCRIPT_NAME"]));
-
-
-   $wksht_data =  mysql_fetch_assoc($conn->executeQuery("SELECT * FROM questionsAndPlans WHERE email LIKE '{$students_data['email']}';", $_SERVER["SCRIPT_NAME"]));
-*/
-
-
-
-
-
-
 
 /* SELECTION DROP-DOWN MENU */
 echo '
@@ -72,10 +50,14 @@ foreach ($all_advisors as $names){
 };
 echo '</select>
 </div>
-</form>';
+</form>
 
-
-
+<form action>
+View by
+<button>Day</button>
+<button>Week</button>
+</form>
+';
 
 /* VIEW APPOINTMENTS (BY DAY) */  
 echo'
@@ -84,16 +66,16 @@ echo'
 <table width="90%" border="1px" cellspacing"1px" cellpadding="tpx">
 <thead>
 <tr>
-<td><a class="previous" href="view.php?off=-7"> &laquo;</a></td>
-<td colspan="6px" align="center">'.strtoupper(date("l, F j, Y")).'</th>
-<td><a class="plus" href="view.php?off=7"> &raquo; </a></td>
+<td><a class="previous" href="view.php?off='.($off-1).'"> &laquo;</a></td>
+<td colspan="6px" align="center">'.strtoupper($date->format("l, F j, Y")).'</th>
+<td><a class="plus" href="view.php?off='.($off+1).'"> &raquo; </a></td>
 </tr>
 <tr>
 <th>TIME</th>
 <th>TYPE</th>
-<th>NAMES</th>
-<th>IDs</th>
-<th>MAJORS</th>
+<th>NAME</th>
+<th>ID</th>
+<th>MAJOR</th>
 <th>PRE-ADVISING INFORMATION</th>
 </tr>
 </thead>
@@ -102,6 +84,14 @@ echo'
 // output data of each time on this day
 $count = 0;
 $type;
+$majors = array(
+		"Biology" => "Biological Sciences B.S.",
+		"Biochemistry" => "Biochemistry B.A.",
+		"Bioeducation" => "Biology Education B.A.",
+		"Bioinformatics" => "Bioinformatics B.S.",
+		"Chemistry" => "Chemistry B.S.",
+		"Chemeducation" => "Chemistry Education B.A."
+		);
 
 $last_date="";
 while ($student = mysql_fetch_assoc($data)) {
@@ -113,10 +103,10 @@ while ($student = mysql_fetch_assoc($data)) {
   if ($count == 0) {
     echo "<td>".(new DateTime($student["start"]))->format("g:i a");
     if ($student["meetingType"] == '0') /*Individual Icon*/
-      echo "<td>  <img src='http://image.flaticon.com/icons/svg/181/181549.svg' height='54px'> <br/> Individual";
+      echo "<td>  <img src='https://s30.postimg.org/66pdiek35/person_Icon.png' height='54px'>";
  
     if ($student["meetingType"] == '1') /*Group Icon*/
-    echo "<td>  <img src='http://ddu548.minsk.edu.by/sm_full.aspx?guid=4673' height='54px'> <br/> Group";
+    echo "<td>  <img src='http://ddu548.minsk.edu.by/sm_full.aspx?guid=4673' height='54px'>";
     $last_date = $student["start"];
   }
   else {
@@ -127,17 +117,22 @@ while ($student = mysql_fetch_assoc($data)) {
 
   echo "<td>".$student["firstName"]." ".$student["lastName"];
   echo "<td>".$student["schoolID"];
-  echo "<td>".$student["major"];
+  echo "<td>".$majors[$student["major"]];
   echo "<td>Future Plans- ".$student["futurePlans"]."<br/>Questions- ".$student["advisingQuestions"];
   $count++;
 }
 
 
+if (!mysql_num_rows($data))
+  echo "<p style='background-color: white; text-align: center;'> No meetings </p>";
 
 echo'
 </tbody>
 </table>
 </div>';
+
+
+
 ?>
 
 
@@ -149,7 +144,7 @@ echo'
 <html>
 
 <head>
-  <title>Search</title>
+  <title>View Appointments</title>
 <style>
 
 ul {
