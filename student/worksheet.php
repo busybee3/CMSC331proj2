@@ -84,6 +84,7 @@ font-style: italic;
 
 <?php
 
+// Grab session data and connect to db.
 session_start();
 $studentEmail = $_SESSION["STUDENT_EMAIL"];
 $_SESSION["STUDENT_EMAIL"] = $studentEmail;
@@ -93,19 +94,23 @@ $debug = false;
 $COMMON = new Common($debug);
 $fileName = "worksheet.php";
 
+// Query the db for the current information.
 $sql = "SELECT * FROM questionsAndPlans WHERE email = '$studentEmail'";
 $rs = $COMMON->executeQuery($sql,$fileName);
-$row = mysql_fetch_row($rs);
+$row = mysql_fetch_assoc($rs);
 
-$futurePlans = $row[2];
-$advisingQuestions = $row[3];
+$futurePlans = $row['futurePlans'];
+$advisingQuestions = $row['advisingQuestions'];
 
+
+// This only happens after a post.
 if (isset($_POST['updateInfo'])) {
 
   $futurePlans = $_POST['futurePlans'];
 
   $advisingQuestions = $_POST['advisingQuestions'];
 
+  // Just to have something in that field.
   if (strlen($futurePlans) <= 1) {
 
     $futurePlans = "N/A";
@@ -118,6 +123,7 @@ if (isset($_POST['updateInfo'])) {
 
   }
 
+  // Update the entries appropriately.
   $sql = "UPDATE questionsAndPlans SET futurePlans='$futurePlans', advisingQuestions='$advisingQuestions' WHERE email='$studentEmail'";
   $rs = $COMMON->executeQuery($sql,$fileName);
   echo("Information updated!");
