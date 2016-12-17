@@ -83,7 +83,7 @@ $conn = new Common(false);;
 $dates = array();
 
 echo "<br>";  
-echo "<table style='float: left';>";
+echo "<table style='float: left;'>";
 echo "<tr> <td> <button class='arrow' onclick='change_offset(".($offset-7).")'> &laquo; </button></td>";
 echo "<td colspan=5 style='text-align: right;'> <button class='arrow' onclick='change_offset(".($offset+7).")'> &raquo; </button></td></tr>";
 

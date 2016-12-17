@@ -28,6 +28,7 @@ if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
   if ($numOfErrors == 0) {
     // Use assigned variable stored in session
     $advisorID = $_SESSION["ADVISOR_ID"];
+    echo $advisorID;
     $startDate = new DateTime($start);
     // Add 30 mins
     $endDate = new DateTime($start);
@@ -60,20 +61,12 @@ if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
             '$formattedStartDate','$formattedEndDate','$bName', '$rNumber', $typeOfMeeting, 0 $specialMeeting
           )
         ";
-      $resultOfMeetingInsert = $conn->executeQuery($insertIntoMeetings, $_SERVER["SCRIPT_NAME"]);
-      // Create SQL query to find latest meeting ID and parse the data to find the int
-      $findTheMeetingID = "
-          SELECT MAX(Meeting.MeetingID)
-          FROM Meeting
-        ";
-      $meetingId = $conn->executeQuery($findTheMeetingID, $_SERVER["SCRIPT_NAME"]);
-      $fetchMeetingArray = mysql_fetch_array($meetingId);
+      $conn->executeQuery($insertIntoMeetings, $_SERVER["SCRIPT_NAME"]);
       // Create sql query to insert the meeting to advisor meeting
       $insertIntoAdvisingMeeting = "
           INSERT INTO
           AdvisorMeeting(advisorID,meetingID)
-          VALUES('$advisorID', '$fetchMeetingArray[0]')
-        ";
+          VALUES($advisorID, ".mysql_insert_id().")";
       $conn->executeQuery($insertIntoAdvisingMeeting, $_SERVER["SCRIPT_NAME"]);
       /* error_log($open_connection->error); */
 

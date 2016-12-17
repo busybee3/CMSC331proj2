@@ -5,6 +5,7 @@
 <body>
 
 <?php 
+include('delete.php');
 include('calendar.php');
 ?>
 

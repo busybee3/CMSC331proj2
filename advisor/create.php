@@ -27,4 +27,4 @@
    </div>
   <p>Number of weeks</p><input name="numWeeks" min=1 max=10 type="number" value=1><br>
   <input value="Create" class="create-btn" type="submit">
-</form>  
+</form>
