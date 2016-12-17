@@ -1,6 +1,6 @@
 <?php
 
-include('../CommonMethods.php');
+include('CommonMethods.php');
 //check which advisor to query & if students have booked any appointments. If not, display th no appointments yet message
 
 
