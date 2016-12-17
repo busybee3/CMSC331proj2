@@ -221,7 +221,7 @@ if($_POST){
 
     $futurePlans = "N/A";
     $advisingQuestions = "N/A";        
-    $sql = "INSERT INTO Student (email,password,firstName,middleName,lastName,schoolID,major,careerTrack) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major','$career')";
+    $sql = "INSERT INTO Student (email,password,firstName,preferredName,lastName,schoolID,major,careerTrack) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major','$career')";
         
 
 
