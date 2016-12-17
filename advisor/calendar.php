@@ -101,7 +101,7 @@ foreach ($times as $time) {
   echo "<tr>";
   foreach ($dates as $date) {
     $query = "SELECT * FROM Meeting JOIN AdvisorMeeting ON AdvisorMeeting.meetingID=Meeting.meetingID
-                WHERE start='".$date->format('Y-m-d')." ".$time->format('H:i:s')."';";;
+                WHERE start='".$date->format('Y-m-d')." ".$time->format('H:i:s')."' AND AdvisorID=".$_SESSION["ADVISOR_ID"].";";;
     $row = mysql_fetch_assoc($conn->executeQuery($query, $_SERVER["SCRIPT_NAME"]));
     if (!empty($row))
       echo "<td style='color: white;'><button class='meeting' onclick='display_info({$row['meetingID']})'>".$time->format("g:i a")."</button></td>";
