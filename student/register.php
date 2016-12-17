@@ -40,11 +40,9 @@ if ($site_status_bool == 0) {
 
 }
 
-
-
-
 session_start();
 
+// Set some values just in case they aren't set by POST.
 $email_error_message = $pass_error_message = $fName_error_message = $lName_error_message = $password_match_error = "";
 $schoolID_error_message = $major_error_message = $career_error_message = $birth_error_message = "";
 $email = $fName = $lName = $schoolID = $major = $career = "";
@@ -161,7 +159,9 @@ if($_POST){
   
   //email validation, may not need nested ifs
   if(!preg_match($email_validation, $email)){
-    
+
+  
+    // Ensure that every field was filled out.  
     $invalid_email = true;
   
     if(empty($_POST["email"]) || $invalid_email == true){
@@ -173,35 +173,43 @@ if($_POST){
     }
   
     if(empty($_POST["password"])){
+
       $misc_error = true;
       $pass_error_message = "Please choose a password.";
     }
+
     if(empty($_POST["con_password"]) || ($password != $con_password) ){
+
       $misc_error = true;
       $password_match_error = "Passwords do not match.";
+
     }
     if(empty($_POST["fName"])){
-      //echo "<br>Please enter first name.<br>";
+     
       $misc_error = true;
       $fName_error_message = "Please enter your first name.";
+
     }
     
     if(empty($_POST["lName"])){
-      //echo "<br>Please enter last name.<br>";
+     
       $misc_error = true;
       $lName_error_message = "Please enter your last name.";
+
     }
     
     if(empty($_POST["schoolID"])){
-      //echo "<br>Please enter school id.<br>";
+
       $misc_error = true;
       $schoolID_error_message = "Please enter your school ID.";
+
     }
     
     if(empty($_POST["major_select"])){
-      //echo "<br>Please enter major.<br>";
+
       $misc_error = true;
       $major_error_message = "Please enter your major.";
+
     }
 
     if(empty($_POST["career_select"])){
@@ -211,15 +219,22 @@ if($_POST){
 
     }    
 
-    if($password != $con_password){
-      $misc_error = true;
-      $password_match_error = "Passwords do not match.";
-    }
-
     if(empty($_POST["birth_city"])){
+
       $misc_error = true;
       $birth_error_message = "Please enter a city.";
+
     }
+
+
+    // Ensure that the password matches the confirmation password.
+    if($password != $con_password){
+
+      $misc_error = true;
+      $password_match_error = "Passwords do not match.";
+
+    }
+
 
 
   }
@@ -227,50 +242,68 @@ if($_POST){
   //additional field validation
   if(preg_match($email_validation, $email)){
 
+    // Ensure data has been entered in all fields.
     if(empty($_POST["email"])){
-      //echo "<br>Please enter email.<br>";
+
       $misc_error = true;
       $email_error_message = "Please enter an e-mail address.";
+
     }
     
     if(empty($_POST["password"])){
+
       $misc_error = true;
       $pass_error_message = "Please choose a password.";
+
     }
+
     if(empty($_POST["con_password"]) || ($password != $con_password) ){
+
       $misc_error = true;
       $password_match_error = "Passwords do not match";
+
     }
+
     if(empty($_POST["fName"])){
-      //echo "<br>Please enter first name.<br>";
+
       $misc_error = true;
       $fName_error_message = "Please enter your first name.";
+
     }
     
     if(empty($_POST["lName"])){
-      //echo "<br>Please enter last name.<br>";
+
       $misc_error = true;
       $lName_error_message = "Please enter your last name.";
+
     }
     
     if(empty($_POST["schoolID"])){
-      //echo "<br>Please enter school id.<br>";
+
       $misc_error = true;
       $schoolID_error_message = "Please enter your school ID.";
+
     }
     
     if(empty($_POST["major_select"])){
+
       $misc_error = true;
       $major_error_message = "Please enter your major.";
+
     }
 
     if(empty($_POST["career_select"])){
+
       $misc_error = true;
       $career_error_message = "Please enter your primary career track.";
+
     }
+
     if(empty($_POST["birth_city"])){
+
       $misc_error = true;
       $birth_error_message = "Please enter a city.";
+
     }
   }
   
@@ -278,16 +311,15 @@ if($_POST){
   //query activity after determining if no errors have occured
   if($invalid_email == false && $misc_error == false && $student_exists == false){
 
+    // Set some default values.
     $futurePlans = "N/A";
     $advisingQuestions = "N/A";        
-    $sql = "INSERT INTO Student (email,password,firstName,preferredName,lastName,schoolID,major,careerTrack,birthCity) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major','$career','$birth_city')";
         
 
-
-    //executes query and directs to confirmation page
-    // ***UPDATE** Added confirmation page, and the redirect.
-    // Also checked to make sure the major was not "Other".
     if($major != "Other"){
+
+      // Insert the data into the Student table.
+      $sql = "INSERT INTO Student (email,password,firstName,preferredName,lastName,schoolID,major,careerTrack,birthCity) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major','$career','$birth_city')";
 
       // Execute the query.
       $rs = $COMMON->executeQuery($sql,$fileName);
@@ -295,7 +327,6 @@ if($_POST){
       // Also create an entry in the questions / plans table.
       $sql = "INSERT INTO questionsAndPlans (questionsplansID, email, futurePlans, advisingQuestions) VALUES ('','$email','$futurePlans','$advisingQuestions')";
       $rs = $COMMON->executeQuery($sql,$fileName); 
-
 
       // Send the email to the confirmation page
       // to print.
@@ -308,6 +339,8 @@ if($_POST){
 
     else {
 
+      // Store the data in the session so the user 
+      // won't have to re-enter it.
       $_SESSION['studentEmail'] = $email;
       $_SESSION['studentfName'] = $fName;
       $_SESSION['studentpName'] = $pName;
@@ -320,7 +353,7 @@ if($_POST){
 }
 
 
-// **UPDATE** Grab the previously entered data from
+// Grab the previously entered data from
 // the session, if available to add it back into the
 // fields in the form. Convenience feature.
 
@@ -445,7 +478,7 @@ if(isset($_SESSION['studentID'])){
     <button type="button" class="btn btn-1" name="major" value="ChemBA">Chemistry B.A.</button>
     <button type="button" class="btn btn-1" name="major" value="ChemBS">Chemistry B.S.</button><br>
     <button type="button" class="btn btn-1" name="major" value="ChemEdBA">Chemistry Education B.A.</button>
-    <button type="button" class="btn btn-1" name="major" value="Other">Other</button>  
+    <button type="button" class="btn btn-1" name="major" value="Other">Other</button>    
 
   </div><br>  
 

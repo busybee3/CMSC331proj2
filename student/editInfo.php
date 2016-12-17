@@ -115,7 +115,6 @@ text-align: center;
 <?php
 
 
-
 session_start();
 $studentEmail = $_SESSION["STUDENT_EMAIL"];
 $_SESSION["STUDENT_EMAIL"] = $studentEmail;
@@ -159,13 +158,9 @@ $sql = "SELECT * FROM Student WHERE email = '$studentEmail'";
 $rs = $COMMON->executeQuery($sql,$fileName);
 $row = mysql_fetch_assoc($rs);
 
-// Column 7 is the major row.
-// Column 8 is current career track.
+// Parse the query.
 $currentMajor = $row['major'];
 $currentCareer = $row['careerTrack'];
-
-
-
 
 ?>
 
@@ -194,6 +189,7 @@ $currentCareer = $row['careerTrack'];
 
     <h3>Your Major:</h3>
     
+    <!-- Kinda a cool thing, this will set whatever is listed in the DB as the active button. -->
     <button type="button" name="major" value="BiologyBA" <?php if ($currentMajor == "BiologyBA"){ ?> class="btn btn-default active" <?php } else {  ?> class="btn btn-1" <?php } ?> >Biology B.A.</button>
     <button type="button" name="major" value="BiologyBS" <?php if ($currentMajor == "BiologyBS"){ ?> class="btn btn-default active" <?php } else {  ?> class="btn btn-1" <?php } ?> >Biology B.S.</button>
     <button type="button" name="major" value="BioChemBS" <?php if ($currentMajor == "BioChemBS"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Biochemistry & Molecular Biology B.S.</button>
