@@ -7,16 +7,32 @@ $debug = false;
 $COMMON = new Common($debug);
 
 // Query to see if the advising site is shut down. 
-$site_status = "SELECT * FROM Advisor WHERE advisorID=1";
+$site_status = "SELECT * FROM Advisor";
 $site_status_query = $COMMON->executequery($site_status, $fileName);
-$site_status_results = mysql_fetch_row($site_status_query);
+$site_status_bool = 0;
 
-// If so, redirect.
-if ($site_status_results[1] == 1) {
+// Iterate through all the results
+while ($site_status_results = mysql_fetch_row($site_status_query)) {
+
+  // If any Advisor results show a 1, the shutdown message
+  // will not show, thus $site_status_bool is set to 1.
+  if ($site_status_results[1] == 1) {
+
+    $site_status_bool = 1;   
+  
+  }
+
+}
+
+// If the bool is still 0 at this point,
+// redirect.
+if ($site_status_bool == 0) {
 
   header('Location: shutdown.php');
 
 }
+
+
 
 // Open session to see if there is an 
 // open session, and redirects to student
@@ -30,17 +46,17 @@ if (isset($_SESSION["HAS_LOGGED_IN"])) {
   }
 }
 
-
   //declare and define empty login_error
   $login_error = "";
   
 if ($_POST) {
 
+  // Grab the e-mail and other data.
   $email = strtolower($_POST["email"]);
   $password = $_POST["password"];
   $encryptPass = md5($password);
-
   
+  // Query to see if there is a user with matching credentials.
   $login_val_query = "SELECT * FROM Student WHERE email = '$email' AND password = '$encryptPass'";
   $results = $COMMON->executequery($login_val_query, $fileName);
   
@@ -50,18 +66,13 @@ if ($_POST) {
     $login_error = "Invalid email and/or password.";
   }
 
+  // Input validation passes at this point.
   else{
-    // Search is advisor email exists in student
-    // Run raw sql query in attempt to create a new advisor
-    $search_student = "SELECT * FROM Student WHERE email='$email' AND password = '$encryptPass'";
-    $rs = $COMMON->executequery($search_student, $fileName);
-    // Check whether or not there has been a successful adviser creation
-    $num_rows = mysql_num_rows($rs);
-    
-    if ($num_rows == 1) {
+
+      // Send the necessary data to a new session and redirect.
       session_start();
       
-      $studentDict = mysql_fetch_assoc($rs);
+      $studentDict = mysql_fetch_assoc($results);
       
       $_SESSION["HAS_LOGGED_IN"] = true;
       $_SESSION["STUDENT_EMAIL"] = $studentDict["email"];
@@ -71,10 +82,10 @@ if ($_POST) {
       $_SESSION["STUDENT_PNAME"] = $studentDict["middleName"];
       
       //redirectedd to index.php
-      header('Location: home.php');
-      
-    }
+      header('Location: home.php');      
+    
   }
+
 }
 
 ?>
@@ -122,6 +133,8 @@ if ($_POST) {
      <a class="register-link" href="register.php">REGISTER</a>
      <input type="submit" value="LOGIN" name="Register" class="submit" style="color: white; background-color: green; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
    </form>
+   <br><br>
+   <a href="passwordreset.php"><font face="Arial" style="color:black">I forgot my password.</font></a>
    </div>
    
    
