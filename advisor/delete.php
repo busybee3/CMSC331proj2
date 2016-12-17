@@ -1,5 +1,6 @@
+
+<div id="delete" style="float: left;">
 <h3>Delete Meetings</h3>
-<div style="display: inline-block;">
 <form action="deleteMeetings.php" method="POST">
    <p>From:</p>
    <input type="date" name="delete-from"> 
@@ -11,6 +12,6 @@
    <input type="radio" name="delete-specification" value=0>Empty only</input> <br>
    <input type="radio" name="delete-specification" value=1>All</input> <br>
 
-   <input type="submit" value="Delete">
+   <input type="submit" value="Delete" class="create-btn">
 </form>
 </div>

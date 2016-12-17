@@ -74,5 +74,5 @@ if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
       $endDate->modify("+1 week");
     }
   }
-  /* header('calendar_base.php'); */
+  header('calendar_base.php');
 }
