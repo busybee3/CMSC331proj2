@@ -45,11 +45,19 @@ if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
 
       $formattedStartDate = $startDate->format('Y-m-d H:i:s');
       $formattedEndDate = $endDate->format('Y-m-d H:i:s');
-
+      
+      $whichGroup = "";
+      $specialMeeting = "";
+      $specialGroups = array(", meyerhoffMeeting", ", athleteMeeting", ", honorsMeeting"); 
+      $specialValues = array(", 0", ", 1", ", 2");
+      if ($typeOfMeeting == 2) {
+	$whichGroup=$specialGroups[$_POST["special"]];
+	$specialMeeting = ", true";
+      }
       $insertIntoMeetings = "
-          INSERT INTO Meeting(start,end,buildingName,roomNumber, meetingType, numStudents)
+          INSERT INTO Meeting(start,end,buildingName,roomNumber, meetingType, numStudents $whichGroup)
           VALUES (
-            '$formattedStartDate','$formattedEndDate','$bName', '$rNumber', $typeOfMeeting, 0
+            '$formattedStartDate','$formattedEndDate','$bName', '$rNumber', $typeOfMeeting, 0 $specialMeeting
           )
         ";
       $resultOfMeetingInsert = $conn->executeQuery($insertIntoMeetings, $_SERVER["SCRIPT_NAME"]);
@@ -73,5 +81,5 @@ if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
       $endDate->modify("+1 week");
     }
   }
-  header('calendar_base.php');
+  /* header('calendar_base.php'); */
 }

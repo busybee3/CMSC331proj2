@@ -45,6 +45,16 @@ function change_offset(offset) {
   }
   new_calendar.send(null);
 }
+
+
+function special_check(select) {
+  if (select.value == 2) {
+    document.getElementById("special-group").style.display="block";
+    return;
+  }
+  document.getElementById("special-group").style.display="none";  
+}  
+
 </script>
 
 <?php
@@ -78,7 +88,6 @@ echo "<tr> <td> <button class='arrow' onclick='change_offset(".($offset-7).")'> 
 echo "<td colspan=5 style='text-align: right;'> <button class='arrow' onclick='change_offset(".($offset+7).")'> &raquo; </button></td></tr>";
 
 echo "<tr>";
-echo "<td></td>";
 for ($i = 0; $i < 7; $i++) {
   if (intval($today->format("N") < 6)) {
     echo "<td>".$today->format("D")."<br>".$today->format("(m/d)")."</td>";
@@ -89,15 +98,15 @@ for ($i = 0; $i < 7; $i++) {
 echo "</tr>";
 
 foreach ($times as $time) {
-  echo "<tr> <td> {$time->format('g:i a')}</td>";
+  echo "<tr>";
   foreach ($dates as $date) {
     $query = "SELECT * FROM Meeting JOIN AdvisorMeeting ON AdvisorMeeting.meetingID=Meeting.meetingID
                 WHERE start='".$date->format('Y-m-d')." ".$time->format('H:i:s')."';";;
     $row = mysql_fetch_assoc($conn->executeQuery($query, $_SERVER["SCRIPT_NAME"]));
     if (!empty($row))
-      echo "<td style='color: white;'><button class='meeting' onclick='display_info({$row['meetingID']})'>Select</button></td>";
+      echo "<td style='color: white;'><button class='meeting' onclick='display_info({$row['meetingID']})'>".$time->format("g:i a")."</button></td>";
     else
-      echo "<td><button class='create' onclick='display_create(\"".$date->format('Y-m-d')." ".$time->format('H:i:s')."\")'>Create</button></td>";
+      echo "<td><button class='create' onclick='display_create(\"".$date->format('Y-m-d')." ".$time->format('H:i:s')."\")'>".$time->format("g:i a")."</button></td>";
   }
   echo "</tr>";
 }
