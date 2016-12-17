@@ -34,6 +34,18 @@ function display_create(datetime) {
   create.send(null);
 }
 
+function display_edit(datetime) {    
+  var edit = new XMLHttpRequest();
+  edit.open("GET", "edit.php?datetime=" + datetime);  
+  edit.onreadystatechange = function() {
+    if (edit.readyState == 4) {
+      document.getElementById("results").innerHTML = edit.responseText;
+      document.getElementById("students").innerHTML = "";
+    }
+  }
+  edit.send(null);
+}
+
 /* change the offset of the calendar */
 function change_offset(offset) {
   document.getElementById("calendar").innerHTML += "<h1>Loading ...</h1>";
@@ -62,7 +74,6 @@ echo "<div id='calendar'>";
 include("CommonMethods.php");
 if (session_status() == PHP_SESSION_NONE)
   session_start();
-
 /* 
  * creates a weekly calendar that uses asynchronous server requests to retrieve meeting information
  * and create new meetings without reloading the page. Deleting uses synchronous requests so that the calendar 
