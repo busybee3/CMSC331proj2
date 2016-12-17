@@ -8,17 +8,46 @@
 
 <?php
 
-include('CommonMethods.php');
+// Connect to the db.
+include 'CommonMethods.php';
+$fileName = "register.php";  
+$debug = false;
+$COMMON = new Common($debug);
 
- $debug = false;
- $COMMON = new Common($debug);
- $fileName = "register.php";
+// Query to see if the advising site is shut down. 
+$site_status = "SELECT * FROM Advisor";
+$site_status_query = $COMMON->executequery($site_status, $fileName);
+$site_status_bool = 0;
 
- session_start();
+// Iterate through all the results
+while ($site_status_results = mysql_fetch_row($site_status_query)) {
 
- $email_error_message = $pass_error_message = $fName_error_message = $lName_error_message = $password_match_error = "";
- $schoolID_error_message = $major_error_message = $career_error_message = "";
- $email = $fName = $lName = $schoolID = $major = $career = "";
+  // If any Advisor results show a 1, the shutdown message
+  // will not show, thus $site_status_bool is set to 1.
+  if ($site_status_results[1] == 1) {
+
+    $site_status_bool = 1;   
+  
+  }
+
+}
+
+// If the bool is still 0 at this point,
+// redirect.
+if ($site_status_bool == 0) {
+
+  header('Location: shutdown.php');
+
+}
+
+
+
+
+session_start();
+
+$email_error_message = $pass_error_message = $fName_error_message = $lName_error_message = $password_match_error = "";
+$schoolID_error_message = $major_error_message = $career_error_message = $birth_error_message = "";
+$email = $fName = $lName = $schoolID = $major = $career = "";
 
   
 if($_POST){    
@@ -68,6 +97,12 @@ if($_POST){
   if (isset($_POST["career_select"])) {
 
     $career = $_POST["career_select"];
+
+  }
+
+  if (isset($_POST["birth_city"])) {
+
+    $birth_city = $_POST["birth_city"];
 
   }
 
@@ -166,6 +201,11 @@ if($_POST){
       $password_match_error = "Passwords do not match.";
     }
 
+    if(empty($_POST["birth_city"])){
+      $misc_error = true;
+      $birth_error_message = "Please enter a city.";
+    }
+
 
   }
   
@@ -213,6 +253,10 @@ if($_POST){
       $misc_error = true;
       $career_error_message = "Please enter your primary career track.";
     }
+    if(empty($_POST["birth_city"])){
+      $misc_error = true;
+      $birth_error_message = "Please enter a city.";
+    }
   }
   
 
@@ -221,7 +265,7 @@ if($_POST){
 
     $futurePlans = "N/A";
     $advisingQuestions = "N/A";        
-    $sql = "INSERT INTO Student (email,password,firstName,middleName,lastName,schoolID,major,careerTrack) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major','$career')";
+    $sql = "INSERT INTO Student (email,password,firstName,preferredName,lastName,schoolID,major,careerTrack,birthCity) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major','$career','$birth_city')";
         
 
 
@@ -332,6 +376,7 @@ if(isset($_SESSION['studentID'])){
         <tr><td><font color="white">E-mail:</font></td></tr>
         <tr><td><font color="white">Password:</font></td></tr>
         <tr><td><font color="white">Confirm Password:</font></td></tr>
+	<tr><td><font color="white"">City of Your Birth: (In case of forgotten password.)</font></td></tr>
       </table>
       
       
@@ -364,6 +409,9 @@ if(isset($_SESSION['studentID'])){
 
       <input type="con_password" name="con_password"><font style="color:red">*</font>
       <span class="error" style="color:red"> <?php echo $password_match_error;?></span><br>
+
+      <input type="fname" name="birth_city"><font style="color:red">*</font>
+      <span class="error" style="color:red"> <?php echo $birth_error_message;?></span><br>
       
       
 
@@ -399,21 +447,16 @@ if(isset($_SESSION['studentID'])){
   </div><br> 
 
 
-      <div class="btn-group" role="group">    
+  <div class="btn-group2" role="group">    
       
-        <input type="hidden" name="major_select" value="" id="major_select">
-        <input type="hidden" name="career_select" value="" id="career_select">   
-        <input type="submit" value="REGISTER" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
+    <input type="hidden" name="major_select" value="" id="major_select">
+    <input type="hidden" name="career_select" value="" id="career_select">
+    <a class="register-link" href="index.php">RETURN</a>   
+    <input type="submit" value="REGISTER" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
         
-        </form>
-
-         <form action="index.php">
-     
-          <input type="submit" value="RETURN" name="Return" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
-            
-         </form>
+</form>
       
-      </div>
+  </div>
 
 </div>  
 
