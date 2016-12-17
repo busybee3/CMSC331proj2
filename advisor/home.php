@@ -98,7 +98,7 @@ button {
 
 
    <button>
-   <a href="availability">
+   <a href="availability.php">
   <img src="https://s14.postimg.org/5dundt7ap/imageedit_1_8336523175.png" height="254px">
   </a>Set Availability
    </button>

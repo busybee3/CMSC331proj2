@@ -135,6 +135,7 @@ form.create-form {
 }
 
 #delete {
+    margin-right: 15px;
     display: inline-block;
     margin-top: 100px;
 }
@@ -147,3 +148,8 @@ form.create-form {
   display:none;
 }
 
+.calendar-container {    
+    margin: 0 auto;
+    max-width: 1000px;
+    margin-top: 30px;
+}
