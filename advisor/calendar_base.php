@@ -9,8 +9,10 @@ include('delete.php');
 include('calendar.php');
 ?>
 
-<div id='results'></div>
-<div id='students'></div>
+<div id="right-side">
+  <div id='results'></div>
+  <div id='students'></div>
+</div>
 
 </body>
 </html>
