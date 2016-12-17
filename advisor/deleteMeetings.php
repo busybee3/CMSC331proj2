@@ -14,7 +14,7 @@ $end = $_POST["delete-to"]." ".$_POST["delete-to-time"];
 
 $exceptThese = "";
 if (!$_POST["delete-specification"])
-  $exceptThese = "EXCEPT (SELECT Meeting_ID FROM StudentMeeting)";
+  $exceptThese = "AND Meeting.meetingID NOT IN (SELECT MeetingID FROM StudentMeeting)";
 
 $query = "DELETE Meeting, AdvisorMeeting FROM Meeting JOIN AdvisorMeeting ON AdvisorMeeting.MeetingID=Meeting.meetingID WHERE advisorID=".$_SESSION["ADVISOR_ID"]." AND start BETWEEN '{$start}:00' AND '{$end}:00' $exceptThese";
 $conn->executeQuery($query, $_SERVER["SCRIPT_NAME"]);
