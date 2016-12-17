@@ -445,7 +445,7 @@ if(isset($_SESSION['studentID'])){
     <button type="button" class="btn btn-1" name="major" value="ChemBA">Chemistry B.A.</button>
     <button type="button" class="btn btn-1" name="major" value="ChemBS">Chemistry B.S.</button><br>
     <button type="button" class="btn btn-1" name="major" value="ChemEdBA">Chemistry Education B.A.</button>
-    <button type="button" class="btn btn-1" name="major" value="Other">Other</button>
+    <button type="button" class="btn btn-1" name="major" value="Other">Other</button>   
 
   </div><br>  
 

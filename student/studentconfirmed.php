@@ -11,11 +11,13 @@
 
 <?php
 
+// Connect to the db.
 include('CommonMethods.php');
 $debug = false;
 $COMMON = new Common($debug);
 $fileName = "studentconfirmed.php";
 
+// Grab session data.
 session_start();
 
 if (isset($_SESSION['studentEmail'])){
@@ -24,12 +26,8 @@ if (isset($_SESSION['studentEmail'])){
 
 }
 
-$sql = "SELECT * FROM questionsAndPlans WHERE email = '$studentEmail'";
-$rs = $COMMON->executeQuery($sql,$fileName);
-$row = mysql_fetch_row($rs);
-
-
-if (!$_POST) { ?>
+// Normal page load, since there's no POST.
+if (!$_POST) { ?> 
 
   <div class="main-form">
     <div id="greeting-text"> 
@@ -65,9 +63,10 @@ if (!$_POST) { ?>
 
 }
 
+// If a POST is detected.
 else if ($_POST) {
 
-
+  // Grab the data that's posted.
   if (isset($_POST["futurePlans"])){ 
   
     $futurePlans = $_POST["futurePlans"];
@@ -80,6 +79,7 @@ else if ($_POST) {
 
   }
 
+  // Check to make sure they entered something.
   if (strlen($futurePlans) <= 1) {
 
     $futurePlans = "N/A";
@@ -92,11 +92,13 @@ else if ($_POST) {
 
   }
 
+  // Add the new data to the table.
   $sql = "UPDATE questionsAndPlans SET futurePlans='$futurePlans', advisingQuestions='$advisingQuestions' WHERE email='$studentEmail'";
   $rs = $COMMON->executeQuery($sql,$fileName);
 
   ?>
-
+ 
+  <!-- Print a message and redirect. -->
   <div id="greeting-text"> 
     <h1>Answers recorded!<br/>
     You may now log in with your new user ID: <?php echo($studentEmail) ?>
@@ -119,13 +121,6 @@ else if ($_POST) {
 
 </div>
 
-<script>
-
-function clearContents(element) {
-  element.value = '';
-}
-
-</script>
 
 </body>
 </html>
