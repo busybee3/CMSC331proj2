@@ -47,12 +47,12 @@ h2 {
     width: 700px;
     margin-left: 300px;
     margin-bottom: 5px;
-    height: 50px;
+    height: 115px;
     float: left;
 
 }
 
-.btn-group2 {
+.btn-group2 { 
 
     ;
     width: 500px;
@@ -63,11 +63,22 @@ h2 {
 
 }
 
-.btn-group3 {
+.btn-group3 { 
 
     ;
     width: 500px;
     margin-left: 500px;
+    margin-bottom: 5px;
+    height: 50px;
+    float: center;
+
+}
+
+.btn-group-degree {
+
+    ;
+    width: 100px;
+    margin-left: 0px;
     margin-bottom: 5px;
     height: 50px;
     float: center;
@@ -232,6 +243,17 @@ input[type=text] {
     width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+input[type=text_field] {
+    width: 450px; 
+    height: 160px;
+    padding: 0 0 0 0;
+    padding-left: 5px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;

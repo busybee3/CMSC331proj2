@@ -143,21 +143,6 @@ if($_POST){
     $student_exists = true;
     $schoolID_error_message = "Record exists for this school ID.";
   }
-
-  // Make sure there isn't an advisor account with that user ID.
-  // Commented out for now until I figure out what's up with umbc IDs 
-  // being on the Advisor table.
-
-//  $student_val_query = "SELECT * FROM Advisor WHERE schoolID = '$schoolID'";
-  
-  //query execution
-//  $validation_query = $COMMON->executequery($student_val_query, $fileName);
-
-  //determines if atleast one record exists with entered email
-//  if(mysql_num_rows($validation_query) > 0){
-//    $student_exists = true;
- //   $schoolID_error_message = "Record exists for this school ID.";
- // }
   
   //email validation, may not need nested ifs
   if(!preg_match($email_validation, $email)){
@@ -384,7 +369,7 @@ if(isset($_SESSION['studentID'])){
     <div class='text_div' style="font-size: 20px">      
 
       <table>
-        <tr><td><font color="white">First Name:</font></td></tr> 
+        <tr><td><font color="white">First Name:</font></td></tr>
         <tr><td><font color="white">Preferred Name:</font></td></tr>
         <tr><td><font color="white">Last Name:</font></td></tr>
         <tr><td><font color="white">UMBC ID:</font></td></tr>
@@ -437,15 +422,13 @@ if(isset($_SESSION['studentID'])){
  
     Major that you will Pursue NEXT SEMESTER:<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $major_error_message;?></span><br>       
 
-    <button type="button" class="btn btn-1" name="major" value="BiologyBA">Biological Sciences B.A.</button>
-    <button type="button" class="btn btn-1" name="major" value="BiologyBS">Biological Sciences B.S.</button>        
-    <button type="button" class="btn btn-1" name="major" value="BioChemBS">Biochemistry & Molecular Biology B.S.</button>
-    <button type="button" class="btn btn-1" name="major" value="BioInfoBS">Bioinformatics & Computational Biology B.S.</button>
-    <button type="button" class="btn btn-1" name="major" value="BioEdBA">Biology Education B.A.</button>
-    <button type="button" class="btn btn-1" name="major" value="ChemBA">Chemistry B.A.</button>
-    <button type="button" class="btn btn-1" name="major" value="ChemBS">Chemistry B.S.</button><br>
-    <button type="button" class="btn btn-1" name="major" value="ChemEdBA">Chemistry Education B.A.</button>
-    <button type="button" class="btn btn-1" name="major" value="Other">Other</button>  
+    <button type="button" class="btn btn-1" name="major" value="Biology">Biology</button>
+    <button type="button" class="btn btn-1" name="major" value="Biochemistry">Biochemistry</button>        
+    <button type="button" class="btn btn-1" name="major" value="Bioinformatics">Bioinformatics</button>
+    <button type="button" class="btn btn-1" name="major" value="Bioeducation">Bioeducation</button>
+    <button type="button" class="btn btn-1" name="major" value="Chemistry">Chemistry</button>
+    <button type="button" class="btn btn-1" name="major" value="Chemeducation">Chemeducation</button>
+    <button type="button" class="btn btn-1" name="major" value="Other">Other</button>
 
   </div><br>  
 

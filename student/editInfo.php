@@ -24,6 +24,7 @@ display: inline-block;
   background-color:grey;
   border-color:grey;
   color:white;
+  margin-bottom: 5px;
 }
 
 .btn2{
@@ -94,7 +95,7 @@ padding: 14px 20px;
 color: black;
 margin: auto;
 width: 50%;
-height: 469px;
+height: 580px; 
 border: 3px solid green;
 padding: 20px;
  }
@@ -156,12 +157,12 @@ if (isset($_POST['updateCareer']) || isset($_POST['updateMajor'])) {
 // Grab whatever the data is after the update (if there was an update).
 $sql = "SELECT * FROM Student WHERE email = '$studentEmail'";
 $rs = $COMMON->executeQuery($sql,$fileName);
-$row = mysql_fetch_row($rs);
+$row = mysql_fetch_assoc($rs);
 
 // Column 7 is the major row.
 // Column 8 is current career track.
-$currentMajor = $row[7];
-$currentCareer = $row[8];
+$currentMajor = $row['major'];
+$currentCareer = $row['careerTrack'];
 
 
 
@@ -193,12 +194,14 @@ $currentCareer = $row[8];
 
     <h3>Your Major:</h3>
     
-    <button type="button" name="major" value="Biology" <?php if ($currentMajor == "Biology"){ ?> class="btn btn-default active" <?php } else {  ?> class="btn btn-1" <?php } ?> >Biology</button>
-    <button type="button" name="major" value="Biochemistry" <?php if ($currentMajor == "Biochemistry"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Biochemistry</button>
-    <button type="button" name="major" value="Bioinformatics" <?php if ($currentMajor == "Bioinformatics"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Bioinformatics</button>
-    <button type="button" name="major" value="Bioeducation" <?php if ($currentMajor == "Bioeducation"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Bioeducation</button>
-    <button type="button" name="major" value="Chemistry" <?php if ($currentMajor == "Chemistry"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Chemistry</button>
-    <button type="button" name="major" value="Chemeducation" <?php if ($currentMajor == "Chemeducation"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Chemeducation</button>
+    <button type="button" name="major" value="BiologyBA" <?php if ($currentMajor == "BiologyBA"){ ?> class="btn btn-default active" <?php } else {  ?> class="btn btn-1" <?php } ?> >Biology B.A.</button>
+    <button type="button" name="major" value="BiologyBS" <?php if ($currentMajor == "BiologyBS"){ ?> class="btn btn-default active" <?php } else {  ?> class="btn btn-1" <?php } ?> >Biology B.S.</button>
+    <button type="button" name="major" value="BioChemBS" <?php if ($currentMajor == "BioChemBS"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Biochemistry & Molecular Biology B.S.</button>
+    <button type="button" name="major" value="BioInfoBS" <?php if ($currentMajor == "BioInfoBS"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Bioinformatics & Computational Biology B.S.</button>
+    <button type="button" name="major" value="BioEdBA" <?php if ($currentMajor == "BioEdBA"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Biology Education B.A.</button>
+    <button type="button" name="major" value="ChemBA" <?php if ($currentMajor == "ChemBA"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Chemistry B.A.</button>
+    <button type="button" name="major" value="ChemBS" <?php if ($currentMajor == "ChemBS"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Chemistry B.S.</button>
+    <button type="button" name="major" value="ChemEdBA" <?php if ($currentMajor == "ChemEdBA"){ ?> class="btn btn-default active"  <?php } else {  ?> class="btn btn-1" <?php } ?> >Chemistry Education B.A.</button>
     <br/>
 
   </div>
