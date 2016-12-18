@@ -44,7 +44,7 @@ session_start();
 
 // Set some values just in case they aren't set by POST.
 $email_error_message = $pass_error_message = $fName_error_message = $lName_error_message = $password_match_error = "";
-$schoolID_error_message = $major_error_message = $career_error_message = $birth_error_message = "";
+$schoolID_error_message = $major_error_message = $career_error_message = $birth_error_message = $spec_group_error_message = "";
 $email = $fName = $lName = $schoolID = $major = $career = "";
 
   
@@ -101,6 +101,12 @@ if($_POST){
   if (isset($_POST["birth_city"])) {
 
     $birth_city = $_POST["birth_city"];
+
+  }
+
+  if (isset($_POST["spec_group"])) {
+
+    $spec_group = $_POST["spec_group"];
 
   }
 
@@ -226,6 +232,13 @@ if($_POST){
 
     }
 
+    if(empty($_POST["spec_group"])){
+
+      $misc_error = true;
+      $spec_group_error_message = "Please select yes or no.";
+
+    }
+
 
     // Ensure that the password matches the confirmation password.
     if($password != $con_password){
@@ -305,6 +318,14 @@ if($_POST){
       $birth_error_message = "Please enter a city.";
 
     }
+
+    if(empty($_POST["spec_group"])){
+
+      $misc_error = true;
+      $spec_group_error_message = "Please select yes or no.";
+
+    }
+
   }
   
 
@@ -319,7 +340,7 @@ if($_POST){
     if($major != "Other"){
 
       // Insert the data into the Student table.
-      $sql = "INSERT INTO Student (email,password,firstName,preferredName,lastName,schoolID,major,careerTrack,birthCity) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major','$career','$birth_city')";
+      $sql = "INSERT INTO Student (email,password,firstName,preferredName,lastName,schoolID,major,careerTrack,birthCity,specialGroup) VALUES ('$email','$encryptPass', '$fName','$pName','$lName', '$schoolID','$major','$career','$birth_city',$spec_group)";
 
       // Execute the query.
       $rs = $COMMON->executeQuery($sql,$fileName);
@@ -480,7 +501,7 @@ if(isset($_SESSION['studentID'])){
     <button type="button" class="btn btn-1" name="major" value="ChemEdBA">Chemistry Education B.A.</button>
     <button type="button" class="btn btn-1" name="major" value="Other">Other</button>    
 
-  </div><br>  
+  </div>
 
   <div class="btn-group" role="group" name="career" id="career">
  
@@ -493,6 +514,16 @@ if(isset($_SESSION['studentID'])){
     <button type="button" class="btn2 btn-2" name="career" value="Education">Education</button>
     <button type="button" class="btn2 btn-2" name="career" value="Other">Other</button>
     <button type="button" class="btn2 btn-2" name="career" value="Uncertain">Uncertain</button>
+
+  </div>
+
+  <div class="btn-group" role="group" name="spec_group_buttons" id="spec_group_buttons">
+ 
+    Are you a member of a special group?<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $spec_group_error_message;?></span><br>       
+
+    <button type="button" class="btn btn-1" name="spec_group" value=1>Yes</button>
+    <button type="button" class="btn btn-1" name="spec_group" value=0>No</button>        
+
 
   </div><br> 
 

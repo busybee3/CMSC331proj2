@@ -41,14 +41,20 @@ h2 {
   color:white;
 }
 
+.btn3{
+  background-color:grey;
+  border-color:grey;
+  color:white;
+}
+
 .btn-group {
 
     ;
     width: 700px;
     margin-left: 300px;
     margin-bottom: 5px;
-    height: 115px;
-    float: left;
+    height: 100px;
+    float: left; 
 
 }
 
