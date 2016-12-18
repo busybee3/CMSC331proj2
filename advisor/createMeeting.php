@@ -1,6 +1,6 @@
 <?php
 session_start();
-date_default_timezone_set("EST");
+date_default_timezone_set("America/New_York");
 if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
   include 'CommonMethods.php';
   $conn = new Common(true);

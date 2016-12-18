@@ -44,13 +44,11 @@ if ($_POST) {
       array_push($_SESSION["messages"], "Successfully registered!");
       header('Location: index.php');
     } 
-
     else {
         array_push($_SESSION["errors"], "This email already exists!");
 	header('Location: register.php');
     }
-  } 
-
+  }
   else {      
       header('Location: register.php');
   }    
