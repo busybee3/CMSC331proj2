@@ -260,22 +260,23 @@ input[type="submit"] {
 
 
         <div class="col-md-3">
+          <h3 class="text-center">1. Select Type:</h3>
           <div class="well">
-            <h3 class="text-center">1. Select Type:</h3>
             <input type="radio" name="apptType" id="indiv" value="indiv"> Individual<br>
             <input type="radio" name="apptType" id="group" value="group"> Group<br>
           </div>
 
+    <h3 class="text-center">2. Select Advisor:</h3>
           <div class="well">
-            <h3 class="text-center">2. Select Advisor:</h3>
+
             <?php 
               while($rowtwo = mysql_fetch_array($advisors)){
                 echo '<input type="radio" name="advisors" value="' .$rowtwo['advisorID'].'"> ' .$rowtwo['Name']. '<br>'; }
             ?>
           </div>
 
+          <h3 class="text-center">3. Select Day(s):</h3>
           <div class="well">
-            <h3 class="text-center">3. Select Day(s):</h3>
             <input type="checkbox" name="days[]" value="0"> Monday<br>
             <input type="checkbox" name="days[]" value="1"> Tuesday<br>
             <input type="checkbox" name="days[]" value="2"> Wednesday<br>

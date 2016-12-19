@@ -51,7 +51,7 @@ if(isset($days))
     /* 	$days = implode("','", (array)$clean_days); */
     /*   } */
 
-    $queryTwo = "SELECT CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%a') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, Meeting.buildingName, Meeting.roomNumber, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND WEEKDAY(Meeting.start) IN ($days)";
+    $queryTwo = "SELECT CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%a') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
 
     $rs = $COMMON->executeQuery($queryTwo, $_SERVER["SCRIPT_NAME"]);
     
@@ -62,13 +62,12 @@ if(isset($days))
     } else {
 
       echo("<table border='1px'>");
-      echo("<th>advisor</th>");
-      echo("<th>weekday</th>");
-      echo("<th>date</th>");
-      echo("<th>start</th>");
-      echo("<th>end</th>");
-      echo("<th>building name</th>");
-      echo("<th>room number</th>");
+      echo("<th>Advisor</th>");
+      echo("<th>Weekday</th>");
+      echo("<th>Date</th>");
+      echo("<th>Start Time</th>");
+      echo("<th>End Time</th>");
+      echo("<th>Location</th>");
       echo("<th>num students</th>");
 
       while($row = mysql_fetch_row($rs))
