@@ -150,7 +150,7 @@ if (!$_POST) { ?>
 
 
   <br>
-  "Don't forget to fill out the" <a href="http://userpages.umbc.edu/~slupoli/notes/ProgLanguages/projects/CollegeWideAdvising/part2/supplements/GENERIC%20Pre-Registration%20Sheet.pdf" target="_blank"><u>Pre-Registraton Sheet</u></a>!      	
+  Don't forget to fill out the <a href="http://userpages.umbc.edu/~slupoli/notes/ProgLanguages/projects/CollegeWideAdvising/part2/supplements/GENERIC%20Pre-Registration%20Sheet.pdf" target="_blank"><u>Pre-Registraton Sheet</u></a>!      	
   <br>
   </div>
   <br>

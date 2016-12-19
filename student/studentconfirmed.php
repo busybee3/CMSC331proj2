@@ -11,13 +11,14 @@
 
 <?php
 
+
 // Connect to the db.
 include('../CommonMethods.php');
+
 $debug = false;
 $COMMON = new Common($debug);
 $fileName = "studentconfirmed.php";
 
-// Grab session data.
 session_start();
 
 if (isset($_SESSION['studentEmail'])){
@@ -26,7 +27,11 @@ if (isset($_SESSION['studentEmail'])){
 
 }
 
-// Normal page load, since there's no POST.
+$sql = "SELECT * FROM questionsAndPlans WHERE email = '$studentEmail'";
+$rs = $COMMON->executeQuery($sql,$fileName);
+$row = mysql_fetch_row($rs);
+
+
 if (!$_POST) { ?> 
 
   <div class="main-form">
@@ -49,12 +54,10 @@ if (!$_POST) { ?>
     <textarea rows="4" cols="50" name="advisingQuestions" maxlength="128" placeholder="For example: Withdrawing from course, adding a second major, etc..."></textarea><br><br>
 
 
+    <a class="return-link" href="index.php">LOGIN</a>  
     <input type="submit" value="SUBMIT" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
     </form>
 
-    <form action="index.php">
-      <input type="submit" value="RETURN" name="Return" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
-    </form>
 
   
 </div>
@@ -63,10 +66,9 @@ if (!$_POST) { ?>
 
 }
 
-// If a POST is detected.
 else if ($_POST) {
 
-  // Grab the data that's posted.
+
   if (isset($_POST["futurePlans"])){ 
   
     $futurePlans = $_POST["futurePlans"];
@@ -79,7 +81,6 @@ else if ($_POST) {
 
   }
 
-  // Check to make sure they entered something.
   if (strlen($futurePlans) <= 1) {
 
     $futurePlans = "N/A";
@@ -92,13 +93,11 @@ else if ($_POST) {
 
   }
 
-  // Add the new data to the table.
   $sql = "UPDATE questionsAndPlans SET futurePlans='$futurePlans', advisingQuestions='$advisingQuestions' WHERE email='$studentEmail'";
   $rs = $COMMON->executeQuery($sql,$fileName);
 
   ?>
- 
-  <!-- Print a message and redirect. -->
+
   <div id="greeting-text"> 
     <h1>Answers recorded!<br/>
     You may now log in with your new user ID: <?php echo($studentEmail) ?>
@@ -121,6 +120,13 @@ else if ($_POST) {
 
 </div>
 
+<script>
+
+function clearContents(element) {
+  element.value = '';
+}
+
+</script>
 
 </body>
 </html>

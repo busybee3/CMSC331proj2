@@ -1,7 +1,7 @@
 <?php
 
 // Connect to the db.
-include '../CommonMethods.php';
+include 'CommonMethods.php';
 $fileName = "login.php";  
 $debug = false;
 $COMMON = new Common($debug);
@@ -81,12 +81,12 @@ if ($_POST) {
       $_SESSION["STUDENT_FNAME"] = $studentDict["firstName"];
       $_SESSION["STUDENT_PNAME"] = $studentDict["middleName"];
       
-      //redirectedd to index.php
+      // Redirect to index.php
       header('Location: home.php');      
     
   }
 
-}
+} 
 
 ?>
 
