@@ -148,7 +148,7 @@ if ($row){ ?>
 else if (!$row) { ?>
 
    <button>
-   <a href="search.php">
+   <a href="approved.php">
   <img src="https://s14.postimg.org/5dundt7ap/imageedit_1_8336523175.png" height="254px">
   </a>Search for an Appointment
    </button>
