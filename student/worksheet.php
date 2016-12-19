@@ -156,6 +156,11 @@ follow-up appointment with an advisor to address it fully.
 <h3>Don't Forget to Print Out, Fill in, and Bring this Worksheet to your Appointment:</h3>
 <a href="http://userpages.umbc.edu/~slupoli/notes/ProgLanguages/projects/CollegeWideAdvising/part2/supplements/GENERIC%20Pre-Registration%20Sheet.pdf" target="_blank">Pre-Advising Worksheet PDF</a>
 
+<h3>Addition Resources</h3>
+<a href="https://swe.umbc.edu/~rabrew1/CMSC331/phpCode/project2/GatewayRequirements_Repeat%20Policy_Grades_Withdrawing.pdf" target="_blank">Gateway Requirements, Repeat Policy, Grades, and Withdrawing from Courses PDF</a>
+<br>
+<a href="https://swe.umbc.edu/~rabrew1/CMSC331/phpCode/project2/TakingaCourseOff-Campus.pdf" target="_blank">Taking Courses off-Campus PDF</a>
+
 <div class="update-button">
  <input type="submit" value="SAVE" name="Update" style="background-color:#4CAF50; color: white; border-color: gree\
 n; border: none; float: right; padding: 15px 32px;
