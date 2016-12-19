@@ -11,6 +11,8 @@
 
 <?php
 
+
+// Connect to db and open session.
 include('CommonMethods.php');
 $debug = false;
 $COMMON = new Common($debug);
@@ -21,8 +23,10 @@ session_start();
 
 if ($_POST) {
 
+  // Starts out false.
   $misc_error = false;
 
+  // Grab all the post data.
   if (isset($_POST['user_ID'])){
 
     $user_id = $_POST['user_ID'];
@@ -49,6 +53,7 @@ if ($_POST) {
 
   }
 
+  // Ensure that data was entered in all fields.
   if(empty($_POST['user_ID'])){
 
     $misc_error = true;
@@ -92,17 +97,20 @@ if ($_POST) {
 
   // If there aren't any results.
   if(!$row) {
-
+ 
+    $misc_error = true;
     $birth_error_message = "No matching account.";
 
   }
     
+  // Encrypt the password.
   $encryptPass = md5($new_password);
 
   // This means the user has been located in the db,
   // and updates can be made.
   if($misc_error == false){  
 
+    // Update the password.
     $sql = "UPDATE Student SET password='$encryptPass' WHERE schoolID='$user_id' and birthCity='$birth_city'";
     $rs = $COMMON->executeQuery($sql,$fileName);
     header('Location: passwordresetconfirmed.php');    

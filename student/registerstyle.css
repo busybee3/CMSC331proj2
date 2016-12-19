@@ -41,18 +41,34 @@ h2 {
   color:white;
 }
 
-.btn-group {
+.btn3{
+
+  background-color:grey;
+  border-color:grey;
+  color:white; 
+
+}
+
+.btn3 btn-3{
+
+  background-color:grey;
+  border-color:grey;
+  color:white; 
+
+}
+
+.btn-group{
 
     ;
     width: 700px;
     margin-left: 300px;
     margin-bottom: 5px;
-    height: 115px;
-    float: left;
+    height: 100px;
+    float: left; 
 
 }
 
-.btn-group2 {
+.btn-group2 { 
 
     ;
     width: 500px;
@@ -63,7 +79,7 @@ h2 {
 
 }
 
-.btn-group3 {
+.btn-group3 { 
 
     ;
     width: 500px;
@@ -74,7 +90,6 @@ h2 {
 
 }
 
-<<<<<<< HEAD
 .btn-group-degree {
 
     ;
@@ -86,8 +101,6 @@ h2 {
 
 }
 
-=======
->>>>>>> origin/master
 .active {
   background-color:black;
   border-color:black;
@@ -103,9 +116,11 @@ h2 {
 .btn:active{
 
   background-color:black;
-  border-color:black;
+  border-color:white;
   color: white;
+
 }
+
 
 .register-link {
   /*    font-size: 20px;
