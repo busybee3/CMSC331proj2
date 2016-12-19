@@ -68,7 +68,7 @@ else
     $apptType = 1;
   }
 
-if(isset($days))
+if(isset($_GET['days']) && !empty($_GET['days']))
   {
     /* foreach((array)$days as $key=>$value) */
     /*   { */
@@ -84,7 +84,7 @@ if(isset($days))
     $rs = $COMMON->executeQuery($queryTwo, $_SERVER["SCRIPT_NAME"]);
     
     if(!$rs){
-      echo "Cannot parse query";
+      echo "Cannot parse query.";
     } else if (mysql_num_rows($rs) == 0) {
       echo "There are no available appointments of this type.";
     } else {
@@ -110,7 +110,11 @@ if(isset($days))
 	  echo("</tr>");
 	}
       echo("</table>");
-    }  
+    }
+  }
+else
+  {
+    echo "Please make sure you complete all steps for the search.";
   }
 ?>
 </body>
