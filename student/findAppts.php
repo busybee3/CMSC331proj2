@@ -69,7 +69,7 @@ if(isset($days))
       echo("<th>End Time</th>");
       echo("<th>Location</th>");
       echo("<th>num students</th>");
-
+      echo("<th></th>");
       while($row = mysql_fetch_row($rs))
 	{
 	  echo("<tr>");
@@ -77,6 +77,7 @@ if(isset($days))
 	    {
 	      echo("<td>".$element."</td>");
 	    }
+	  echo("<td><a href='#'>Sign Up</td>");
 	  echo("</tr>");
 	}
       echo("</table>");
