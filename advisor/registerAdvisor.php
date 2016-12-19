@@ -1,62 +1,56 @@
 <?php
 session_start();
+
 if ($_POST) {
-  include '../dbconfig.php';
+  include 'dbconfig.php';
+  
   // Parse values from form
-  $fName = $_POST["fName"];
-  $mName = $_POST["mName"];
-  $lName = $_POST["lName"];
-  $email = $_POST["email"];
-  $password = $_POST["password"];
-  $bldgName = $_POST["bldgName"];
-  $officeRm = $_POST["officeRm"];
-  $encryptPass = md5($password);
-  $regexToCheckIfValidEmail = "/^[A-Za-z0-9_.]+@[A-Za-z0-9]+\.[A-za-z0-9]{3}$/";
-  $numOfErrors = 0;
-  if ($fName == "") {
-    $_SESSION["ERROR_ADVISOR_REGISTRATION_FNAME"] = "Error: You must provide a first name.";
-    $numOfErrors += 1;
-  }
-  if ($lName == "") {
-    $_SESSION["ERROR_ADVISOR_REGISTRATION_LNAME"] = "Error: You must provide a last name.";
-    $numOfErrors += 1;
-  }
-  if ($email == "" or !preg_match($regexToCheckIfValidEmail, $email)) {
-    $_SESSION["ERROR_ADVISOR_REGISTRATION_EMAIL"] = "Error: Invalid Email!";
-    $numOfErrors += 1;
-  }
-  if ($password == "") {
-    $_SESSION["ERROR_ADVISOR_REGISTRATION_PASS"] = "Error: Invalid password.";
-    $numOfErrors += 1;
-  }
-  if ($bldgName == "") {
-    $_SESSION["ERROR_ADVISOR_REGISTRATION_BLDGNAME"] = "Error: You need to provide a building name.";
-    $numOfErrors += 1;
-  }
-  if ($officeRm == "") {
-    $_SESSION["ERROR_ADVISOR_REGISTRATION_OFFICERM"] = "Error: You need to provide office room number.";
-  }
-  if ($numOfErrors == 0) {
-    // Connect to DB
-    $open_connection = connectToDB();
-    $checkForEmails = "SELECT 1 from `Advisor` WHERE `email` = '$email' LIMIT 1";
+  $need = " field needs to be filled.";
+  $fields = array("fName" => "'First Name'", 
+		  "lName" => "'Last Name'", 
+		  "email" => "'e-Mail'",
+		  "bldgName" => "'Building Name'", 
+		  "officeRm" => "'Office Room'",
+		  "pass" => "'Password'",
+		  "confirm-pass" => "'Confirm Password'"
+		  );
+
+  $_SESSION['errors'] = array();
+  $_SESSION['messages'] = array();
+  foreach ($fields as $field => $message)
+    if (empty($_POST[$field]))
+      array_push($_SESSION['errors'], $message.$need);     
+
+  if ($_POST['pass'] != $_POST['confirm-pass'])
+    array_push($_SESSION['errors'], "Passwords don't match.");
+  
+  if (!sizeof($_SESSION['errors'])) {
+    $open_connection = connectToDB(true);
+    $checkForEmails = "SELECT 1 from `Advisor` WHERE `email` = '{$_POST['email']}' LIMIT 1";
     $results = $open_connection->query($checkForEmails);
+    
     if (mysqli_num_rows($results) == 0) {
-            $insert_adviser = "
+      $insert_adviser = "
               INSERT INTO Advisor (
-                email, password, firstName, middleName, lastName, buildingName, roomNumber
+                email, firstName, middleName, lastName, buildingName, roomNumber, password
               )
               VALUES (
-                '$email', '$encryptPass', '$fName', '$mName', '$lName', '$bldgName', '$officeRm'
-              )
+                '{$_POST['email']}', '{$_POST['fName']}', '{$_POST['mName']}', 
+                '{$_POST['lName']}', '{$_POST['bldgName']}', '{$_POST['officeRm']}', '".md5($_POST['pass'])."'
+              );
             ";
-            $open_connection->query($insert_adviser);
-            header('Location: ../../views/login.php');
-    } else {
-      $_SESSION["ERROR_ADVISOR_REGISTRATION_EMAIL"] = "Error: This email already exists!";
-      header('Location: ../../views/index.php');
+      
+      $open_connection->query($insert_adviser);      
+      array_push($_SESSION["messages"], "Successfully registered!");
+      header('Location: index.php');
+    } 
+    else {
+        array_push($_SESSION["errors"], "This email already exists!");
+	header('Location: register.php');
     }
-  } else {
-    header('Location: ../../views/index.php');
   }
+  else {      
+      header('Location: register.php');
+  }    
 }
+?>

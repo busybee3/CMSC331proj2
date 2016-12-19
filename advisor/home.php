@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html>
@@ -82,12 +83,19 @@ button {
 <br/>
 <br/>
 
+<?php 
+  session_start();
+  if (!isset($_SESSION["HAS_LOGGED_IN"]) || !$_SESSION["HAS_LOGGED_IN"])
+    header("Location: index.php");
+?>
+  
 <div class="greeting">
-   Welcome, ____!
+   Welcome, <?php echo $_SESSION["ADVISOR_FNAME"]."!"; ?>
 </div>
 <br/>
 
 <div class="container">
+
 
    <button>
    <a href="availability.php">
@@ -99,7 +107,7 @@ button {
 
 
    <button>
-   <a href="appointments.php" >
+   <a href="view.php" >
    <img src="http://ddu548.minsk.edu.by/sm_full.aspx?guid=4673" height="254px">
 </a>View Appointments
    </button>
@@ -114,12 +122,27 @@ button {
    </button>
 
 
+   <button>
+  <a href="roster.php" class="btn btn-info btn-lg">
+   <img src="http://www.ssmtouchfootball.com/uploaded/news/Clipboard-Roster-Icon.png" height="254px">
+</a>View Signup Roster
+   </button>
+
+
 
    <button>
  <a href="editInfo.php">
    <img src="http://image.flaticon.com/icons/svg/181/181540.svg" height="254px">
  </a> Edit Information
    </button>
+
+
+   <button>
+ <a href="student.php">
+  <img src="http://image.flaticon.com/icons/svg/181/181549.svg" height="254px" height="254px">
+ </a> Create Accounts
+   </button>
+
 
 </div>
 
