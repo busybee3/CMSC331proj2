@@ -41,22 +41,6 @@ display: inline-block;
   background-color: green;
 }
 </style>
-<script type="text/javascript">
-function sign_up(meetingID) {
-
-  var student_id = <?php echo $student_id ?>;
-  var signup = new XMLHttpRequest();
-  signup.open("GET", "signup.php?meetingID=" + meetingID, true);
-  signup.onreadystatechange = function() {
-    if(signup.readyState == 4) {
-      document.getElementById("signup_message").innerHTML = signup.responseText;
-    }
-  }
-  signup.send(null);
-  }
-
-</script>
-
 </head>
 <body>
 
@@ -74,27 +58,20 @@ $apptType = $_GET['apptType'];
 $advisor = $_GET['advisor'];
 $days = $_GET['days'];
 
+
+
+if(isset($_GET['days']) && !empty($_GET['days']))
+  {
 if($apptType == "indiv")
   {
     $apptType = 0;
+    $queryTwo = "SELECT Meeting.meetingID, CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%W') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND Meeting.numStudents = 0 AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
   }
 else
   {
     $apptType = 1;
+    $queryTwo = "SELECT Meeting.meetingID, CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%W') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND Meeting.numStudents < 10 AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
   }
-
-if(isset($_GET['days']) && !empty($_GET['days']))
-  {
-    /* foreach((array)$days as $key=>$value) */
-    /*   { */
-    /* 	// run mysql_real_escape_string() on every value encountered */
-    /* 	$clean_days = array_map('mysql_real_escape_string', (array)$_REQUEST['days']); */
-
-    /* 	// convert array into a string */
-    /* 	$days = implode("','", (array)$clean_days); */
-    /*   } */
-
-    $queryTwo = "SELECT Meeting.meetingID, CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%W') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
 
     $rs = $COMMON->executeQuery($queryTwo, $_SERVER["SCRIPT_NAME"]);
     
@@ -103,34 +80,36 @@ if(isset($_GET['days']) && !empty($_GET['days']))
     } else if (mysql_num_rows($rs) == 0) {
       echo "There are no available appointments of this type.";
     } else {
-      echo("my student id ".$student_id."<br>");
+
       echo("<table id='apptResults'>");
       echo("<tr>");
-      echo("<th>Meeting ID</th>");
+
       echo("<th>Advisor</th>");
       echo("<th>Date</th>");
       echo("<th>Start Time</th>");
       echo("<th>End Time</th>");
       echo("<th>Location</th>");
+      if($apptType == 1) {
+	echo("<th>Open Seats</th>");
+      }
       echo("<th></th>");
       echo("</tr>");
       while($row = mysql_fetch_assoc($rs))
 	{
 	  echo("<tr>");
-	  /* foreach ($row as $element) */
-	  /*   { */
-	      
-	  /*     echo("<td>".$element."</td>"); */
-	  /*   } */
-	  echo("<td>".$row['meetingID']."</td>");
+	  echo("<td hidden value='".$row["meetingID"]."'id='meetingID'>".$row['meetingID']."</td>");
 	  echo("<td>".$row['Advisor']."</td>");
 	  echo("<td>".$row['weekday']." ".$row['apptDate']."</td>");
 	  echo("<td>".$row['start']."</td>");
 	  echo("<td>".$row['end']."</td>");
 	  echo("<td>".$row['Location']."</td>");
-	  $json = json_encode($row['meetingID']);
-	  $safe = HtmlSpecialChars($json);
-	  echo("<td><a href='signup.php' id='signup' onclick=\"sign_up($safe)\">Sign Up</td>");
+	  if($apptType == 1) {
+	    $maxStudents = 10;
+	    $numStudents = $row['numStudents'];
+	    $openSeats = $maxStudents - $numStudents;
+	    echo("<td>".$openSeats."</td>");
+	  }
+	  echo("<td><a href='signup.php?meetingID=".$row["meetingID"]."' class='signup' id='signup'>Sign Up</td>");
 	  echo("</tr>");
 
 	}
