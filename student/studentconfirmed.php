@@ -51,12 +51,10 @@ if (!$_POST) { ?>
     <textarea rows="4" cols="50" name="advisingQuestions" maxlength="128" placeholder="For example: Withdrawing from course, adding a second major, etc..."></textarea><br><br>
 
 
+    <a class="return-link" href="index.php">LOGIN</a>  
     <input type="submit" value="SUBMIT" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
     </form>
 
-    <form action="index.php">
-      <input type="submit" value="RETURN" name="Return" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
-    </form>
 
   
 </div>

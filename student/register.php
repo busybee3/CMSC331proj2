@@ -51,10 +51,14 @@ $email = $fName = $lName = $schoolID = $major = $career = "";
 if($_POST){    
  
   //defining variables used for query
+  // Store a reasonable amount of data in
+  // the session to repopulate the fields.
 
   if (isset($_POST["email"])) {
 
     $email = $_POST["email"];
+    $_SESSION['studentEmail'] = $email;
+
 
   }
   if (isset($_POST["password"])) {
@@ -70,28 +74,37 @@ if($_POST){
   if (isset($_POST["fName"])) {
 
     $fName = $_POST["fName"];
+    $_SESSION['studentfName'] = $fName;
 
   }
+
   if (isset($_POST["pName"])) {
 
     $pName = $_POST["pName"];
+    $_SESSION['studentpName'] = $pName;
 
   }
+
   if (isset($_POST["lName"])) {
 
     $lName = $_POST["lName"];
+    $_SESSION['studentlName'] = $lName;
 
   }
+
   if (isset($_POST["schoolID"])) {
 
     $schoolID = $_POST["schoolID"];
+    $_SESSION['studentID'] = $schoolID;
 
   }
+
   if (isset($_POST["major_select"])) {
 
     $major = $_POST["major_select"]; 
 
   }
+
   if (isset($_POST["career_select"])) {
 
     $career = $_POST["career_select"];
@@ -104,12 +117,20 @@ if($_POST){
 
   }
 
-  if (isset($_POST["spec_group"])) {
-
-    $spec_group = $_POST["spec_group"];
-
+  if (isset($_POST["spec_group_select"]) && $_POST["spec_group_select"] != "") {
+   
+    $spec_group = $_POST["spec_group_select"];  
+       
   }
 
+  else {
+
+      $misc_error = true;
+      $spec_group_error_message = "Please select yes or no.";      
+
+  }    
+
+  // Encrypt the password entered.
   $encryptPass = md5($password);
 
   //regex for email validation 
@@ -232,13 +253,6 @@ if($_POST){
 
     }
 
-    if(empty($_POST["spec_group"])){
-
-      $misc_error = true;
-      $spec_group_error_message = "Please select yes or no.";
-
-    }
-
 
     // Ensure that the password matches the confirmation password.
     if($password != $con_password){
@@ -247,8 +261,6 @@ if($_POST){
       $password_match_error = "Passwords do not match.";
 
     }
-
-
 
   }
   
@@ -319,13 +331,6 @@ if($_POST){
 
     }
 
-    if(empty($_POST["spec_group"])){
-
-      $misc_error = true;
-      $spec_group_error_message = "Please select yes or no.";
-
-    }
-
   }
   
 
@@ -360,13 +365,7 @@ if($_POST){
 
     else {
 
-      // Store the data in the session so the user 
-      // won't have to re-enter it.
-      $_SESSION['studentEmail'] = $email;
-      $_SESSION['studentfName'] = $fName;
-      $_SESSION['studentpName'] = $pName;
-      $_SESSION['studentlName'] = $lName;
-      $_SESSION['studentID'] = $schoolID;
+      // Redirect if "Other" is selected as the major.
       header('Location: othermsg.php');
 
     }
@@ -487,7 +486,7 @@ if(isset($_SESSION['studentID'])){
     </div>  
 
         
-  <div class="btn-group" role="group" name="major" id="major">
+  <div class="btn-group" role="group" name="major">
  
     Major that you will Pursue NEXT SEMESTER:<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $major_error_message;?></span><br>       
 
@@ -503,7 +502,7 @@ if(isset($_SESSION['studentID'])){
 
   </div>
 
-  <div class="btn-group" role="group" name="career" id="career">
+  <div class="btn-group" role="group" name="career">
  
     Primary career track:<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $career_error_message;?></span><br> 
       
@@ -517,21 +516,22 @@ if(isset($_SESSION['studentID'])){
 
   </div>
 
-  <div class="btn-group" role="group" name="spec_group_buttons" id="spec_group_buttons">
+  <div class="btn-group" role="group" name="spec_group">
  
-    Are you a member of a special group?<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $spec_group_error_message;?></span><br>       
+    Are you a member of a special group? (ex. Athletics)<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $spec_group_error_message;?></span><br>       
 
-    <button type="button" class="btn btn-1" name="spec_group" value=1>Yes</button>
-    <button type="button" class="btn btn-1" name="spec_group" value=0>No</button>        
+    <button type="button" class="btn3 btn-3" name="spec_group" value=1>Yes</button>
+    <button type="button" class="btn3 btn-3" name="spec_group" value=0>No</button>        
 
 
-  </div><br> 
+  </div>
 
 
   <div class="btn-group2" role="group">    
       
     <input type="hidden" name="major_select" value="" id="major_select">
     <input type="hidden" name="career_select" value="" id="career_select">
+    <input type="hidden" name="spec_group_select" value="" id="spec_group_select">
     <a class="register-link" href="index.php">RETURN</a>   
     <input type="submit" value="REGISTER" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
         
@@ -539,17 +539,9 @@ if(isset($_SESSION['studentID'])){
       
   </div>
 
-</div>  
+</div>    
 
-
-
-
-  
-
-</body>    
-
-
-
+</body>   
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -578,6 +570,22 @@ if(isset($_SESSION['studentID'])){
   
            var buttonVal = $(this).attr("value");
            $("#career_select").val(buttonVal);
+           
+	 });
+
+
+     });
+</script>
+
+<script>
+
+   $(document).ready(function(){ 
+       $(".btn3").click(function() { 
+
+	   $(this).toggleClass("active").siblings().removeClass("active");
+  
+           var buttonVal = $(this).attr("value");
+           $("#spec_group_select").val(buttonVal);
            
 	 });
 

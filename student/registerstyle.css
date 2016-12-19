@@ -42,12 +42,22 @@ h2 {
 }
 
 .btn3{
+
   background-color:grey;
   border-color:grey;
-  color:white;
+  color:white; 
+
 }
 
-.btn-group {
+.btn3 btn-3{
+
+  background-color:grey;
+  border-color:grey;
+  color:white; 
+
+}
+
+.btn-group{
 
     ;
     width: 700px;
@@ -106,9 +116,11 @@ h2 {
 .btn:active{
 
   background-color:black;
-  border-color:black;
+  border-color:white;
   color: white;
+
 }
+
 
 .register-link {
   /*    font-size: 20px;
