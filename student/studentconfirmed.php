@@ -12,7 +12,7 @@
 <?php
 
 // Connect to the db.
-include('CommonMethods.php');
+include('../CommonMethods.php');
 $debug = false;
 $COMMON = new Common($debug);
 $fileName = "studentconfirmed.php";
@@ -107,7 +107,7 @@ else if ($_POST) {
 
   <center>
     </form>
-    <form action="https://swe.umbc.edu/~dcuocci1/project2/CMSC331proj2/student/index.php">
+    <form action="index.php">
     <input type="submit" value="LOGIN" name="Register" class="submit" style="color: white; border: none; font-family: Arial, sans-serif; font-size: 20px; width: 120px; line-height: 25px; margin: 0 auto; padding: 10px 0;">
     </form>
   </center>

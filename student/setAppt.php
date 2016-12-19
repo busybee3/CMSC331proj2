@@ -120,6 +120,10 @@ width: auto;
   float: left;
 }
 
+.message {
+  float: right;
+}
+
 .well {
   min-height: 20px;
 padding: 19px;
@@ -301,6 +305,13 @@ input[type="submit"] {
           <div class="well" id="results">	      
 	      <h4>Choose your options on the left to filter the appointments!</h4>
           </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-3 message" id="signup_message">
       </div>
     </div>
   </div>

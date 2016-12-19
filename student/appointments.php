@@ -102,7 +102,7 @@ if (!$_POST) { ?>
   $_SESSION["STUDENT_ID"] = $studentID;
 
   //connect to database
-  include 'CommonMethods.php';
+  include '../CommonMethods.php';
   $debug = false;
   $COMMON = new Common($debug);
   $filename = "appointments.php";
@@ -198,7 +198,7 @@ if (isset($_POST['cancelConfirm'])) {
   $meetingID = $_SESSION['meetingID'];
 
   // Connect to DB.
-  include 'CommonMethods.php';
+  include '../CommonMethods.php';
   $debug = false;
   $COMMON = new Common($debug);
   $filename = "appointments.php";
