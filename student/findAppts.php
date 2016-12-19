@@ -1,17 +1,45 @@
 <html>
 <head>
 <style>
-table {
- width: 100%
-     border-collapse: collapse;
+#apptResults {
+font-family: 'Open Sans', sans-serif;
+ border-collapse: collapse;
+ width: 100%;
  }
 
-table, td, th {
-border: 1px solid black;
-padding: 5px;
+#apptResults th, #apptResults td {
+ padding: 8px;
+ border-bottom: 1px solid #ddd;
+ text-align: left;
 }
 
-th {text-align: left;}
+#apptResults tr:nth-child(even)
+{background-color:#f2f2f2;
+}
+
+#apptResults tr:hover {background-color: #ddd;}
+
+#apptResults th {
+padding-top: 10px;
+padding-bottom: 10px;
+text-align: left;
+background-color: #333;
+color: white;
+font-size: 12px;
+}
+
+#signup:link, #signup:visited {
+  background-color: #4CAF50;
+color: white;
+padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+display: inline-block;
+}
+
+#signup:hover, #signup:active {
+  background-color: green;
+}
 </style>
 </head>
 <body>
@@ -51,7 +79,7 @@ if(isset($days))
     /* 	$days = implode("','", (array)$clean_days); */
     /*   } */
 
-    $queryTwo = "SELECT CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%a') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
+    $queryTwo = "SELECT CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%W') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
 
     $rs = $COMMON->executeQuery($queryTwo, $_SERVER["SCRIPT_NAME"]);
     
@@ -61,15 +89,16 @@ if(isset($days))
       echo "There are no available appointments of this type.";
     } else {
 
-      echo("<table border='1px'>");
+      echo("<table id='apptResults'>");
+      echo("<tr>");
       echo("<th>Advisor</th>");
       echo("<th>Weekday</th>");
       echo("<th>Date</th>");
       echo("<th>Start Time</th>");
       echo("<th>End Time</th>");
       echo("<th>Location</th>");
-      echo("<th>num students</th>");
       echo("<th></th>");
+      echo("</tr>");
       while($row = mysql_fetch_row($rs))
 	{
 	  echo("<tr>");
@@ -77,7 +106,7 @@ if(isset($days))
 	    {
 	      echo("<td>".$element."</td>");
 	    }
-	  echo("<td><a href='#'>Sign Up</td>");
+	  echo("<td><a href='#' id='signup'>Sign Up</td>");
 	  echo("</tr>");
 	}
       echo("</table>");

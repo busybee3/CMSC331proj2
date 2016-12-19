@@ -88,11 +88,11 @@ display: block;
 }
 
 .appt-options {
-  margin-top: 30px;
+  margin-top: auto;
 }
 
 .appt-results {
-  margin-top: 30px;
+  margin-top: auto;
 }
 
 .row {
@@ -113,11 +113,11 @@ width: auto;
 .col-md-offset-3 {
 padding: relative;
   min-height: 1px;
-  padding-left: 15px;
+  padding-left: 100px;
   padding-right: 15px;
   padding-top:30px;
 width: auto;
-  float: right;
+  float: left;
 }
 
 .well {
@@ -299,6 +299,7 @@ input[type="submit"] {
       <div class="col-md-offset-3">
         <h3 class="text-center">Available Appointments</h3>              
           <div class="well" id="results">	      
+	      <h4>Choose your options on the left to filter the appointments!</h4>
           </div>
       </div>
     </div>
