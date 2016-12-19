@@ -47,11 +47,47 @@ h2 {
     width: 700px;
     margin-left: 300px;
     margin-bottom: 5px;
-    height: 50px;
+    height: 115px;
     float: left;
 
 }
 
+.btn-group2 {
+
+    ;
+    width: 500px;
+    margin-left: 500px;
+    margin-bottom: 5px;
+    height: 50px;
+    float: center;
+
+}
+
+.btn-group3 {
+
+    ;
+    width: 500px;
+    margin-left: 500px;
+    margin-bottom: 5px;
+    height: 50px;
+    float: center;
+
+}
+
+<<<<<<< HEAD
+.btn-group-degree {
+
+    ;
+    width: 100px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+    height: 50px;
+    float: center;
+
+}
+
+=======
+>>>>>>> origin/master
 .active {
   background-color:black;
   border-color:black;
@@ -70,6 +106,57 @@ h2 {
   border-color:black;
   color: white;
 }
+
+.register-link {
+  /*    font-size: 20px;
+    color: green;
+    display: block;
+    margin-top: 12px;
+  */
+  font-family: Arial, sans-serif;
+border: none;
+background: gray;
+color: #ffffff;
+  font-size: 20px;
+  line-height: 25px;
+padding: 10px 0;
+padding-left: 15px;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+transition: 0.25s;
+display: inline-block;
+width: 100px;
+margin: 0 auto;
+
+}
+
+.return-link {
+  /*    font-size: 20px;
+    color: green;
+    display: block;
+    margin-top: 12px;
+  */
+  font-family: Arial, sans-serif;
+border: none;
+background: green;
+color: #ffffff;
+  font-size: 20px;
+  line-height: 25px;
+padding: 10px 0;
+padding-left: 15px;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+transition: 0.25s;
+display: inline-block;
+width: 78px;
+margin: 0 auto;
+
+}
+
 
 form {
 
@@ -159,6 +246,17 @@ input[type=text] {
     width: 160px;
     padding: 12px 20px;
     padding-left: 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+input[type=text_field] {
+    width: 450px; 
+    height: 160px;
+    padding: 0 0 0 0;
+    padding-left: 5px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
@@ -289,10 +387,25 @@ div.container{
   margin: auto;
 }
 
+div.container_reset{
+  width: 1100px;
+  height: 280px;
+  margin: auto;
+}
+
 div.text_div{
 
   width: 275px;
   height: 500px;
+  float: left;
+  margin-left: 275px; 
+
+}
+
+div.text_reset_div{
+
+  width: 275px;
+  height: 135px;
   float: left;
   margin-left: 275px; 
 
@@ -306,12 +419,35 @@ div.input_div {
 
 }
 
+div.input_reset_div {
+
+  width: 475px;
+  height: 135px;
+  float: right;
+
+}
+
+
 div.button_div{
 
   width: 600px;
   height: 50px;
-  margin-bottom: 10px;
-   
+  margin-bottom: 10px;  
+
+}
+
+div.button_reset{
+
+  margin-left: 850px;
+  height: 50px;
+
+}
+
+div.button_reset_confirmed{
+
+  margin-left: 900px;
+  height: 50px;
+
 
 }
 

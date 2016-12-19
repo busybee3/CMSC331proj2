@@ -4,6 +4,7 @@
 <head>
   <title>Advisor Registration</title>
   <link rel="stylesheet" type="text/css" href="registerstyle.css">
+   
 </head>
 
 <body>
@@ -16,15 +17,14 @@
 
   <h2>Advisor Registration</h2>
 
-<div class="errors">
+ <div class="errors">
    <?php 
-
-   /* not currently doing anyting: I think it's being cut off */
-   if (isset($_POST["errors"]) && sizeof($_POST["errors"]))
-     foreach ($_POST["errors"] as $error) 
+   session_start();
+if (isset($_SESSION["errors"]) && sizeof($_SESSION["errors"]))
+  foreach ($_SESSION["errors"] as $error) 
        echo $error."<br>";
    ?>
-</div>
+ </div>
 
 <form action="registerAdvisor.php" method="post">    
   <div class= "main">
