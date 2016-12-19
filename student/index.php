@@ -1,7 +1,7 @@
 <?php
 
 // Connect to the db.
-include 'CommonMethods.php';
+include '../CommonMethods.php';
 $fileName = "login.php";  
 $debug = false;
 $COMMON = new Common($debug);

@@ -1,4 +1,5 @@
 <?php 
+
 class Common
 {
   var $conn;
@@ -10,6 +11,7 @@ class Common
     $rs = $this->connect("cmiller9"); // db name really here
     return $rs;
   }
+
   // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
   
   function connect($db)// connect to MySQL
@@ -18,6 +20,7 @@ class Common
     $rs = @mysql_select_db($db, $conn) or die("Could not connect select $db database");
     $this->conn = $conn; 
   }
+
   // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
   
   function executeQuery($sql, $filename) // execute query
@@ -26,5 +29,9 @@ class Common
     $rs = mysql_query($sql, $this->conn) or die("Could not execute query '$sql' in $filename"); 
     return $rs;
   }
+
+
+
 } // ends class, NEEDED!!
+
 ?>
