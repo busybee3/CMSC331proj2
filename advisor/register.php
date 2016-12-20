@@ -17,6 +17,17 @@
 
   <h2>Advisor Registration</h2>
 
+
+<div class="errors">
+   <?php 
+
+   /* not currently doing anyting: I think it's being cut off */
+   if (isset($_POST["errors"]) && sizeof($_POST["errors"]))
+     foreach ($_POST["errors"] as $error) 
+       echo $error."<br>";
+   ?>
+</div>
+
  <div class="errors">
    <?php 
    session_start();
@@ -58,7 +69,8 @@ if (isset($_SESSION["errors"]) && sizeof($_SESSION["errors"]))
    <h3> Building Name: <br><input type="text" name="bldgName"></input></h3>
    <h3> Office Room: <br><input type="text" name="officeRm"></input></h3>
    <h3> Password: <br><input type="password" name="pass"> </input></h3> 
-   <h3> Confirm Password: <br><input type="password" name="confirm-pass"> </input></h3> <br>
+   <h3> Confirm Password: <br><input type="password" name="confirm-pass"> </input></h3>
+   <h3> City of Birth (For password resets): <br><input type="password" name="birth_city"> </input></h3> <br>
    <h3> <input class="submit-button" type="submit" value="REGISTER"> </h3>
    
 

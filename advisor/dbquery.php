@@ -16,8 +16,16 @@ echo "<h4>Number Students Signed Up:<br></h4>".($data["numStudents"])."<br>";
 ?>
 
 <button class='create-btn' onclick="printDiv(this.parentElement.innerHTML)">Print</button>
+
+<form class='create-form'  onsubmit="return confirm('Are you sure you want to delete this meeting?')" action="../utils/forms/deleteMeeting.php" method="POST">
+  <input name="meetingID" value="<?php echo $data['meetingID'] ?>" hidden>
+  <input class='del-btn' type="submit" value="Delete">
+</form>
+
+
 <button class='create-btn' onclick="display_edit('<?php echo $data['start'];?>')">Edit</button>
 <form class='create-form'  onsubmit="return confirm('Are you sure you want to delete this meeting?')" action="../utils/forms/deleteMeeting.php" method="POST">
   <input name="meetingID" value="<?php echo $data['meetingID'] ?>" hidden>
   <input class='del-btn' type="submit" value="Delete">
 </form>
+

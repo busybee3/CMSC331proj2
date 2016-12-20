@@ -87,6 +87,11 @@ button {
   session_start();
   if (!isset($_SESSION["HAS_LOGGED_IN"]) || !$_SESSION["HAS_LOGGED_IN"])
     header("Location: index.php");
+
+  // Need this for editInfo.php.
+  $advisor_id = $_SESSION["ADVISOR_ID"];
+  $_SESSION["ADVISOR_ID"] = $advisor_id;
+
 ?>
   
 <div class="greeting">

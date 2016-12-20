@@ -47,19 +47,13 @@ if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
       $formattedStartDate = $startDate->format('Y-m-d H:i:s');
       $formattedEndDate = $endDate->format('Y-m-d H:i:s');
       
-      $whichGroup = "";
-      $specialMeeting = "";
-      $specialGroups = array(", meyerhoffMeeting", ", athleteMeeting", ", honorsMeeting"); 
-      $specialValues = array(", 0", ", 1", ", 2");
-      if ($typeOfMeeting == 2) {
-	$whichGroup=$specialGroups[$_POST["special"]];
-	$specialMeeting = ", true";
-      }
+
+      $special = isset($_POST["special"]) ? $_POST["special"] : 0;
       $insertIntoMeetings = "
-          INSERT INTO Meeting(start,end,buildingName,roomNumber, meetingType, numStudents $whichGroup)
+          INSERT INTO Meeting(start,end,buildingName,roomNumber, meetingType, numStudents, activeApt, specialGroup)
           VALUES (
-            '$formattedStartDate','$formattedEndDate','$bName', '$rNumber', $typeOfMeeting, 0 $specialMeeting
-          )
+            '$formattedStartDate','$formattedEndDate','$bName', '$rNumber', $typeOfMeeting, 0, 1, $special
+          );
         ";
       $conn->executeQuery($insertIntoMeetings, $_SERVER["SCRIPT_NAME"]);
       // Create sql query to insert the meeting to advisor meeting
@@ -74,5 +68,5 @@ if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
       $endDate->modify("+1 week");
     }
   }
-  header('calendar_base.php');
+  /* header('calendar_base.php'); */
 }

@@ -113,19 +113,46 @@ transform: translateX(26px);
 <body>
 
 <?php
+
+// Initiate session / connect to db.
 session_start();
 include("CommonMethods.php");
+$conn = new Common(false);
+$fileName = "editInfo.php";
+
+// Grab session data.
+$advisor_id = $_SESSION["ADVISOR_ID"];
+$_SESSION["ADVISOR_ID"] = $advisor_id;
+
+
+
 if (isset($_POST["roomNumber"])) {
   echo "<br>";
   echo "<br>";
   echo "<br>";
   echo "<br>";
   echo "<br>";
-  $conn = new Common(false);
-  $conn->executeQuery("UPDATE Advisor SET roomNumber='".$_POST["roomNumber"]."', buildingName='".$_POST["buildingName"]."' WHERE advisorID=".$_SESSION["ADVISOR_ID"].";", $_SERVER["SCRIPT_NAME"]);
+  $conn->executeQuery("UPDATE Advisor SET active='".$_POST["update_slider"]."', roomNumber='".$_POST["roomNumber"]."', buildingName='".$_POST["buildingName"]."' WHERE advisorID=".$_SESSION["ADVISOR_ID"].";", $_SERVER["SCRIPT_NAME"]);
   $_SESSION["ADVISOR_RM_NUM"] = $_POST["roomNumber"];
   $_SESSION["ADVISOR_BLDG_NAME"] = $_POST["buildingName"];
+
+  // Send update notification.
+  $updateNotification = "Information updated!";
+  echo "<script type='text/javascript'>alert('$updateNotification');</script>";
+  
+
 }
+
+// Get the advisor's record.
+$sql = "SELECT * from Advisor where advisorID = $advisor_id";
+$query = $conn->executeQuery($sql,$fileName);
+$results = mysql_fetch_assoc($query);
+
+// This is whether the advisor is set to 
+// active.
+$current_status = $results['active'];
+
+
 ?>
 
 <ul>
@@ -141,14 +168,20 @@ if (isset($_POST["roomNumber"])) {
 <h2>Edit Information</h2>
 </div>
 
+
+
    <h3> Active Advising Season:</h3>
 
+
+
 <label class="switch">
-  <input type="checkbox">
-  <div class="slider round"></div>
+  <input type="checkbox" <?php if($current_status == 1) { ?> checked <?php } ?> >
+  <div  name="slider_round" class="slider round"></div>
 </label>
 
-   <form method="post" name="advisor-update">
+   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
+   <input type="hidden" name="update_slider" <?php if ($current_status == 1){ ?> value=1 <?php } else if ($current_status == 0) {  ?> value=0 <?php } ?> id="update_slider">
+
    Room Number: <input name="roomNumber" type="text" value=<?php echo $_SESSION["ADVISOR_RM_NUM"] ?> <br> <br>
    Building Name: <input name="buildingName" type="text" value=<?php echo $_SESSION["ADVISOR_BLDG_NAME"] ?> <br> <br>
      <div class="update-button">
@@ -175,6 +208,23 @@ display: inline-block;
 	 });
      });
 </script>
+
+<!-- This will swap the value of the hidden button used for update query. -->
+<script>
+   $(document).ready(function(){ 
+       $(".slider.round").click(function() { 
+	   var buttonVal = $(this).attr("value");
+
+           if ($("#update_slider").attr("value") == 0)
+             $("#update_slider").val(1);
+
+           else if ($("#update_slider").attr("value") == 1)
+             $("#update_slider").val(0);
+
+	 });
+     });
+</script>
+
 
 </body>
 </html>
