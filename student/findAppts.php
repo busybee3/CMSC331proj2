@@ -74,7 +74,8 @@ else
   }
 
     $rs = $COMMON->executeQuery($queryTwo, $_SERVER["SCRIPT_NAME"]);
-    
+
+    // display all available results into a table
     if(!$rs){
       echo "Cannot parse query.";
     } else if (mysql_num_rows($rs) == 0) {

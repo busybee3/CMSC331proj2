@@ -1,7 +1,10 @@
 <?php
 session_start();
 include('../CommonMethods.php');
-$conn = new Common(true);
+$conn = new Common(false);
+
+// get the advisors names that are in the database
+// to do: only grab advisor names that have appointments
 $advisors = $conn->executeQuery("SELECT advisorID, CONCAT(firstName,' ',lastName) AS Name FROM Advisor;", $_SERVER["SCRIPT_NAME"]);
 ?>
 
@@ -204,6 +207,7 @@ input[type="submit"] {
 
 </style>
 <script>
+    // ajax to dynamically update results table
     function showAppointments() {
   if (document.getElementById('indiv').checked) {
     var apptType = document.getElementById('indiv').value;
