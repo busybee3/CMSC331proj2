@@ -9,18 +9,14 @@ if(isset($_GET['s'])){
 
   //Send the search term to our search class and store the result
   $conn = new Common(true);
-  $data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Student WHERE schoolID LIKE '{$search_term}' OR \
-email LIKE '{$search_term}';", $_SERVER["SCRIPT_NAME"]));
+  $data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Student WHERE schoolID LIKE '{$search_term}' OR email LIKE '{$search_term}';", $_SERVER["SCRIPT_NAME"]));
 
-  $meeting_ids = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM StudentMeeting WHERE StudentID LIKE '{$da\
-ta['StudentID']}';", $_SERVER["SCRIPT_NAME"]));
+  $meeting_ids = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM StudentMeeting WHERE StudentID LIKE '{$data['StudentID']}';", $_SERVER["SCRIPT_NAME"]));
 
-  $apt_data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Meeting WHERE meetingID LIKE '{$meeting_ids[\
-'MeetingID']}';", $_SERVER["SCRIPT_NAME"]));
+  $apt_data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Meeting WHERE meetingID LIKE '{$meeting_ids['MeetingID']}';", $_SERVER["SCRIPT_NAME"]));
 
 
-  $wksht_data =  mysql_fetch_assoc($conn->executeQuery("SELECT * FROM questionsAndPlans WHERE email LIKE '{$dat\
-a['email']}';", $_SERVER["SCRIPT_NAME"]));
+  $wksht_data =  mysql_fetch_assoc($conn->executeQuery("SELECT * FROM questionsAndPlans WHERE email LIKE '{$data['email']}';", $_SERVER["SCRIPT_NAME"]));
 
 
 /* NO RECORD FOUND */
