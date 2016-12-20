@@ -86,7 +86,9 @@ $studentID = $_SESSION["STUDENT_ID"];
 $_SESSION["STUDENT_ID"] = $studentID;
 $studentEmail = $_SESSION["STUDENT_EMAIL"];
 $_SESSION["STUDENT_EMAIL"] = $studentEmail;
+if(isset($_SESSION['SPECIAL_GROUP'])){
 $specialGroup = $_SESSION["SPECIAL_GROUP"];
+}
 
 //connect to database
 include 'CommonMethods.php';
