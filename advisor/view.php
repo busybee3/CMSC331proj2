@@ -292,7 +292,7 @@ if($_SESSION['requestedView']=='Day') {
     }
     echo "<td>".$student["schoolID"];
     echo "<td>".$majors[$student["major"]];
-    echo "<td>Future Plans: ".$student["futurePlans"]."<a href='remove_student.php?studentID=".$student["StudentID"]."' <button style='float: right; vertical-align: center; border: none; background: none;'><img src='http://www.free-icons-download.net/images/delete-button-icon-72030.png' style='height: 30px;'></button></a>"."
+    echo "<td>Future Plans: ".$student["futurePlans"]."<a href='remove_student.php?studentID=".$student["StudentID"]."&meetingID=".$student["meetingID"]."' <button style='float: right; vertical-align: center; border: none; background: none;'><img src='http://www.free-icons-download.net/images/delete-button-icon-72030.png' style='height: 30px;'></button></a>"."
   <br>Questions: ".$student["advisingQuestions"];
     $count++;
   }
