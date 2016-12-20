@@ -124,14 +124,6 @@ $fileName = "editInfo.php";
 $advisor_id = $_SESSION["ADVISOR_ID"];
 $_SESSION["ADVISOR_ID"] = $advisor_id;
 
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-
 if (isset($_POST["roomNumber"])) {
   echo "<br>";
   echo "<br>";
