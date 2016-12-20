@@ -124,7 +124,13 @@ $fileName = "editInfo.php";
 $advisor_id = $_SESSION["ADVISOR_ID"];
 $_SESSION["ADVISOR_ID"] = $advisor_id;
 
-
+echo "<br>";
+echo "<br>";
+echo "<br>";
+echo "<br>";
+echo "<br>";
+echo "<br>";
+echo "<br>";
 
 if (isset($_POST["roomNumber"])) {
   echo "<br>";
@@ -135,7 +141,7 @@ if (isset($_POST["roomNumber"])) {
   $conn->executeQuery("UPDATE Advisor SET active='".$_POST["update_slider"]."', roomNumber='".$_POST["roomNumber"]."', buildingName='".$_POST["buildingName"]."' WHERE advisorID=".$_SESSION["ADVISOR_ID"].";", $_SERVER["SCRIPT_NAME"]);
   $_SESSION["ADVISOR_RM_NUM"] = $_POST["roomNumber"];
   $_SESSION["ADVISOR_BLDG_NAME"] = $_POST["buildingName"];
-
+  
   // Send update notification.
   $updateNotification = "Information updated!";
   echo "<script type='text/javascript'>alert('$updateNotification');</script>";
@@ -182,14 +188,17 @@ $current_status = $results['active'];
    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
    <input type="hidden" name="update_slider" <?php if ($current_status == 1){ ?> value=1 <?php } else if ($current_status == 0) {  ?> value=0 <?php } ?> id="update_slider">
 
-   Room Number: <input name="roomNumber" type="text" value=<?php echo $_SESSION["ADVISOR_RM_NUM"] ?> <br> <br>
-   Building Name: <input name="buildingName" type="text" value=<?php echo $_SESSION["ADVISOR_BLDG_NAME"] ?> <br> <br>
-     <div class="update-button">
-     <input type="submit" value="UPDATE" style="background-color:#4CAF50; color: white; border-color: green; border: none; float: right; padding: 15px 32px;
+   Room Number: <br>
+   <input name="roomNumber" type="text" value=<?php echo $_SESSION["ADVISOR_RM_NUM"] ?> <br> <br>
+   Building Name: <br>
+  <input name="buildingName" type="text" value=<?php echo $_SESSION["ADVISOR_BLDG_NAME"] ?> <br> <br>
+   
+  <div class="update-button">
+  <input type="submit" value="UPDATE" style="background-color:#4CAF50; color: white; border-color: green; border: none; float: right; padding: 15px 32px;
 font-size: 16px;
 display: inline-block;
 ">
-     </div>
+     </div>  
    </form>
 <br/>
 <br/>

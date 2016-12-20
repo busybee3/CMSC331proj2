@@ -125,6 +125,10 @@ input:focus {
 */
  }
 
+.errors:empty {
+    display: none;
+}
+
 .messages:empty {
     display:none;
 }

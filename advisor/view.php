@@ -198,10 +198,10 @@ echo
 
 
 /* PREFERRED VIEW BUTTONS */
-echo
-'View by <br>
-<form style="display: inline-block;" action="" method="post"><input type="submit" name="dayView" value="Day"></form>
-<form style="display: inline-block;" action="" method="post"><input type="submit" name="weekView" value="Week"></form>';
+/* echo */
+/* 'View by <br> */
+/* <form style="display: inline-block;" action="" method="post"><input type="submit" name="dayView" value="Day"></form> */
+/* <form style="display: inline-block;" action="" method="post"><input type="submit" name="weekView" value="Week"></form>'; */
 
 /* UPDATE THE PREFERRED VIEW */
 $off = (isset($_GET["off"]) && $_GET["off"] > 0) ? $_GET["off"] : 0;
@@ -254,14 +254,15 @@ if($_SESSION['requestedView']=='Day') {
   $count = 0;
   $type;
   $majors = array(
-		  "Biology" => "Biological Sciences B.S.",
-		  "Biochemistry" => "Biochemistry B.A.",
-		  "Bioeducation" => "Biology Education B.A.",
-		  "Bioinformatics" => "Bioinformatics B.S.",
-		  "Chemistry" => "Chemistry B.S.",
-		  "Chemeducation" => "Chemistry Education B.A."
+		  "BiologyBA" => "Biological Sciences B.A.",
+		  "BiologyBS" => "Biological Sciences B.S.",
+		  "BioChemBS" => "Biochemistry & Molecular Biology B.S.",
+		  "BioInfoBS" => "Bioinformatics & Computational Biology B.S.",
+		  "BioEdBA" => "Biology Education B.A.",
+		  "ChemBA" => "Chemistry B.A.",
+		  "ChemBS" => "Chemistry B.S.",
+		  "ChemEdBA" => "Chemistry Education B.A."
 		  );
-
   $last_date="";
   while ($student = mysql_fetch_assoc($data)) {
     echo "<tr>";
@@ -284,21 +285,21 @@ if($_SESSION['requestedView']=='Day') {
       echo "<td>";
     }
 
-    if (empty($student["preferredName"])){
+    if (empty($student["preferredName"]))
       echo "<td>".$student["firstName"]." ".$student["lastName"];
-    }
-    else {
+
+    else 
       echo '<td>'.$student['firstName'].' "'.$student['preferredName'].'" '.$student['lastName'];
-    }
+    
     echo "<td>".$student["schoolID"];
     echo "<td>".$majors[$student["major"]];
     echo "<td>Future Plans: ".$student["futurePlans"]."<a href='remove_student.php?studentID=".$student["StudentID"]."&meetingID=".$student["meetingID"]."' <button style='float: right; vertical-align: center; border: none; background: none;'><img src='http://www.free-icons-download.net/images/delete-button-icon-72030.png' style='height: 30px;'></button></a>"."
   <br>Questions: ".$student["advisingQuestions"];
     $count++;
   }
-
-    if (!mysql_num_rows($data))
-      echo "<p style='background-color: white; text-align: center;'> No meetings </p>";    
+  
+  if (!mysql_num_rows($data))
+    echo "<p style='background-color: white; text-align: center;'> No meetings </p>";    
 
   echo'
 </tbody>
