@@ -1,51 +1,18 @@
-
-
-<script>
-function 
-</script>
-
 <?php
-
-include('CommonMethods.php');
+include('../CommonMethods.php');
 $conn = new Common(true);
-/*
-// for the name, major, and ID info. this is the one we need for sure , it should have the IDs
-$students = $conn->executeQuery("SELECT * FROM Student;", $_SERVER["SCRIPT_NAME"]); 
 
-$meeting_ids = $conn->executeQuery("SELECT * FROM StudentMeeting WHERE StudentID LIKE '{$students['StudentID']}';", $_SERVER["SCRIPT_NAME"]);
 
-// for the date and time
-$appointments = $conn->executeQuery("SELECT * FROM Meeting WHERE meetingID LIKE '{$meeting_ids['MeetingID']}';", $_SERVER["SCRIPT_NAME"]);
-
-// joins student and meeting id info
-$master_table = $conn->executeQuery("SELECT * FROM Students INNER JOIN StudentMeeting ON Students.StudentID=StudentMeeting.StudentID;", $_SERVER["SCRIPT_NAME"]);
-*/
+$data = $conn->executeQuery("SELECT Meeting.start, Student.schoolID, Student.lastName, Student.firstName, Stude\
+nt.major FROM Student Join StudentMeeting ON Student.StudentID=StudentMeeting.StudentID JOIN Meeting ON Student\
+Meeting.meetingID=Meeting.MeetingID ORDER BY start, firstName", $_SERVER["SCRIPT_NAME"]);
 
 
 
-$data = $conn->executeQuery("SELECT Meeting.start, Student.schoolID, Student.lastName, Student.firstName, Student.major FROM Student Join StudentMeeting ON Student.StudentID=StudentMeeting.StudentID JOIN Meeting ON StudentMeeting.meetingID=Meeting.MeetingID ORDER BY start, firstName", $_SERVER["SCRIPT_NAME"]);
-
-/*
-while ($student = mysql_fetch_array($data, MYSQL_NUM))
-  array_push($all_students, $student);
-echo "<table>";
-    echo "<tr> <th> First Name <th> Last Name <th> School ID <th> Major <th> St\
-art <th> End </tr> <tr>";
-for ($i = 0; $i < sizeof($all_students); $i++) {
-  echo "<tr>";
-  for ($j = 0; $j < 6; $j++)
-    echo "<td>".$all_students[$i][$j];
-}
-echo "</table";
-    ?>
-  </div>
-<body>
-*/
 echo '
 <div id="header" style="font-size: 40px; text-align: center;"><h4>CNMS ADVISING ROSTER </h4></div>
 
-<div class="roster-container">
-<table width="90%" border="2px" cellspacing="1px;" cellpadding="1px">
+<table width="80%" border="2px" cellspacing="1px;" cellpadding="1px" align="center">
 <thead>
 <tr>
      <th>Date of Session</th>
@@ -56,97 +23,31 @@ echo '
      <th>Major</th>
 </tr>
 </thead>
-<tbody>';
-
+<tbody>
+';
+// format majors
+$majors = array(
+                "BiologyBA" => "Biological Sciences B.A.",
+                "BiologyBS" => "Biological Sciences B.S.",
+                "BioChemBS" => "Biochemistry & Molecular Biology B.S.",
+                "BioInfoBS" => "Bioinformatics & Computational Biology B.S.",
+                "BioEdBA" => "Biology Education B.A.",
+                "ChemBA" => "Chemistry B.A.",
+                "ChemBS" => "Chemistry B.S.",
+                "ChemEdBA" => "Chemistry Education B.A."
+                );
 //output data of each row
 while ($student = mysql_fetch_assoc($data)) {
   echo "<tr>";
-  echo "<td>".(new DateTime($student["start"]))->format("F j Y"); 
+  echo "<td>".(new DateTime($student["start"]))->format("F j Y");
   echo "<td>".(new DateTime($student["start"]))->format("g:i a");
   echo "<td>".$student["schoolID"];
   echo "<td>".$student["firstName"];
   echo "<td>".$student["lastName"];
-  echo "<td>".$student["major"];
+  echo "<td width = 30%>".$majors[$student["major"]];
 }
 
 
-/*   array_push($all_students, $student); */
-/* for ($i = 0; $i < sizeof($all_students); $i++) { */
-/*   echo "<tr>"; */
-/*   echo "<td>".$student */
-/*     /\* for ($j = 0; $j < 5; $j++) *\/ */
-/*     /\*   echo "<td>".$all_students[$i][$j]; *\/ */
-/*   }; */
-/*  foreach ($all_students as $student){
-
-echo'<tr>
-     <td>'.$all_students['start'].'</td>
-     <td>'.$all_students['start'].'</td>
-     <td>'.$all_students['schoolID'].'</td>
-     <td>'.$all_students['lastName'].'</td>
-     <td>'.$all_students['firstName'].'</td>
-     <td>'.$all_students['major'].'</td>
-   </tr>';
-   };*/
-/*
-
-$all_rows = array();
-
-while ($row = mysql_fetch_assoc($master_table))
-  array_push($all_rows, $row);
-foreach ($all_rows as $row){
-  echo '<tr>
-     <td>'.$row['start'].'</td>
-     <td>'.$row['start'].'</td>
-     <td>'.$row['schoolID'].'</td>
-     <td>'.$row['lastName'].'</td>
-     <td>'.$row['firstName'].'</td>
-     <td>'.$row['major'].'</td>
-   </tr>';
-};
-*/
-
-/*
-$all_meetings = array();
-while ($meeting = mysql_fetch_assoc($meeting_ids))
-  array_push($all_meetings, $meeting);
-
-
-$all_rows = array();
-
-while ($row = mysql_fetch_assoc($students)) 
-    array_push($all_rows, $row);
-foreach ($all_rows as $row){
-  echo '<tr>
-     <td>'.$meeting['start'].'</td>
-     <td>'.$meeting['start'].'</td>
-     <td>'.$row['schoolID'].'</td>
-     <td>'.$row['lastName'].'</td>
-     <td>'.$row['firstName'].'</td>
-     <td>'.$row['major'].'</td>
-   </tr>';
-};
-*/
-/* var_dump($meeting); */
-/*
-$all_rows = array();
-
-while ($studentinfo = mysql_fetch_assoc($students)){
-  array_push($all_rows, $studentinfo)
-  while ($apptinfo = mysql_fetch_assoc($students))
-  array_push($all_rows, $apptinfo);
-foreach ($all_rows as $apptinfo){
-  echo '<tr>
-     <td>'.$apptinfo['start'].'</td>
-     <td>'.$apptinfo['start'].'</td>
-     <td>'.$studentinfo['schoolID'].'</td>
-     <td>'.$studentinfo['lastName'].'</td>
-     <td>'.$studentinfo['firstName'].'</td>
-     <td>'.$studentinfo['major'].'</td>
-   </tr>';
-};
-};
-*/
 '</tbody>
 </table>
 </div>
@@ -154,26 +55,36 @@ foreach ($all_rows as $apptinfo){
 ';
 ?>
 
+
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title>Search</title>
+  <title>CNMS Advising Roster</title>
+<link rel="icon" type="image/png" href="http://assets1-my.umbc.edu/images/avatars/myumbc/original.png?147914482\
+7">
+
 <style>
 
-body {
-color: black;
- }
+  body {
+  background-image: url("https://s23.postimg.org/6nck8n7i3/roster1.jpg");
+  background-size: 100% 100%;
+  width:auto;
+  height:auto;
+  background-color: #EEEEEE;
+  font-family: Arial;
+  text-align: center;
+}
 
 ul {
   font-family: Arial;
   list-style-type: none;
-  margin: 0;
-  position: absolute;
-  top: 0;
-  left:0;
-  width: 98%;
-  overflow: hidden;
+margin: 0;
+position: absolute;
+top: 0;
+left:0;
+width: 98%;
+overflow: hidden;
   background-color: #333;
 }
 
@@ -194,18 +105,46 @@ padding: 14px 20px;
   text-decoration: none;
 }
 
-.roster-container {
+table {
+font: 85% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS\
+", sans-serif;
+padding: 0;
+  border-collapse: collapse;
+color: #333;
+background: none;
+margin: 0 auto;
+}
+table thead th {
+background: black;
+padding: 15px 10px;
+color: #fff;
   text-align: center;
- }
+  font-weight: normal;
+}
+
+
+
+table thead {
+  border-left: 1px solid #EAECEE;
+    border-right: 1px solid #EAECEE;
+    }
+
+table tbody {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+table tbody td, table tbody th {
+padding: 10px;
+  text-align: left;
+}
 
 </style>
 
 </head>
-
 <body>
 <ul>
   <div class="logo">
-  <img src="https://s16.postimg.org/ckbr6pov9/THISSS.png" height="50px">
+  <a href="home.php"><img src="https://s16.postimg.org/ckbr6pov9/THISSS.png" height="50px"></a>
   </div>
   <li><a href="logout.php">LOGOUT</a></li>
   <li><a href="home.php">MY DASHBOARD</a></li>
@@ -213,7 +152,5 @@ padding: 14px 20px;
 
 <br/>
 <br/>
-
-
 </body>
 </html>

@@ -1,112 +1,138 @@
 
-<?php
-
-include('CommonMethods.php');
+include('../CommonMethods.php');
   //Check if search data was submitted
+
 if(isset($_GET['s'])){
+
+
   $search_term=$_GET['s'];
 
   //Send the search term to our search class and store the result
   $conn = new Common(true);
-  $data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Student WHERE schoolID LIKE '{$search_term}' OR email LIKE '{$search_term}';", $_SERVER["SCRIPT_NAME"]));
+  $data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Student WHERE schoolID LIKE '{$search_term}' OR \
+email LIKE '{$search_term}';", $_SERVER["SCRIPT_NAME"]));
 
-  $meeting_ids = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM StudentMeeting WHERE StudentID LIKE '{$data['StudentID']}';", $_SERVER["SCRIPT_NAME"]));
+  $meeting_ids = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM StudentMeeting WHERE StudentID LIKE '{$da\
+ta['StudentID']}';", $_SERVER["SCRIPT_NAME"]));
 
-  $apt_data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Meeting WHERE meetingID LIKE '{$meeting_ids['MeetingID']}';", $_SERVER["SCRIPT_NAME"]));
+  $apt_data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Meeting WHERE meetingID LIKE '{$meeting_ids[\
+'MeetingID']}';", $_SERVER["SCRIPT_NAME"]));
 
 
-  $wksht_data =  mysql_fetch_assoc($conn->executeQuery("SELECT * FROM questionsAndPlans WHERE email LIKE '{$data['email']}';", $_SERVER["SCRIPT_NAME"]));
+  $wksht_data =  mysql_fetch_assoc($conn->executeQuery("SELECT * FROM questionsAndPlans WHERE email LIKE '{$dat\
+a['email']}';", $_SERVER["SCRIPT_NAME"]));
 
-echo '
+
+/* NO RECORD FOUND */
+if (empty($data)){
+  echo'
+ <br/>
+<br/>
 <div class="search_bar">
-
-<!--self-submitting form -->
 <form action="" method="get">
-<div class="form-field">
-<label for="form-field">
 <label for="search-field">search by ID or email...</label>
-<input type="search" name="s" value="'.$search_term.'">
+<input type="search" name="s" results="5" size="50%" value="'.$search_term.'">
 <input type="submit" value="Find">
-</div>
 </form>
 </div>
+<br/>
 
-
-<div id="name_col">
-  <div id="name_col_inner">
-
-  '.$data['lastName'].'
-,
-  '.$data['firstName'].'
-
-
+<div class="wrap">
+    <div class="nameleft">
+   No Record Found
+   </div>
+    <div class="inforight">
+    <div id="onlyid">
+    <b> ID: N/A </b><br/><br/>
+        </div>
+        <b> Major: N/A <br/><br/>
+        <b> Email: N/A <br/><br/>
+        <b> Appointment: N/A <br/><br/>
+        <b> Career Track: N/A <br/><br/>
+       <b> Future Plans: N/A <br/><br/>
+        <b>Advising Question ID s: N/A <br/><br/>
+    </div>
 </div>
-</div>
 
-<div id="info_col">
-  <div id="info_col_inner">
-	<h4> ID: '.$data['schoolID'].'<br/>
-	<h4> Major: '.$data['major'].'<br/>
-	<h4> Email: '.$data['email'].'<br/>
-	<h4> Appointment: '.$apt_data['sessionLeaderID'].'<br/>
-        '.$apt_data['start'].'<br/>
-        '.$apt_data['end'].'<br/>
-
-
-  <h4>Pre-Advising Worksheet Responses:
-        Future Plans-'.$wksht_data['futurePlans'].'<br/><br/>
-        Advising Questions-'.$wksht_data['advisingQuestions'].'<br/>
-
-</div>
-</div>';
+';
 }
 
-
-
-else{
-  echo '
-
+/* DISPLAYS INFO OF THE STUDENT THAT WAS SEARCHED FOR */
+else {
+echo'
+<br/>
+<br/>
+<br/>
 <div class="search_bar">
-
 <form action="" method="get">
-<div class="form-field">
-<label for="form-field">
 <label for="search-field">search by ID or email...</label>
-<input type="search" name="s" results="5" value="'.$search_term.'"">
+<input type="search" name="s" results="5" size="50%" value="'.$search_term.'">
 <input type="submit" value="Find">
-</div>
 </form>
 </div>
+<br/>
 
 
-<div id="name_col">
-  <div id="name_col_inner">
+<div class="wrap">
+    <div class="nameleft">
+  '.$data['lastName'].' , '.$data['firstName'].'
+   </div>
 
-  UMBC
+    <div class="inforight">
+    <div id="onlyid">
+    <b> ID: '.$data['schoolID'].'</b><br/><br/>
+        </div>
+        <b> Major: '.$data['major'].'<br/><br/>
+        <b> Email: '.$data['email'].'<br/><br/>';
+    if (empty($meeting_ids)) {
+        echo' <b> Appointment: No appointment scheduled';}
+    else {
+        echo'
+        <b> Appointment: <br/>'.$apt_data['sessionLeaderID'].'
+        <br/> '.$apt_data['start'].'<br/>
+              '.$apt_data['end'].'<br/>
+       <br/><br/>';}
 
-
-  STUDENT
-
+    echo'<b> Career Track: '.$wksht_data['careerTrack'].'<br/><br/>
+        <b> Future Plans: '.$wksht_data['futurePlans'].' <br/><br/>
+        <b>Advising Questions: '.$wksht_data['advisingQuestions'].' <br/><br/>
 </div>
 </div>
+';
+}
+}
+/* DEFAULT TEXT  */
+else{
 
-<div id="info_col">
-  <div id="info_col_inner">
-        <h4> ID: <br/><br/>
-        <h4> Major: <br/><br/>
-        <h4> Email: <br/><br/>
-        <h4> Appointment: <br/>
+  echo '
+<br/>
+<div class="search_bar">
+<form action="" method="get">
+<label for="search-field">search by ID or email...</label>
+<input type="search" name="s" results="5" size="50%" value="'.$search_term.'">
+<input type="submit" value="Find">
+</form>
+</div>
+<br/>
 
+<div class="wrap">
+    <div class="nameleft">
+      STUDENT , UMBC
+   </div>
 
-  <h4>Pre-Advising Worksheet Responses:</h4>
-        Future Plans-<br/><br/>
-        Advising Questions-<br/><br/>
-
-
+    <div class="inforight">
+    <div id="onlyid">
+    <b> ID: </b><br/><br/>
+        </div>
+        <b> Major: <br/><br/>
+        <b> Email: <br/><br/>
+        <b> Appointment: <br/><br/>
+        <b> Career Track: <br/><br/>
+       <b> Future Plans: <br/><br/>
+        <b>Advising Questions: <br/><br/>
 </div>
 </div>
 '; }
- 
 
 
 
@@ -117,13 +143,11 @@ else{
 <html>
 
 <head>
-  <title>Search</title>
+  <title>Search for a Student</title>
+<link rel="icon" type="image/png" href="http://assets1-my.umbc.edu/images/avatars/myumbc/original.png?147914482\
+7">
+
 <style>
-
-body {
-  color: black;
- }
-
 ul {
   font-family: Arial;
   list-style-type: none;
@@ -153,72 +177,59 @@ padding: 14px 20px;
   text-decoration: none;
 }
 
+.wrap {
+width: 100%;
+ }
 
-
-body {
-padding:0; 
-margin:0 0 0 50%; 
-color:BLACK; 
-width:50%; 
-min-height:100%; 
-float:right;
-}
-
-
-#name_col {
-  float:left; 
-  width:100%; 
-  height: 750px;
-  margin-left:-100%; 
-  text-align:center; 
+.nameleft, .inforight {
+  float:left;
+width: 50%;
   background-color: black;
-  color: white;
-}
-
-#name_col_inner {
-  padding:325px 0;
+height: 1000px;
   font-family: Arial;
+ }
+.nameleft {
+color: white;
+  text-align: center;
+  line-height: 600px;
   font-size: 70px;
-}
-
-#info_col {
-  height: 750px;
+ }
+.inforight {
   background-color: #f5ca5c;
-  color: black;
-padding: 40px 0;
+  font-size: 36px;
+ }
+
+#onlyid{
+padding-top: 50px;
 }
 
-#info_col_inner {
-  padding:70px 30px; 
-font-family: Arial;
-font-size: 40px;
+b {
+  padding-right: 30px;
+  padding-left: 50px;
 }
 
 
-
-form {
-width:500px;
-margin:50px auto;
-}
-.search {
-padding:8px 15px;
-background:rgba(50, 50, 50, 0.2);
+.search_bar {
+  padding-left: 30%;
+width: 95%;
 border:0px solid #dbdbdb;
-    }
-.button {
-position:relative;
-padding:6px 15px;
-left:-8px;
-border:2px solid #207cca;
-    background-color:#207cca;
-  color:#fafafa;
- }
-.button:hover  {
-  background-color:#fafafa;
-  color:#207cca;
+    font-family: Arial;
+
+
  }
 
+input[type=submit] {
+width: 4%;
+  background-color: #4CAF50; /* Green */
+  border: none;
+color: white;
+padding: 2px 0px;
+  text-align: center;
+  text-decoration: none;
+display: inline-block;
+  font-size: 16px;
 }
+
 
 </style>
 
@@ -233,9 +244,6 @@ border:2px solid #207cca;
   <li><a href="logout.php">LOGOUT</a></li>
   <li><a href="home.php">MY DASHBOARD</a></li>
 </ul>
-
-<br/>
-<br/>
 
 
 </body>
