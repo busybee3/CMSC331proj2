@@ -82,7 +82,8 @@ if (isset($_POST['pass']) && isset($_POST['email'])) {
          <input class="btn btn-primary btn-large btn-block" type="submit" value="Log In">
      </form>
    </div>
-   <a class="btn btn-primary btn-large btn-block" href="register.php">REGISTER</a>
+   <a class="btn btn-primary btn-large btn-block" href="register.php">REGISTER</a><br><br>
+   <a href="passwordreset.php"><font face="Arial" style="color:black">I forgot my password.</font></a>
    </div>
    </div>
 

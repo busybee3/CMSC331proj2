@@ -32,11 +32,11 @@ if ($_POST) {
     if (mysqli_num_rows($results) == 0) {
       $insert_adviser = "
               INSERT INTO Advisor (
-                email, firstName, middleName, lastName, buildingName, roomNumber, password
+                email, firstName, middleName, lastName, schoolID, birthCity, buildingName, roomNumber, password
               )
               VALUES (
                 '{$_POST['email']}', '{$_POST['fName']}', '{$_POST['mName']}', 
-                '{$_POST['lName']}', '{$_POST['bldgName']}', '{$_POST['officeRm']}', '".md5($_POST['pass'])."'
+                '{$_POST['lName']}', '{$_POST['advisorID']}', '{$_POST['birth_city']}', '{$_POST['bldgName']}', '{$_POST['officeRm']}', '".md5($_POST['pass'])."'
               );
             ";
       
@@ -44,13 +44,19 @@ if ($_POST) {
       array_push($_SESSION["messages"], "Successfully registered!");
       header('Location: index.php');
     } 
+
     else {
         array_push($_SESSION["errors"], "This email already exists!");
 	header('Location: register.php');
     }
-  }
+
+  } 
+
+
+
   else {      
       header('Location: register.php');
-  }    
+  }
+    
 }
 ?>

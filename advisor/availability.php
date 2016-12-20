@@ -79,9 +79,11 @@ padding: 14px 20px;
 </head>
 
 <body>
+
 <?php
   session_start();
 ?>
+
 <ul>     
   <div class="logo">
   <img src="https://s16.postimg.org/ckbr6pov9/THISSS.png" height="50px">
