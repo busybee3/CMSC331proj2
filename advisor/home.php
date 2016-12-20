@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html>
@@ -48,7 +47,6 @@ color: white;
   text-align: left;
  }
 
-
 button {
   font-family: Arial;
   font-size: 20px;
@@ -83,17 +81,12 @@ button {
 <br/>
 <br/>
 
-<?php 
+<?php
   session_start();
   if (!isset($_SESSION["HAS_LOGGED_IN"]) || !$_SESSION["HAS_LOGGED_IN"])
     header("Location: index.php");
-
-  // Need this for editInfo.php.
-  $advisor_id = $_SESSION["ADVISOR_ID"];
-  $_SESSION["ADVISOR_ID"] = $advisor_id;
-
 ?>
-  
+
 <div class="greeting">
    Welcome, <?php echo $_SESSION["ADVISOR_FNAME"]."!"; ?>
 </div>
@@ -107,9 +100,6 @@ button {
   <img src="https://s14.postimg.org/5dundt7ap/imageedit_1_8336523175.png" height="254px">
   </a>Set Availability
    </button>
-
-
-
 
    <button>
    <a href="view.php" >
@@ -143,7 +133,7 @@ button {
 
 
    <button>
- <a href="student.php">
+ <a href="createAccounts.php">
   <img src="http://image.flaticon.com/icons/svg/181/181549.svg" height="254px" height="254px">
  </a> Create Accounts
    </button>
