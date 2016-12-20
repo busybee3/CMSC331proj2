@@ -1,4 +1,4 @@
-
+<?php
 include('../CommonMethods.php');
   //Check if search data was submitted
 
@@ -8,7 +8,7 @@ if(isset($_GET['s'])){
   $search_term=$_GET['s'];
 
   //Send the search term to our search class and store the result
-  $conn = new Common(true);
+  $conn = new Common(false);
   $data = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM Student WHERE schoolID LIKE '{$search_term}' OR email LIKE '{$search_term}';", $_SERVER["SCRIPT_NAME"]));
 
   $meeting_ids = mysql_fetch_assoc($conn->executeQuery("SELECT * FROM StudentMeeting WHERE StudentID LIKE '{$data['StudentID']}';", $_SERVER["SCRIPT_NAME"]));
@@ -23,6 +23,7 @@ if(isset($_GET['s'])){
 if (empty($data)){
   echo'
  <br/>
+<br/>
 <br/>
 <div class="search_bar">
 <form action="" method="get">
@@ -48,9 +49,7 @@ if (empty($data)){
        <b> Future Plans: N/A <br/><br/>
         <b>Advising Question ID s: N/A <br/><br/>
     </div>
-</div>
-
-';
+</div>';
 }
 
 /* DISPLAYS INFO OF THE STUDENT THAT WAS SEARCHED FOR */
@@ -140,8 +139,7 @@ else{
 
 <head>
   <title>Search for a Student</title>
-<link rel="icon" type="image/png" href="http://assets1-my.umbc.edu/images/avatars/myumbc/original.png?147914482\
-7">
+<link rel="icon" type="image/png" href="http://assets1-my.umbc.edu/images/avatars/myumbc/original.png?1479144827">
 
 <style>
 ul {

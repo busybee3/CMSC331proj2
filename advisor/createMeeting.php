@@ -3,7 +3,7 @@ session_start();
 date_default_timezone_set("America/New_York");
 if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
   include 'CommonMethods.php';
-  $conn = new Common(true);
+  $conn = new Common(false);
   
   // Parse through variables from form
   $start = $_POST["meetingStartTime"];
@@ -46,15 +46,11 @@ if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
 
       $formattedStartDate = $startDate->format('Y-m-d H:i:s');
       $formattedEndDate = $endDate->format('Y-m-d H:i:s');
-      
 
       $special = isset($_POST["special"]) ? $_POST["special"] : 0;
       $insertIntoMeetings = "
           INSERT INTO Meeting(start,end,buildingName,roomNumber, meetingType, numStudents, activeApt, specialGroup)
-          VALUES (
-            '$formattedStartDate','$formattedEndDate','$bName', '$rNumber', $typeOfMeeting, 0, 1, $special
-          );
-        ";
+          VALUES ('$formattedStartDate','$formattedEndDate','$bName', '$rNumber', $typeOfMeeting, 0, 1, $special);";
       $conn->executeQuery($insertIntoMeetings, $_SERVER["SCRIPT_NAME"]);
       // Create sql query to insert the meeting to advisor meeting
       $insertIntoAdvisingMeeting = "
@@ -68,5 +64,5 @@ if ($_SESSION["HAS_LOGGED_IN"] and $_POST) {
       $endDate->modify("+1 week");
     }
   }
-  /* header('calendar_base.php'); */
+  header('Location: availability.php');
 }
