@@ -3,7 +3,7 @@ session_start();
 $advisorEmail = $_SESSION["ADVISOR_EMAIL"];
 $_SESSION["ADVISOR_EMAIL"] = $advisorEmail;
 include('../CommonMethods.php');
-$debug = true;
+$debug = false;
 $COMMON = new Common($debug);
 $fileName = "editInfo.php";
 $sql = "SELECT * FROM Advisor WHERE email = '$advisorEmail'";
