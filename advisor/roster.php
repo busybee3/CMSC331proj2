@@ -3,9 +3,7 @@ include('../CommonMethods.php');
 $conn = new Common(true);
 
 
-$data = $conn->executeQuery("SELECT Meeting.start, Student.schoolID, Student.lastName, Student.firstName, Stude\
-nt.major FROM Student Join StudentMeeting ON Student.StudentID=StudentMeeting.StudentID JOIN Meeting ON Student\
-Meeting.meetingID=Meeting.MeetingID ORDER BY start, firstName", $_SERVER["SCRIPT_NAME"]);
+$data = $conn->executeQuery("SELECT Meeting.start, Student.schoolID, Student.lastName, Student.firstName, Student.major FROM Student Join StudentMeeting ON Student.StudentID=StudentMeeting.StudentID JOIN Meeting ON StudentMeeting.meetingID=Meeting.MeetingID ORDER BY start, firstName", $_SERVER["SCRIPT_NAME"]);
 
 
 
