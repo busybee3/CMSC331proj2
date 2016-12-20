@@ -11,9 +11,7 @@ $signUp = $conn->executeQuery("INSERT INTO StudentMeeting(StudentID, MeetingID) 
 
 if($signUp)
   {
-    $numStudents = $conn->executeQuery("SELECT numStudents FROM Meeting WHERE meetingID = '$meetingID'", $_SERVER["SCRIPT_NAME"]);
-    $numStudents += 1;
-    $addStudent = $conn->executeQuery("UPDATE Meeting SET numStudents = '$numStudents' WHERE meetingID = '$meetingID'", $_SERVER["SCRIPT_NAME"]);
+    $addStudent = $conn->executeQuery("UPDATE Meeting SET numStudents = numStudents + 1 WHERE meetingID = '$meetingID'", $_SERVER["SCRIPT_NAME"]);
     header("Location: appointments.php");
   }
 

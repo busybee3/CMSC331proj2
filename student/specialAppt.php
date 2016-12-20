@@ -1,12 +1,3 @@
-<?php
-session_start();
-include('../CommonMethods.php');
-$conn = new Common(true);
-$advisors = $conn->executeQuery("SELECT advisorID, CONCAT(firstName,' ',lastName) AS Name FROM Advisor;", $_SERVER["SCRIPT_NAME"]);
-?>
-
-
-
 <html>
 <head>
 <title>Find Appointment</title>
@@ -119,10 +110,6 @@ width: auto;
   float: left;
 }
 
-.message {
-  float: right;
-}
-
 .well {
   min-height: 20px;
 padding: 19px;
@@ -198,49 +185,47 @@ color: #fff;
   border-color: #4cae4c;
 }
 
-input[type="submit"] {
-  font-family: 'Open Sans', sans-serif;
+#apptResults {
+font-family: 'Open Sans', sans-serif;
+border-collapse: collapse;
+width: 100%;
 }
 
+#apptResults th, #apptResults td {
+padding: 8px;
+border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+#apptResults tr:nth-child(even)
+{background-color:#f2f2f2;
+}
+
+#apptResults tr:hover {background-color: #ddd;}
+
+#apptResults th {
+padding-top: 10px;
+padding-bottom: 10px;
+text-align: left;
+background-color: #333;
+color: white;
+font-size: 12px;
+}
+
+#signup:link, #signup:visited {
+background-color: #4CAF50;
+color: white;
+	  padding: 10px 20px;
+text-align: center;
+text-decoration: none;
+	  display: inline-block;
+	  }
+
+#signup:hover, #signup:active {
+	  background-color: green;
+	}
+
 </style>
-<script>
-    function showAppointments() {
-  if (document.getElementById('indiv').checked) {
-    var apptType = document.getElementById('indiv').value;
-  } else {
-    var apptType = document.getElementById('group').value;
-  }
-
-  var advisors = document.getElementsByName('advisors');
-  var advisor;
-  for (var i = 0; i < advisors.length; i++)
-    {
-      if(advisors[i].checked){
-	advisor = advisors[i].value;
-      }
-    }
-
-  var daysArray = document.getElementsByName('days[]');
-  var days = [];
-  for(var i = 0; i < daysArray.length; i++) {
-    if (daysArray[i].checked) {
-      days.push("'"+daysArray[i].value+"'");
-    }
-  }
-
-  var info = new XMLHttpRequest();
-  info.open("GET", "findAppts.php?apptType=" + apptType + "&advisor=" + advisor + "&days=" + days, true);
-  info.onreadystatechange = function() {
-    if (info.readyState == 4) {
-      document.getElementById("results").innerHTML = info.responseText;
-    }
-  }
-
-  info.send(null);
-  }
-
-</script>
-
 </head>
 
 <body>
@@ -253,64 +238,76 @@ input[type="submit"] {
     <li><a href="logout.php">LOGOUT</a></li>
     <li><a href="home.php">MY DASHBOARD</a></li>
   </ul>    
-
-
-  <div class="container appt-options">
-    <div class="row">
-      <div class="text-center">
-        <h2>Schedule an Appointment</h2>
-      </div>
-
-
-        <div class="col-md-3">
-          <h3 class="text-center">1. Select Type:</h3>
-          <div class="well">
-            <input type="radio" name="apptType" id="indiv" value="indiv"> Individual<br>
-            <input type="radio" name="apptType" id="group" value="group"> Group<br>
-          </div>
-
-    <h3 class="text-center">2. Select Advisor:</h3>
-          <div class="well">
-
-            <?php 
-              while($rowtwo = mysql_fetch_array($advisors)){
-                echo '<input type="radio" name="advisors" value="' .$rowtwo['advisorID'].'"> ' .$rowtwo['Name']. '<br>'; }
-            ?>
-          </div>
-
-          <h3 class="text-center">3. Select Day(s):</h3>
-          <div class="well">
-            <input type="checkbox" name="days[]" value="0"> Monday<br>
-            <input type="checkbox" name="days[]" value="1"> Tuesday<br>
-            <input type="checkbox" name="days[]" value="2"> Wednesday<br>
-            <input type="checkbox" name="days[]" value="3"> Thursday<br>
-            <input type="checkbox" name="days[]" value="4"> Friday<br>
-          </div>
-
-          <div class="text-center">
-            <input type="submit" value="Find Appointments" class="btn btn-success btn-md btn-block" onclick="showAppointments()"><br>
-          </div>
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-
+ 
   <div class="container appt-results">
     <div class="row">
       <div class="col-md-offset-3">
         <h3 class="text-center">Available Appointments</h3>              
           <div class="well" id="results">	      
-	      <h4>Choose your options on the left to filter the appointments!</h4>
-          </div>
-      </div>
-    </div>
-  </div>
+<?php
+session_start();
+include('../CommonMethods.php');
+$conn = new Common(false);
+$advisors = $conn->executeQuery("SELECT advisorID, CONCAT(firstName,' ',lastName) AS Name FROM Advisor;", $_SERVER["SCRIPT_NAME"]);
+$specialGroup = $_SESSION["SPECIAL_GROUP"];
+$maxStudents = 40;
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-offset-3 message" id="signup_message">
+// athlete
+if($specialGroup == 1) {
+  $specialType = 0;
+
+  // Honors College
+} else if($specialGroup == 2) {
+  $specialType = 1;
+
+  // Meryerhoff
+} else if($specialGroup == 3) {
+  $specialType = 2;
+}
+
+$query = "SELECT Meeting.meetingID, CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%W') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Meeting.meetingType = 2 AND Meeting.numStudents < 40 AND Meeting.activeApt = 1 AND Meeting.specialGroup = '$specialType' ORDER BY apptDate ASC, start ASC";
+
+$rs = $conn->executeQuery($query, $_SERVER["SCRIPT_NAME"]);
+
+if(!$rs) {
+  echo "Cannot parse query.";
+} else if (mysql_num_rows($rs) == 0)
+{
+header("Location: setAppt.php");
+} else if(mysql_num_rows($rs) > 0) {
+
+  echo("<table id='apptResults'>");
+  echo("<tr>");
+  echo("<th>Advisor</th>");
+  echo("<th>Date</th>");
+  echo("<th>Start Time</th>");
+  echo("<th>End Time</th>");
+  echo("<th>Location</th>");
+  echo("<th>Open Seats</th>");
+  echo("<th></th>");
+  echo("</tr>");
+
+  while($row = mysql_fetch_assoc($rs))
+    {
+      echo("<tr>");
+      echo("<td>".$row['Advisor']."</td>");
+      echo("<td>".$row['weekday']." ".$row['apptDate']."</td>");
+      echo("<td>".$row['start']."</td>");
+      echo("<td>".$row['end']."</td>");
+      echo("<td>".$row['Location']."</td>");
+      $numStudents = $row['numStudents'];
+      $openSeats = $maxStudents - $numStudents;
+      echo("<td>".$openSeats."</td>");
+      echo("<td><a href='signup.php?meetingID=".$row["meetingID"]."' class='signup' id='signup'>Sign Up</td>");
+      echo("</tr>");
+    }
+
+  echo("</table>");
+
+}
+
+?>
+          </div>
       </div>
     </div>
   </div>

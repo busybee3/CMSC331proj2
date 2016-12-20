@@ -22,13 +22,19 @@ $studentID = $_SESSION["STUDENT_ID"];
 $_SESSION["STUDENT_ID"] = $studentID;
 $studentEmail = $_SESSION["STUDENT_EMAIL"];
 $_SESSION["STUDENT_EMAIL"] = $studentEmail;
-
+$specialGroup = $_SESSION["SPECIAL_GROUP"];
 
 //connect to database
 include 'CommonMethods.php';
 $debug = false;
 $COMMON = new Common($debug);
 $filename = "approved.php";
+
+$group = "SELECT `specialGroup` FROM Student WHERE `StudentID` = '$studentID'";
+$rs = $COMMON->executeQuery($group, $filename);
+$groupResult = mysql_fetch_assoc($rs);
+$specialGroup = $groupResult['specialGroup'];
+$_SESSION["SPECIAL_GROUP"] = $specialGroup;
 
 $error = "";
 
@@ -49,7 +55,13 @@ if(isset($_POST["confirm"])){
 		{
             $update = "UPDATE Student SET approvedForReg=0 WHERE StudentID = $studentID";
 			$rs = $COMMON->executeQuery($update, $filename);
-			header("Location: setAppt.php");
+			if($specialGroup == 0)
+			  {
+			    header("Location: setAppt.php");
+			  } else
+			  {
+			    header("Location: specialAppt.php");
+			  }
         } 
 	}
 }

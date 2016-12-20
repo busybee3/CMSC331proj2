@@ -65,12 +65,12 @@ if(isset($_GET['days']) && !empty($_GET['days']))
 if($apptType == "indiv")
   {
     $apptType = 0;
-    $queryTwo = "SELECT Meeting.meetingID, CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%W') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND Meeting.numStudents = 0 AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
+    $queryTwo = "SELECT Meeting.meetingID, CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%W') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND Meeting.numStudents = 0 AND Meeting.activeApt = 1 AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
   }
 else
   {
     $apptType = 1;
-    $queryTwo = "SELECT Meeting.meetingID, CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%W') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND Meeting.numStudents < 10 AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
+    $queryTwo = "SELECT Meeting.meetingID, CONCAT(Advisor.firstName,' ',Advisor.lastName) AS Advisor, DATE_FORMAT(Meeting.start, '%W') AS weekday, DATE_FORMAT(Meeting.start, '%b %e %Y') AS apptDate, DATE_FORMAT(Meeting.start, '%h:%i %p') AS start, DATE_FORMAT(Meeting.end, '%h:%i %p') AS end, CONCAT(Meeting.buildingName,' ',Meeting.roomNumber) AS Location, Meeting.numStudents FROM ((AdvisorMeeting INNER JOIN Meeting ON AdvisorMeeting.meetingID = Meeting.meetingID) INNER JOIN Advisor ON AdvisorMeeting.advisorID = Advisor.advisorID) WHERE Advisor.advisorID = '$advisor' AND Meeting.meetingType = '$apptType' AND Meeting.numStudents < 10 AND Meeting.activeApt = 1 AND WEEKDAY(Meeting.start) IN ($days) ORDER BY apptDate ASC, start ASC";
   }
 
     $rs = $COMMON->executeQuery($queryTwo, $_SERVER["SCRIPT_NAME"]);
@@ -85,6 +85,7 @@ else
       echo("<tr>");
 
       echo("<th>Advisor</th>");
+      echo("<th>Type</th>");
       echo("<th>Date</th>");
       echo("<th>Start Time</th>");
       echo("<th>End Time</th>");
@@ -99,6 +100,11 @@ else
 	  echo("<tr>");
 	  echo("<td hidden value='".$row["meetingID"]."'id='meetingID'>".$row['meetingID']."</td>");
 	  echo("<td>".$row['Advisor']."</td>");
+	  if($apptType == 0) {
+	    echo("<td>Individual</td>");
+	  } else if($apptType == 1) {
+	    echo("<td>Group</td>");
+	  }
 	  echo("<td>".$row['weekday']." ".$row['apptDate']."</td>");
 	  echo("<td>".$row['start']."</td>");
 	  echo("<td>".$row['end']."</td>");

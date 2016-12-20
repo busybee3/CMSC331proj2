@@ -85,7 +85,6 @@ $scheduledAppt = "SELECT * FROM StudentMeeting WHERE StudentID = '$studentID'";
 $currentAppt = $COMMON->executequery($scheduledAppt, $filename);
 $row = mysql_fetch_row($currentAppt);
 $meetingID = $row[2];
-
 ?>
 
 
@@ -156,6 +155,7 @@ else if (!$row) { ?>
 <?php
 
 }
+
 
 ?>
 
