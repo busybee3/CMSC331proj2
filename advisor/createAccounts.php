@@ -194,15 +194,12 @@ align: center;
 </tr>
 </thead>
 <tbody>
-  <tr><td><input type="text" placeholder="Feel free to use this text area to note the email addresses of accoun\
-ts you have made..." align="center" name="notes" style="width:700px; height: 400px; font-size: 26px;" <?php if(\
-isset($notes)) { ?> value="<?php echo($notes); ?>" <?php } ?> >
+  <tr><td><input type="text" placeholder="Feel free to use this text area to note the email addresses of accounts you have made..." align="center" name="notes" style="width:700px; height: 400px; font-size: 26px;" <?php if(isset($notes)) { ?> value="<?php echo($notes); ?>" <?php } ?> >
 </tbody>
 </table>
 
 <div class="update-button">
-<input type="submit" value="SAVE" name="Update" style="background-color:#4CAF50; color: white; border-color: gr\
-een; border: none; float: right; font-size: 16px; display: inline-block;">
+<input type="submit" value="SAVE" name="Update" style="background-color:#4CAF50; color: white; border-color: green; border: none; float: right; font-size: 16px; display: inline-block;">
 
 </div>
 </body>
