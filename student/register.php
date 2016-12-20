@@ -444,7 +444,7 @@ if(isset($_SESSION['studentID'])){
         <tr><td><font color="white">E-mail:</font></td></tr>
         <tr><td><font color="white">Password:</font></td></tr>
         <tr><td><font color="white">Confirm Password:</font></td></tr>
-	<tr><td><font color="white"">City of Your Birth: (In case of forgotten password.)</font></td></tr>
+	<tr><td><font color="white">City of Your Birth: (In case of forgotten password.)</font></td></tr>
       </table>
       
       

@@ -18,7 +18,7 @@ if (isset($_POST['pass']) && isset($_POST['email'])) {
     $queryOfSearchAdvisor = $open_connection->query($search_advisor);
     $num_rows = mysqli_num_rows($queryOfSearchAdvisor);
     // Check whether or not there has been a successful adviser creation
-
+    
     if ($num_rows == 1) {
         session_start();
         // Translate the SQL Query into a dictioanry

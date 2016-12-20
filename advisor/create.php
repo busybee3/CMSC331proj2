@@ -2,9 +2,9 @@
 <form action="createMeeting.php" method="POST">  
    <span class="close"  onclick="this.parentElement.parentElement.innerHTML=''">&times;</span>
    <?php    
-     date_default_timezone_set("America/New_York");
-     $date = new DateTime($_GET["datetime"]);
-     echo "<h3>Date:<br></h3>".$date->format("j F Y g:i a")."<br>"; 
+   date_default_timezone_set("America/New_York");
+   $date = new DateTime($_GET["datetime"]);
+   echo "<h3>Date:<br></h3>".$date->format("j F Y g:i a")."<br>"; 
    ?>
   
   <br>
@@ -21,14 +21,11 @@
    </select > <br>
    <div id="special-group" style="display: none;">
      <br>
-     <input type="radio" name="special" value=0>Meyerhoff</input>     
+     <input type="radio" name="special" value=3>Meyerhoff</input>     
      <input type="radio" name="special" value=1>Athlete</input>     
      <input type="radio" name="special" value=2>Honors</input>     
    </div>
   <p>Number of weeks</p><input name="numWeeks" min=1 max=10 type="number" value=1><br>
   <input value="Create" class="create-btn" type="submit">
-
-</form>
-
 </form>
 

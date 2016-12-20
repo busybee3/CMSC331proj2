@@ -1,9 +1,8 @@
 <?php
 session_start();
 
-if ($_POST) {
-  include 'dbconfig.php';
-  
+if ($_POST) {  
+  include('dbconfig.php');
   // Parse values from form
   $need = " field needs to be filled.";
   $fields = array("fName" => "'First Name'", 
