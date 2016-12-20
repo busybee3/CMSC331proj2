@@ -9,7 +9,7 @@
 <?php
 
 // Connect to the db.
-include '../CommonMethods.php';
+include 'CommonMethods.php';
 $fileName = "register.php";  
 $debug = false;
 $COMMON = new Common($debug);
@@ -126,7 +126,7 @@ if($_POST){
   else {
 
       $misc_error = true;
-      $spec_group_error_message = "Please select yes or no.";      
+      $spec_group_error_message = "Please select an option.";      
 
   }    
 
@@ -444,7 +444,7 @@ if(isset($_SESSION['studentID'])){
         <tr><td><font color="white">E-mail:</font></td></tr>
         <tr><td><font color="white">Password:</font></td></tr>
         <tr><td><font color="white">Confirm Password:</font></td></tr>
-	<tr><td><font color="white">City of Your Birth: (In case of forgotten password.)</font></td></tr>
+	<tr><td><font color="white"">City of Your Birth: (In case of forgotten password.)</font></td></tr>
       </table>
       
       
@@ -498,7 +498,7 @@ if(isset($_SESSION['studentID'])){
     <button type="button" class="btn btn-1" name="major" value="ChemBA">Chemistry B.A.</button>
     <button type="button" class="btn btn-1" name="major" value="ChemBS">Chemistry B.S.</button><br>
     <button type="button" class="btn btn-1" name="major" value="ChemEdBA">Chemistry Education B.A.</button>
-    <button type="button" class="btn btn-1" name="major" value="Other">Other</button>    
+    <button type="button" class="btn btn-1" name="major" value="Other">Other</button>   
 
   </div>
 
@@ -518,10 +518,14 @@ if(isset($_SESSION['studentID'])){
 
   <div class="btn-group" role="group" name="spec_group">
  
-    Are you a member of a special group? (ex. Athletics)<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $spec_group_error_message;?></span><br>       
+    Are you a member of a special group?<font style="color:red">*</font><span class="error" style="color:red"> <?php echo $spec_group_error_message;?></span><br>       
 
-    <button type="button" class="btn3 btn-3" name="spec_group" value=1>Yes</button>
-    <button type="button" class="btn3 btn-3" name="spec_group" value=0>No</button>        
+    <button type="button" class="btn3 btn-3" name="spec_group" value=1>Athletics</button>
+    <button type="button" class="btn3 btn-3" name="spec_group" value=2>Honors College</button> 
+    <button type="button" class="btn3 btn-3" name="spec_group" value=3>Meyerhoff Scholar</button>
+    <button type="button" class="btn3 btn-3" name="spec_group" value=0>None</button>
+
+       
 
 
   </div>
